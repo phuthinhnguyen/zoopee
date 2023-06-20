@@ -9,6 +9,7 @@ import Addnewpost from "./components/Addnewpost";
 import Updatepost from "./components/Updatepost";
 import Viewpost from "./components/Viewpost";
 import Login from "./components/Login";
+import Userprofile from "./components/Userprofile";
 function App() {
   return (
     <Provider store={store}>
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/viewpost" element={<Viewpost />} />
           <Route path="/addnewpost" element={<Addnewpost />} />
           <Route path="/updatepost" element={<Updatepost />} />

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addnewpost } from "../redux/action";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -7,12 +7,18 @@ import { getPost } from "../redux/action";
 
 function Addnewpost() {
     const [form, setForm] = useState({ title: "", body: "", author: "" });
+    const user = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const navigate = useNavigate();
+    useEffect(() => {
+        if (user == null || user.loginning == false) {
+            navigate("/");
+        }
+    }, [user]);
     function submitform(e) {
         e.preventDefault();
         if (form.title!="" && form.body!="" &&form.author!=""){
-            dispatch(addnewpost(form));
+            dispatch(addnewpost(form,user.id));
             setForm({ title: "", body: "", author: "" });
         }
     }

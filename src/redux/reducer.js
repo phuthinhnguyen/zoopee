@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { LOGOUT_SUCCESS } from "./action";
+import { GET_USERPROFILE_SUCCESS, LOGOUT_SUCCESS } from "./action";
 import { ADD_NEW_POST_SUCCESS, DELETE_POST_SUCCESS, FETCH_POST_SUCCESS, UPDATE_EMOJI_SUCCESS, UPDATE_POST_SUCCESS } from "./action";
 import { LOGIN_SUCCESS } from "./action";
 
@@ -11,7 +11,7 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POST_SUCCESS:
-      return { ...state, posts: action.payload };
+      return { ...state, posts: action.payload};
     case ADD_NEW_POST_SUCCESS:
       return {
         ...state, posts: [{
@@ -48,10 +48,11 @@ const rootReducer = (state = initialState, action) => {
       clone.splice(index, 0, getnewobj[0])
       return { ...state, posts: clone }
     case LOGIN_SUCCESS:
-      console.log(action.payload)
       return {...state,user:action.payload}
     case LOGOUT_SUCCESS:
       return {...state,user:{...state.user,loginning:false}}
+    case GET_USERPROFILE_SUCCESS:
+      return {...state,user:{...state.user,userblogs:action.payload}}
     default:
       return state;
   }

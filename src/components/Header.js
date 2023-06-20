@@ -20,8 +20,8 @@ function Header() {
     const dispatch = useDispatch()
     const user = useSelector(state=>state.user);
     const navigate = useNavigate();
-    function logoutclick(id){
-        dispatch(logout(id));
+    function logoutclick(){
+        user!=null && dispatch(logout(user.id));
     }
     useEffect(() => {
         if (user!=null && user.loginning == false) {
@@ -33,8 +33,9 @@ function Header() {
             <h2 className="col-8" style={{fontSize:50}}>zoopee</h2>
             <div className="col-4" style={{display:"flex",justifyContent:"flex-end"}}>
                 <Link to="/home" style={link}>Home</Link>
+                <Link to="/userprofile" style={link}>Profile</Link>
                 <Link to="/addnewpost" style={link}>New Post</Link>
-                <Link to="/" style={link} onClick={()=>logoutclick(user.id)}>Logout</Link>
+                <Link to="/" style={link} onClick={()=>logoutclick()}>Logout</Link>
             </div>
         </div>
     )

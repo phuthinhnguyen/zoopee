@@ -22,7 +22,6 @@ export default function Login() {
       navigate("/");
     }
   }, [user]);
-console.log(user)
   function handleChange(event) {
     setForm({
       ...form,
@@ -53,7 +52,7 @@ console.log(user)
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <h1>Sign up</h1>
       <Formik
         initialValues={form}

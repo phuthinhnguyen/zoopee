@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { getPost, increment } from "../redux/action";
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
+import { getPost, getUserprofile } from "../redux/action";
 
-function Home() {
+function Userprofile() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const user = useSelector(state => state.user)
@@ -14,11 +14,15 @@ function Home() {
             navigate("/");
         }
     }, [user]);
-    const posts = useSelector(state => state.posts);
-    const sortedposts = posts.sort((a, b) => b.createdAt - a.createdAt)
+  
     useEffect(() => {
-        dispatch(getPost())
+        dispatch(getUserprofile(1))
     }, [])
+    if (user != null){
+        const blogs = useSelector(state => state.user.userblogs);
+        var sortedposts = blogs!=undefined && blogs.sort((a, b) => b.createdAt - a.createdAt)
+    }
+
     function reactionclick(emojiname, id, currentcount) {
         dispatch(increment(emojiname, id, currentcount))
     }
@@ -26,7 +30,8 @@ function Home() {
         <div>
             <Header />
             <div>
-                {sortedposts.map((item, index) =>
+                {user!=null && sortedposts!=false 
+                && sortedposts.map((item, index) =>
                     <div className="mt-5 col-6 m-auto row" key={index} style={{ border: "1px solid black", borderRadius: 10, padding: 20 }}>
                         <div className="">
                             <h3>{item.title}</h3>
@@ -44,9 +49,10 @@ function Home() {
                                 <a style={{ marginRight: 10, cursor: "pointer" }} onClick={() => reactionclick("coffee", item.id, item.coffee)}>☕ {item.coffee}</a>
                             </div>
                         </div>
-                    </div>)}
+                    </div>)
+            }
             </div>
         </div>
     )
 }
-export default Home;
+export default Userprofile;
