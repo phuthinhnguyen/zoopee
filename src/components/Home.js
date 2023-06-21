@@ -9,16 +9,14 @@ function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  console.log(user)
   useEffect(() => {
-    if (user == null || user.loginning == false) {
+    if (user == null) {
       navigate("/");
     }
-  }, [user]);
+  },[]);
   const posts = useSelector((state) => state.posts);
   const sortedposts = posts.sort((a, b) => b.createdAt - a.createdAt);
-  useEffect(() => {
-    dispatch(getPost());
-  }, []);
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));

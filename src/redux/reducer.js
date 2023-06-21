@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { GET_USERPROFILE_SUCCESS, LOGOUT_SUCCESS } from "./action";
+import { FETCH_USER_SUCCESS, GET_USERPROFILE_SUCCESS, LOGOUT_SUCCESS } from "./action";
 import {
   ADD_NEW_POST_SUCCESS,
   DELETE_POST_SUCCESS,
@@ -11,7 +11,8 @@ import { LOGIN_SUCCESS } from "./action";
 
 const initialState = {
   posts: [],
-  user: null
+  user: null,
+  allusers:null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -76,6 +77,8 @@ const rootReducer = (state = initialState, action) => {
       clone.splice(index, 1);
       clone.splice(index, 0, getnewobj[0]);
       return { ...state, posts: clone };
+    case FETCH_USER_SUCCESS:
+      return {...state,allusers:action.payload}
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };
     case LOGOUT_SUCCESS:

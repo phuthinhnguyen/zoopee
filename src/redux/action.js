@@ -1,6 +1,7 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const ADD_NEW_POST_SUCCESS = "ADD_NEW_POST_SUCCESS";
 export const UPDATE_POST_SUCCESS = "UPDATE_POST_SUCCESS";
 export const DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS";
@@ -38,30 +39,20 @@ export const addnewpost = (form, userid) => {
     coffee: 0
   };
   return async (dispatch) => {
-    const responseblogs = await axios.post(apiurlblogs, {
-      createdAt: Date.now(),
-      userId: userid,
-      tokenId: tokenid,
-      title: form.title,
-      body: form.body,
-      author: form.author,
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0
-    });
-    const responseuser = await axios.post(`${apiurlusers}/${userid}/blogs`, {
-      createdAt: Date.now(),
-      tokenId: tokenid,
-      title: form.title,
-      body: form.body,
-      author: form.author,
-      thumbsUp: 0,
-      wow: 0,
-      heart: 0,
-      rocket: 0,
-      coffee: 0
+    const responseuser = await axios.post(`${apiurlusers}/${userid}/`, {
+      userblogs: {
+        createdAt: Date.now(),
+        userId: userid,
+        tokenId: tokenid,
+        title: form.title,
+        body: form.body,
+        author: form.author,
+        thumbsUp: 0,
+        wow: 0,
+        heart: 0,
+        rocket: 0,
+        coffee: 0
+      }
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -118,27 +109,23 @@ export const deletepost = (id, userid, blogindexid) => {
 export const login = (form) => {
   return async (dispatch) => {
     const response = await axios.get(apiurlusers);
-    const getusername = response.data.filter(
-      (item) => item.username == form.username
-    );
-    if (getusername.length == 0) {
-      alert("Username is not exists");
-    } else if (getusername[0].password == form.password) {
-      getusername[0].loginning = true;
-      const response = await axios.put(`${apiurlusers}/${getusername[0].id}`, {
-        loginning: true
-      });
-      const responseuserblogs = await axios.get(
-        `${apiurlusers}/${getusername[0].id}/blogs`
-      );
-      const data = { ...getusername[0], userblogs: responseuserblogs.data };
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: data
-      });
-    } else if (getusername[0].password != form.password) {
-      alert("Username and password are not matched");
-    }
+    dispatch({
+      type: FETCH_USER_SUCCESS,
+      payload: response.data
+    });
+    // const getusername = response.data.filter(
+    //   (item) => item.username == form.username
+    // );
+    // if (getusername.length == 0) {
+    //   alert("Username is not exists");
+    // } else if (getusername[0].password == form.password) {
+    //   dispatch({
+    //     type: LOGIN_SUCCESS,
+    //     payload: response.data
+    //   });
+    // } else if (getusername[0].password != form.password) {
+    //   alert("Username and password are not matched");
+    // }
   };
 };
 

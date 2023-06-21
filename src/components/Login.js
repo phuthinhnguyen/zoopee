@@ -2,25 +2,33 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/action";
+import { LOGIN_SUCCESS, login } from "../redux/action";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const state = useSelector((state) => state);
   const REGEX = {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   };
   const [form, setForm] = useState({});
   useEffect(() => {
-    if (user != null && user.loginning == true) {
-      navigate("/home");
-    } else if (user != null && user.loginning == false) {
-      navigate("/");
-    }
-  }, [user]);
+    dispatch(login(form));
+  }, [])
+  // useEffect(() => {
+  //   console.log(state)
+  //     if (state.allusers != null) {
+
+  //       checkuser()
+
+  //     } else if (state.allusers == null) {
+  //       navigate("/");
+  //     }
+
+  // }, [state.allusers]);
+
   function handleChange(event) {
     setForm({
       ...form,
@@ -44,9 +52,26 @@ export default function Login() {
     }
     return errors;
   }
+  function checkuser() {
+    const getusername = state.allusers.filter(
+      (item) => item.username == form.username
+    );
+    if (getusername.length == 0) {
+      alert("Username is not exists");
+    } else if (getusername[0].password == form.password) {
+      dispatch({
+        type:LOGIN_SUCCESS,
+        payload:getusername
+      })
+      navigate("/home");
+    } else if (getusername[0].password != form.password) {
+      alert("Username and password are not matched");
+    }
+  }
+
 
   function handleSubmit() {
-    dispatch(login(form));
+    checkuser()
   }
 
   return (
@@ -61,9 +86,8 @@ export default function Login() {
         {({ errors, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div
-              className={`custom-input ${
-                errors.username ? "custom-input-error" : ""
-              }`}
+              className={`custom-input ${errors.username ? "custom-input-error" : ""
+                }`}
             >
               <label>Username</label>
               <input
@@ -75,9 +99,8 @@ export default function Login() {
               <p className="error">{errors.username}</p>
             </div>
             <div
-              className={`custom-input ${
-                errors.password ? "custom-input-error" : ""
-              }`}
+              className={`custom-input ${errors.password ? "custom-input-error" : ""
+                }`}
             >
               <label>Password</label>
               <input
