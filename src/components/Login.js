@@ -15,10 +15,9 @@ export default function Login() {
   };
   const [form, setForm] = useState({});
   useEffect(() => {
-    if (user!=null && user.loginning == true) {
+    if (user != null && user.loginning == true) {
       navigate("/home");
-    }
-    else if (user!=null && user.loginning == true){
+    } else if (user != null && user.loginning == false) {
       navigate("/");
     }
   }, [user]);
@@ -53,7 +52,7 @@ export default function Login() {
   return (
     <div>
       {/* <Header /> */}
-      <h1>Sign up</h1>
+      <h1>Sign in</h1>
       <Formik
         initialValues={form}
         validate={handleValidate}
