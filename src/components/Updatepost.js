@@ -19,10 +19,8 @@ function Updatepost() {
     dispatch(updatepost(form));
   }
   function deletepostclick() {
-    const userblogs = user.userblogs;
-    const blogsindex = userblogs.filter((item) => item.tokenId == form.tokenId);
-    dispatch(deletepost(form.id, user.id, blogsindex[0].id));
-    navigate("/");
+    dispatch(deletepost(form.id))
+    navigate("/home");
   }
   return (
     <>
@@ -62,7 +60,7 @@ function Updatepost() {
           </button>
         </form>
       </div>
-      <Link className="btn btn-primary m-auto mt-5 col-1 d-block" to="/">
+      <Link className="btn btn-primary m-auto mt-5 col-1 d-block" to="/home">
         Back
       </Link>
     </>

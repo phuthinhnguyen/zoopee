@@ -14,9 +14,10 @@ function Home() {
       navigate("/");
     }
   }, [state]);
-  useEffect(() => {
-    dispatch(login());
-  }, []);
+  console.log(state)
+  // useEffect(() => {
+  //   dispatch(getPost());
+  // }, []);
   // const posts = useSelector((state) => state.posts);
   const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 

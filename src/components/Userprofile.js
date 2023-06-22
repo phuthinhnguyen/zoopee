@@ -13,13 +13,10 @@ function Userprofile() {
       navigate("/");
     }
   }, []);
-
-  console.log(state)
   // const blogs = useSelector(state => state.user.userblogs);
   if (state.user != null) {
     const blogs = state.user.userblogs;
-    var sortedposts =
-      blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
+    var sortedposts = blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
   }
 
   // }

@@ -33,41 +33,45 @@ const rootReducer = (state = initialState, action) => {
         }
       };
     case UPDATE_POST_SUCCESS:
-      const cloneuserblogs = state.user;
-      const cloneposts = state.posts;
-      for (let item of cloneuserblogs.userblogs) {
-        if (item.tokenId == action.payload.tokenId) {
-          const index = cloneuserblogs.userblogs.indexOf(item);
-          cloneuserblogs.userblogs.splice(index, 1);
-          cloneuserblogs.userblogs.push({...item,
-          createdAt:action.payload.createdAt,
-          title: action.payload.title,
-          body: action.payload.body,
-          author: action.payload.author,
-        })
-        }
-      }
-      for (let item of cloneposts) {
-        if (item.tokenId == action.payload.tokenId) {
-          const index = cloneposts.indexOf(item);
-          cloneposts.splice(index, 1);
-          cloneposts.push({...item,
-          createdAt:action.payload.createdAt,
-          title: action.payload.title,
-          body: action.payload.body,
-          author: action.payload.author,
-        })
-        }
-      }
+      // const cloneuserblogs = state.user;
+      // const cloneposts = state.posts;
+      // for (let item of cloneuserblogs.userblogs) {
+      //   if (item.tokenId == action.payload.tokenId) {
+      //     const index = cloneuserblogs.userblogs.indexOf(item);
+      //     cloneuserblogs.userblogs.splice(index, 1);
+      //     cloneuserblogs.userblogs.push({...item,
+      //     createdAt:action.payload.createdAt,
+      //     title: action.payload.title,
+      //     body: action.payload.body,
+      //     author: action.payload.author,
+      //   })
+      //   }
+      // }
+      // for (let item of cloneposts) {
+      //   if (item.id == action.payload.id) {
+      //     const index = cloneposts.indexOf(item);
+      //     cloneposts.splice(index, 1);
+      //     cloneposts.push({...item,
+      //     createdAt:action.payload.createdAt,
+      //     title: action.payload.title,
+      //     body: action.payload.body,
+      //     author: action.payload.author,
+      //   })
+      //   }
+      // }
       return {
         ...state,
-        posts: cloneposts,
-        user: { ...state.user, userblogs: cloneuserblogs.userblogs }
+        posts: [...state.posts.filter(item => item.id != action.payload.id), action.payload],
+        user: { ...state.user, userblogs: [...state.user.userblogs.filter(item => item.id != action.payload.id), action.payload] }
       };
     case DELETE_POST_SUCCESS:
-      const newPosts = [...state.posts];
-      newPosts.filter((item) => item.id != action.payload);
-      return { ...state, posts: newPosts };
+      // const newPosts = [...state.posts];
+      // newPosts.filter((item) => item.id != action.payload);
+      return {
+        ...state,
+        posts: [...state.posts.filter(item => item.id != action.payload)],
+        user: {...state.user,userblogs:[...state.user.userblogs.filter(item=>item.id!=action.payload)]}
+      };
     case UPDATE_EMOJI_SUCCESS:
       let clone = [...state.posts];
       let index = null;
@@ -90,8 +94,7 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_USER_SUCCESS:
       return {
         ...state,
-        posts: action.payload[0],
-        allusers: action.payload[1]
+        allusers: action.payload
       };
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };

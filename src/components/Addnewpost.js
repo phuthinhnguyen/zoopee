@@ -59,8 +59,8 @@ function Addnewpost() {
       </div>
       <Link
         className="btn btn-primary m-auto mt-5 col-1 d-block"
-        to="/"
-        onClick={() => dispatch(getPost())}
+        to="/home"
+        // onClick={() => dispatch(getPost())}
       >
         Back
       </Link>

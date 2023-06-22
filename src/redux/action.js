@@ -12,10 +12,16 @@ export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
 
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
-const apiurlblogs = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs";
+const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
 export const getPost = () => {
   return async (dispatch) => {
     const response = await axios.get(apiurlblogs);
+    // let posts = []
+    // for (let item of response.data){
+    //   if (item.tokenId) {
+    //     posts.push(item);
+    //   }
+    // }
     dispatch({
       type: FETCH_POST_SUCCESS,
       payload: response.data
@@ -24,25 +30,23 @@ export const getPost = () => {
 };
 
 export const addnewpost = (form, userid) => {
-  const tokenid = uuidv4();
-  const newpost = {
-    createdAt: Date.now(),
-    userId: userid,
-    tokenId: tokenid,
-    title: form.title,
-    body: form.body,
-    author: form.author,
-    thumbsUp: 0,
-    wow: 0,
-    heart: 0,
-    rocket: 0,
-    coffee: 0
-  };
+  // const newpost = {
+  //   createdAt: Date.now(),
+  //   userId: userid,
+  //   tokenId: tokenid,
+  //   title: form.title,
+  //   body: form.body,
+  //   author: form.author,
+  //   thumbsUp: 0,
+  //   wow: 0,
+  //   heart: 0,
+  //   rocket: 0,
+  //   coffee: 0
+  // };
   return async (dispatch) => {
-    const responseuser = await axios.post(`${apiurlusers}`, {
+    const response = await axios.post(`${apiurlblogs}`, {
       createdAt: Date.now(),
       userId: userid,
-      tokenId: tokenid,
       title: form.title,
       body: form.body,
       author: form.author,
@@ -54,14 +58,14 @@ export const addnewpost = (form, userid) => {
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
-      payload: newpost
+      payload: response.data
     });
   };
 };
 
 export const updatepost = (form) => {
   return async (dispatch) => {
-    const responseuser = await axios.put(`${apiurlusers}/${form.id}`, {
+    const response = await axios.put(`${apiurlblogs}/${form.id}`, {
       title: form.title,
       body: form.body,
       author: form.author,
@@ -69,7 +73,7 @@ export const updatepost = (form) => {
     });
     dispatch({
       type: UPDATE_POST_SUCCESS,
-      payload: form
+      payload: response.data
     });
   };
 };
@@ -85,11 +89,10 @@ export const increment = (emojiname, id, currentcount) => {
     });
   };
 };
-export const deletepost = (id, userid, blogindexid) => {
+export const deletepost = (id) => {
   return async (dispatch) => {
-    const responseblogs = await axios.delete(`${apiurlblogs}/${id}`);
-    const responseuser = await axios.delete(
-      `${apiurlusers}/${userid}/blogs/${blogindexid}`
+    const response = await axios.delete(
+      `${apiurlblogs}/${id}`
     );
     dispatch({
       type: DELETE_POST_SUCCESS,
@@ -100,19 +103,20 @@ export const deletepost = (id, userid, blogindexid) => {
 
 export const login = () => {
   return async (dispatch) => {
-    let allusers = [];
-    let posts = [];
+    // let allusers = [];
+    // let posts = [];
     const response = await axios.get(apiurlusers);
-    for (let item of response.data) {
-      if (item.tokenId) {
-        posts.push(item);
-      } else if (!item.tokenId && item.username) {
-        allusers.push(item);
-      }
-    }
+    // for (let item of response.data) {
+      // if (item.tokenId) {
+      //   posts.push(item);
+      // } 
+      // if (!item.tokenId && item.username) {
+      //   allusers.push(item);
+      // }
+    // }
     dispatch({
       type: FETCH_USER_SUCCESS,
-      payload: [posts, allusers]
+      payload: response.data
     });
     // const getusername = response.data.filter(
     //   (item) => item.username == form.username
@@ -142,12 +146,15 @@ export const logout = (id) => {
   };
 };
 
-export const getUserprofile = (id) => {
+export const getUserprofile = (posts,user) => {
   return async (dispatch) => {
-    const response = await axios.get(`${apiurlusers}/${id}/blogs`);
+    // const response = await axios.get(`${apiurlusers}`);
+      const userblogs = posts.filter(
+        (item) => item.userId == user.id
+      );
     dispatch({
       type: GET_USERPROFILE_SUCCESS,
-      payload: response.data
+      payload: userblogs
     });
   };
 };

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/action";
+import { getPost, getUserprofile, logout } from "../redux/action";
 import React, { useEffect } from "react";
 
 const link = {
@@ -18,16 +18,23 @@ const header = {
 };
 function Header() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const state = useSelector(state=> state);
   const navigate = useNavigate();
   function logoutclick() {
-    user != null && dispatch(logout(user.id));
+    // state.user != null && dispatch(logout(user.id));
+    navigate("/")
   }
   // useEffect(() => {
   //     if (user!=null && user.loginning == false) {
   //       navigate("/");
   //     }
   //   }, [user]);
+  function homeclick(){
+    dispatch(getPost());
+  }
+  function userprofileclick(){
+    dispatch(getUserprofile(state.posts,state.user))
+  }
   return (
     <div className="row" style={header}>
       <h2 className="col-8" style={{ fontSize: 50 }}>
@@ -37,10 +44,10 @@ function Header() {
         className="col-4"
         style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        <Link to="/home" style={link}>
+        <Link to="/home" style={link} onClick={()=>homeclick()} >
           Home
         </Link>
-        <Link to="/userprofile" style={link}>
+        <Link to="/userprofile" style={link} onClick={()=>userprofileclick()}>
           Profile
         </Link>
         <Link to="/addnewpost" style={link}>

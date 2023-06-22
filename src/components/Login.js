@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGIN_SUCCESS, login } from "../redux/action";
+import { LOGIN_SUCCESS, getPost, login } from "../redux/action";
 import Header from "./Header";
 import { useNavigate } from "react-router-dom";
 
@@ -15,8 +15,14 @@ export default function Login() {
   };
   const [form, setForm] = useState({});
   useEffect(() => {
-    dispatch(login());
-  }, []);
+    let iscancel = false;
+    if (!iscancel){
+      dispatch(login());
+    }
+    return ()=>{
+      iscancel=true;
+    }
+  },[]);
   // useEffect(() => {
   //   console.log(state)
   //     if (state.allusers != null) {
@@ -59,14 +65,12 @@ export default function Login() {
     if (getusername.length == 0) {
       alert("Username is not exists");
     } else if (getusername[0].password == form.password) {
-      const userblogs = state.posts.filter(
-        (item) => item.userId == getusername[0].id
-      );
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { ...getusername[0], userblogs: userblogs }
+        payload: getusername[0]
       });
       navigate("/home");
+      dispatch(getPost());
     } else if (getusername[0].password != form.password) {
       alert("Username and password are not matched");
     }
@@ -88,9 +92,8 @@ export default function Login() {
         {({ errors, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div
-              className={`custom-input ${
-                errors.username ? "custom-input-error" : ""
-              }`}
+              className={`custom-input ${errors.username ? "custom-input-error" : ""
+                }`}
             >
               <label>Username</label>
               <input
@@ -102,9 +105,8 @@ export default function Login() {
               <p className="error">{errors.username}</p>
             </div>
             <div
-              className={`custom-input ${
-                errors.password ? "custom-input-error" : ""
-              }`}
+              className={`custom-input ${errors.password ? "custom-input-error" : ""
+                }`}
             >
               <label>Password</label>
               <input
