@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, increment } from "../redux/action";
+import { getPost, increment, login } from "../redux/action";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -13,13 +13,16 @@ function Home() {
     if (state.user == null) {
       navigate("/");
     }
+  }, [state]);
+  useEffect(() => {
+    dispatch(login());
   }, []);
   // const posts = useSelector((state) => state.posts);
   const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 
-  function reactionclick(emojiname, id, currentcount) {
-    dispatch(increment(emojiname, id, currentcount));
-  }
+  // function reactionclick(emojiname, id, currentcount) {
+  //   dispatch(increment(emojiname, id, currentcount));
+  // }
   return (
     <div>
       <Header />

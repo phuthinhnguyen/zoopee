@@ -98,7 +98,7 @@ export const deletepost = (id, userid, blogindexid) => {
   };
 };
 
-export const login = (form) => {
+export const login = () => {
   return async (dispatch) => {
     let allusers = [];
     let posts = [];

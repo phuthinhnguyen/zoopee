@@ -13,7 +13,6 @@ function Updatepost() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
   const [form, setForm] = useState(state);
   function submitform(e) {
     e.preventDefault();

@@ -15,7 +15,7 @@ export default function Login() {
   };
   const [form, setForm] = useState({});
   useEffect(() => {
-    dispatch(login(form));
+    dispatch(login());
   }, []);
   // useEffect(() => {
   //   console.log(state)

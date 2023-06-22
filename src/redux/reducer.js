@@ -34,26 +34,35 @@ const rootReducer = (state = initialState, action) => {
       };
     case UPDATE_POST_SUCCESS:
       const cloneuserblogs = state.user;
-      console.log(cloneuserblogs);
+      const cloneposts = state.posts;
       for (let item of cloneuserblogs.userblogs) {
         if (item.tokenId == action.payload.tokenId) {
           const index = cloneuserblogs.userblogs.indexOf(item);
           cloneuserblogs.userblogs.splice(index, 1);
+          cloneuserblogs.userblogs.push({...item,
+          createdAt:action.payload.createdAt,
+          title: action.payload.title,
+          body: action.payload.body,
+          author: action.payload.author,
+        })
         }
       }
-      console.log(cloneuserblogs.userblogs);
+      for (let item of cloneposts) {
+        if (item.tokenId == action.payload.tokenId) {
+          const index = cloneposts.indexOf(item);
+          cloneposts.splice(index, 1);
+          cloneposts.push({...item,
+          createdAt:action.payload.createdAt,
+          title: action.payload.title,
+          body: action.payload.body,
+          author: action.payload.author,
+        })
+        }
+      }
       return {
         ...state,
-        posts: [
-          {
-            ...state.posts,
-            id: action.payload.id,
-            title: action.payload.title,
-            body: action.payload.body,
-            createdAt: action.payload.createdAt
-          }
-        ],
-        user: { ...state.user, userblogs: cloneuserblogs }
+        posts: cloneposts,
+        user: { ...state.user, userblogs: cloneuserblogs.userblogs }
       };
     case DELETE_POST_SUCCESS:
       const newPosts = [...state.posts];

@@ -14,6 +14,7 @@ function Userprofile() {
     }
   }, []);
 
+  console.log(state)
   // const blogs = useSelector(state => state.user.userblogs);
   if (state.user != null) {
     const blogs = state.user.userblogs;
