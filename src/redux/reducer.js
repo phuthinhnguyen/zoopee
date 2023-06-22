@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { FETCH_USER_SUCCESS, GET_USERPROFILE_SUCCESS, LOGOUT_SUCCESS } from "./action";
+import {
+  FETCH_USER_SUCCESS,
+  GET_USERPROFILE_SUCCESS,
+  LOGOUT_SUCCESS
+} from "./action";
 import {
   ADD_NEW_POST_SUCCESS,
   DELETE_POST_SUCCESS,
@@ -12,7 +16,7 @@ import { LOGIN_SUCCESS } from "./action";
 const initialState = {
   posts: [],
   user: null,
-  allusers:null
+  allusers: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -22,26 +26,22 @@ const rootReducer = (state = initialState, action) => {
     case ADD_NEW_POST_SUCCESS:
       return {
         ...state,
-        posts: [
-          {
-            ...state.posts,
-            id: Math.floor(Math.random() * 1000),
-            title: action.payload.title,
-            body: action.payload.body,
-            createdAt: action.payload.createdAt,
-            thumbsUp: action.payload.thumbsUp,
-            wow: action.payload.wow,
-            heart: action.payload.heart,
-            rocket: action.payload.rocket,
-            coffee: action.payload.coffee
-          }
-        ],
+        posts: [...state.posts, action.payload],
         user: {
           ...state.user,
           userblogs: [...state.user.userblogs, action.payload]
         }
       };
     case UPDATE_POST_SUCCESS:
+      const cloneuserblogs = state.user;
+      console.log(cloneuserblogs);
+      for (let item of cloneuserblogs.userblogs) {
+        if (item.tokenId == action.payload.tokenId) {
+          const index = cloneuserblogs.userblogs.indexOf(item);
+          cloneuserblogs.userblogs.splice(index, 1);
+        }
+      }
+      console.log(cloneuserblogs.userblogs);
       return {
         ...state,
         posts: [
@@ -52,7 +52,8 @@ const rootReducer = (state = initialState, action) => {
             body: action.payload.body,
             createdAt: action.payload.createdAt
           }
-        ]
+        ],
+        user: { ...state.user, userblogs: cloneuserblogs }
       };
     case DELETE_POST_SUCCESS:
       const newPosts = [...state.posts];
@@ -78,7 +79,11 @@ const rootReducer = (state = initialState, action) => {
       clone.splice(index, 0, getnewobj[0]);
       return { ...state, posts: clone };
     case FETCH_USER_SUCCESS:
-      return {...state,allusers:action.payload}
+      return {
+        ...state,
+        posts: action.payload[0],
+        allusers: action.payload[1]
+      };
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };
     case LOGOUT_SUCCESS:

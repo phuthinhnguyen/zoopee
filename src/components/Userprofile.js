@@ -7,20 +7,21 @@ import { getUserprofile } from "../redux/action";
 
 function Userprofile() {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const state = useSelector((state) => state);
   useEffect(() => {
-    if (user == null || user.loginning == false) {
+    if (state.user == null) {
       navigate("/");
     }
-  }, [user]);
+  }, []);
 
-  if (user != null) {
-    // const blogs = useSelector(state => state.user.userblogs);
-    const blogs = user.userblogs;
-    console.log(blogs);
+  // const blogs = useSelector(state => state.user.userblogs);
+  if (state.user != null) {
+    const blogs = state.user.userblogs;
     var sortedposts =
       blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
   }
+
+  // }
 
   // function reactionclick(emojiname, id, currentcount) {
   //     dispatch(increment(emojiname, id, currentcount))
@@ -29,7 +30,7 @@ function Userprofile() {
     <div>
       <Header />
       <div>
-        {user != null &&
+        {state.user != null &&
           sortedposts != false &&
           sortedposts.map((item, index) => (
             <div

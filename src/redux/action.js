@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import { v4 as uuidv4 } from "uuid";
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
@@ -39,20 +39,18 @@ export const addnewpost = (form, userid) => {
     coffee: 0
   };
   return async (dispatch) => {
-    const responseuser = await axios.post(`${apiurlusers}/${userid}/`, {
-      userblogs: {
-        createdAt: Date.now(),
-        userId: userid,
-        tokenId: tokenid,
-        title: form.title,
-        body: form.body,
-        author: form.author,
-        thumbsUp: 0,
-        wow: 0,
-        heart: 0,
-        rocket: 0,
-        coffee: 0
-      }
+    const responseuser = await axios.post(`${apiurlusers}`, {
+      createdAt: Date.now(),
+      userId: userid,
+      tokenId: tokenid,
+      title: form.title,
+      body: form.body,
+      author: form.author,
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -61,15 +59,9 @@ export const addnewpost = (form, userid) => {
   };
 };
 
-export const updatepost = (form, id) => {
+export const updatepost = (form) => {
   return async (dispatch) => {
-    const responseblogs = await axios.put(`${apiurlblogs}/${form.id}`, {
-      title: form.title,
-      body: form.body,
-      author: form.author,
-      createdAt: Date.now()
-    });
-    const responseuser = await axios.put(`${apiurlusers}/${id}/${form.id}`, {
+    const responseuser = await axios.put(`${apiurlusers}/${form.id}`, {
       title: form.title,
       body: form.body,
       author: form.author,
@@ -108,10 +100,19 @@ export const deletepost = (id, userid, blogindexid) => {
 
 export const login = (form) => {
   return async (dispatch) => {
+    let allusers = [];
+    let posts = [];
     const response = await axios.get(apiurlusers);
+    for (let item of response.data) {
+      if (item.tokenId) {
+        posts.push(item);
+      } else if (!item.tokenId && item.username) {
+        allusers.push(item);
+      }
+    }
     dispatch({
       type: FETCH_USER_SUCCESS,
-      payload: response.data
+      payload: [posts, allusers]
     });
     // const getusername = response.data.filter(
     //   (item) => item.username == form.username

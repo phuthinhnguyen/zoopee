@@ -16,7 +16,7 @@ export default function Login() {
   const [form, setForm] = useState({});
   useEffect(() => {
     dispatch(login(form));
-  }, [])
+  }, []);
   // useEffect(() => {
   //   console.log(state)
   //     if (state.allusers != null) {
@@ -59,19 +59,21 @@ export default function Login() {
     if (getusername.length == 0) {
       alert("Username is not exists");
     } else if (getusername[0].password == form.password) {
+      const userblogs = state.posts.filter(
+        (item) => item.userId == getusername[0].id
+      );
       dispatch({
-        type:LOGIN_SUCCESS,
-        payload:getusername
-      })
+        type: LOGIN_SUCCESS,
+        payload: { ...getusername[0], userblogs: userblogs }
+      });
       navigate("/home");
     } else if (getusername[0].password != form.password) {
       alert("Username and password are not matched");
     }
   }
 
-
   function handleSubmit() {
-    checkuser()
+    checkuser();
   }
 
   return (
@@ -86,8 +88,9 @@ export default function Login() {
         {({ errors, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div
-              className={`custom-input ${errors.username ? "custom-input-error" : ""
-                }`}
+              className={`custom-input ${
+                errors.username ? "custom-input-error" : ""
+              }`}
             >
               <label>Username</label>
               <input
@@ -99,8 +102,9 @@ export default function Login() {
               <p className="error">{errors.username}</p>
             </div>
             <div
-              className={`custom-input ${errors.password ? "custom-input-error" : ""
-                }`}
+              className={`custom-input ${
+                errors.password ? "custom-input-error" : ""
+              }`}
             >
               <label>Password</label>
               <input

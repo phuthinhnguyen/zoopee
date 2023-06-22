@@ -8,15 +8,14 @@ import { convertTime } from "./convertTime";
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
-  console.log(user)
+  const state = useSelector((state) => state);
   useEffect(() => {
-    if (user == null) {
+    if (state.user == null) {
       navigate("/");
     }
-  },[]);
-  const posts = useSelector((state) => state.posts);
-  const sortedposts = posts.sort((a, b) => b.createdAt - a.createdAt);
+  }, []);
+  // const posts = useSelector((state) => state.posts);
+  const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
