@@ -4,10 +4,12 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
 import { getUserprofile } from "../redux/action";
+import { increment } from "../redux/action";
 
 function Userprofile() {
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (state.user == null) {
       navigate("/");
@@ -16,14 +18,15 @@ function Userprofile() {
   // const blogs = useSelector(state => state.user.userblogs);
   if (state.user != null) {
     const blogs = state.user.userblogs;
-    var sortedposts = blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
+    var sortedposts =
+      blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
   }
 
   // }
 
-  // function reactionclick(emojiname, id, currentcount) {
-  //     dispatch(increment(emojiname, id, currentcount))
-  // }
+  function reactionclick(emojiname, id, currentcount) {
+    dispatch(increment(emojiname, id, currentcount));
+  }
   return (
     <div>
       <Header />

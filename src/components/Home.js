@@ -14,16 +14,16 @@ function Home() {
       navigate("/");
     }
   }, [state]);
-  console.log(state)
+  console.log(state);
   // useEffect(() => {
   //   dispatch(getPost());
   // }, []);
   // const posts = useSelector((state) => state.posts);
   const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 
-  // function reactionclick(emojiname, id, currentcount) {
-  //   dispatch(increment(emojiname, id, currentcount));
-  // }
+  function reactionclick(emojiname, id, currentcount) {
+    dispatch(increment(emojiname, id, currentcount));
+  }
   return (
     <div>
       <Header />

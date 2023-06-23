@@ -80,20 +80,19 @@ export const updatepost = (form) => {
 
 export const increment = (emojiname, id, currentcount) => {
   return async (dispatch) => {
-    const response = await axios.put(`${apiurl}/${id}`, {
+    const response = await axios.put(`${apiurlblogs}/${id}`, {
       [emojiname]: currentcount + 1
     });
     dispatch({
       type: UPDATE_EMOJI_SUCCESS,
-      payload: { emojiname, id, currentcount }
+      // payload: { emojiname, id, currentcount }
+      payload: response.data
     });
   };
 };
 export const deletepost = (id) => {
   return async (dispatch) => {
-    const response = await axios.delete(
-      `${apiurlblogs}/${id}`
-    );
+    const response = await axios.delete(`${apiurlblogs}/${id}`);
     dispatch({
       type: DELETE_POST_SUCCESS,
       payload: id
@@ -107,12 +106,12 @@ export const login = () => {
     // let posts = [];
     const response = await axios.get(apiurlusers);
     // for (let item of response.data) {
-      // if (item.tokenId) {
-      //   posts.push(item);
-      // } 
-      // if (!item.tokenId && item.username) {
-      //   allusers.push(item);
-      // }
+    // if (item.tokenId) {
+    //   posts.push(item);
+    // }
+    // if (!item.tokenId && item.username) {
+    //   allusers.push(item);
+    // }
     // }
     dispatch({
       type: FETCH_USER_SUCCESS,
@@ -146,12 +145,10 @@ export const logout = (id) => {
   };
 };
 
-export const getUserprofile = (posts,user) => {
+export const getUserprofile = (posts, user) => {
   return async (dispatch) => {
     // const response = await axios.get(`${apiurlusers}`);
-      const userblogs = posts.filter(
-        (item) => item.userId == user.id
-      );
+    const userblogs = posts.filter((item) => item.userId == user.id);
     dispatch({
       type: GET_USERPROFILE_SUCCESS,
       payload: userblogs

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { deletepost, updatepost } from "../redux/action";
@@ -14,12 +14,17 @@ function Updatepost() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [form, setForm] = useState(state);
+  useEffect(() => {
+    if (user == null) {
+      navigate("/");
+    }
+  }, [user]);
   function submitform(e) {
     e.preventDefault();
     dispatch(updatepost(form));
   }
   function deletepostclick() {
-    dispatch(deletepost(form.id))
+    dispatch(deletepost(form.id));
     navigate("/home");
   }
   return (

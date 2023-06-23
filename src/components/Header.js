@@ -5,35 +5,38 @@ import React, { useEffect } from "react";
 
 const link = {
   textDecoration: "none",
-  color: "white",
+  color: "black",
   fontSize: 25,
   marginRight: 20
 };
-const header = {
-  backgroundColor: "purple",
-  color: "white",
-  height: 100,
+export const header = {
+  backgroundColor: "lightyellow",
+  color: "black",
+  height: 80,
   display: "flex",
-  alignItems: "center"
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: 20,
+  width: "100%"
 };
 function Header() {
   const dispatch = useDispatch();
-  const state = useSelector(state=> state);
+  const state = useSelector((state) => state);
   const navigate = useNavigate();
   function logoutclick() {
     // state.user != null && dispatch(logout(user.id));
-    navigate("/")
+    navigate("/");
   }
   // useEffect(() => {
   //     if (user!=null && user.loginning == false) {
   //       navigate("/");
   //     }
   //   }, [user]);
-  function homeclick(){
+  function homeclick() {
     dispatch(getPost());
   }
-  function userprofileclick(){
-    dispatch(getUserprofile(state.posts,state.user))
+  function userprofileclick() {
+    dispatch(getUserprofile(state.posts, state.user));
   }
   return (
     <div className="row" style={header}>
@@ -44,10 +47,10 @@ function Header() {
         className="col-4"
         style={{ display: "flex", justifyContent: "flex-end" }}
       >
-        <Link to="/home" style={link} onClick={()=>homeclick()} >
+        <Link to="/home" style={link} onClick={() => homeclick()}>
           Home
         </Link>
-        <Link to="/userprofile" style={link} onClick={()=>userprofileclick()}>
+        <Link to="/userprofile" style={link} onClick={() => userprofileclick()}>
           Profile
         </Link>
         <Link to="/addnewpost" style={link}>

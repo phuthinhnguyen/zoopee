@@ -3,9 +3,15 @@ import { Formik } from "formik";
 import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN_SUCCESS, getPost, login } from "../redux/action";
-import Header from "./Header";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import {
+  BsYoutube,
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsPinterest
+} from "react-icons/bs";
+import { header } from "./Header";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,13 +22,13 @@ export default function Login() {
   const [form, setForm] = useState({});
   useEffect(() => {
     let iscancel = false;
-    if (!iscancel){
+    if (!iscancel) {
       dispatch(login());
     }
-    return ()=>{
-      iscancel=true;
-    }
-  },[]);
+    return () => {
+      iscancel = true;
+    };
+  }, []);
   // useEffect(() => {
   //   console.log(state)
   //     if (state.allusers != null) {
@@ -83,44 +89,71 @@ export default function Login() {
   return (
     <div>
       {/* <Header /> */}
-      <h1>Sign in</h1>
-      <Formik
-        initialValues={form}
-        validate={handleValidate}
-        onSubmit={handleSubmit}
+      <div style={header}>
+        <h2
+          className="col-8"
+          style={{
+            fontSize: 50,
+            cursor: "pointer",
+            userSelect: "none",
+            marginLeft: 20
+          }}
+        >
+          zoopee
+        </h2>
+        <Formik
+          initialValues={form}
+          validate={handleValidate}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, handleSubmit }) => (
+            <form onSubmit={handleSubmit} className="formlogin">
+              <div
+                className={`custom-input ${
+                  errors.username ? "custom-input-error" : ""
+                }`}
+              >
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  value={form.username || ""}
+                  onChange={handleChange}
+                />
+                <p className="error">{errors.username}</p>
+              </div>
+              <div
+                className={`custom-input ${
+                  errors.password ? "custom-input-error" : ""
+                }`}
+              >
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={form.password || ""}
+                  onChange={handleChange}
+                />
+                <p className="error">{errors.password}</p>
+              </div>
+              <button type="submit">Login</button>
+              <br></br>
+            </form>
+          )}
+        </Formik>
+      </div>
+      <div
+        style={{
+          backgroundImage:
+            "url('https://res.cloudinary.com/dhva3lwfk/image/upload/v1686124303/cld-sample-3.jpg')",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          height: "90vh"
+        }}
       >
-        {({ errors, handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <div
-              className={`custom-input ${errors.username ? "custom-input-error" : ""
-                }`}
-            >
-              <label>Username</label>
-              <input
-                type="text"
-                name="username"
-                value={form.username || ""}
-                onChange={handleChange}
-              />
-              <p className="error">{errors.username}</p>
-            </div>
-            <div
-              className={`custom-input ${errors.password ? "custom-input-error" : ""
-                }`}
-            >
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                value={form.password || ""}
-                onChange={handleChange}
-              />
-              <p className="error">{errors.password}</p>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        )}
-      </Formik>
+        <Link to="/signup">Sign up here</Link>
+      </div>
     </div>
   );
 }

@@ -61,43 +61,66 @@ const rootReducer = (state = initialState, action) => {
       // }
       return {
         ...state,
-        posts: [...state.posts.filter(item => item.id != action.payload.id), action.payload],
-        user: { ...state.user, userblogs: [...state.user.userblogs.filter(item => item.id != action.payload.id), action.payload] }
+        posts: [
+          ...state.posts.filter((item) => item.id != action.payload.id),
+          action.payload
+        ],
+        user: {
+          ...state.user,
+          userblogs: [
+            ...state.user.userblogs.filter(
+              (item) => item.id != action.payload.id
+            ),
+            action.payload
+          ]
+        }
       };
     case DELETE_POST_SUCCESS:
       // const newPosts = [...state.posts];
       // newPosts.filter((item) => item.id != action.payload);
       return {
         ...state,
-        posts: [...state.posts.filter(item => item.id != action.payload)],
-        user: {...state.user,userblogs:[...state.user.userblogs.filter(item=>item.id!=action.payload)]}
+        posts: [...state.posts.filter((item) => item.id != action.payload)],
+        user: {
+          ...state.user,
+          userblogs: [
+            ...state.user.userblogs.filter((item) => item.id != action.payload)
+          ]
+        }
       };
     case UPDATE_EMOJI_SUCCESS:
-      let clone = [...state.posts];
-      let index = null;
-      let update = () => {
-        for (var key in clone)
-          if (clone[key].id == action.payload.id) {
-            index = clone.indexOf(clone[key]);
-            return [
-              {
-                ...clone[key],
-                [action.payload.emojiname]: action.payload.currentcount + 1
-              }
-            ];
-          }
+      // let clone = [...state.posts];
+      // let index = null;
+      // let update = () => {
+      //   for (var key in clone)
+      //     if (clone[key].id == action.payload.id) {
+      //       index = clone.indexOf(clone[key]);
+      //       return [
+      //         {
+      //           ...clone[key],
+      //           [action.payload.emojiname]: action.payload.currentcount + 1
+      //         }
+      //       ];
+      //     }
+      // };
+      // let getnewobj = update();
+      // clone.splice(index, 1);
+      // clone.splice(index, 0, getnewobj[0]);
+      return {
+        ...state,
+        posts: [
+          ...state.posts.filter((item) => item.id != action.payload.id),
+          action.payload
+        ]
+        // user:{...state.user,userblogs:[...state.user.userblogs.filter(item=>item.id!=action.payload.id),action.payload]}
       };
-      let getnewobj = update();
-      clone.splice(index, 1);
-      clone.splice(index, 0, getnewobj[0]);
-      return { ...state, posts: clone };
     case FETCH_USER_SUCCESS:
       return {
         ...state,
         allusers: action.payload
       };
     case LOGIN_SUCCESS:
-      return { ...state, user: action.payload };
+      return { ...state, user: { ...state.user, ...action.payload } };
     case LOGOUT_SUCCESS:
       return { ...state, user: { ...state.user, loginning: false } };
     case GET_USERPROFILE_SUCCESS:

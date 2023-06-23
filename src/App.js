@@ -10,12 +10,14 @@ import Updatepost from "./components/Updatepost";
 import Viewpost from "./components/Viewpost";
 import Login from "./components/Login";
 import Userprofile from "./components/Userprofile";
+import Signup from "./components/Signup";
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/viewpost" element={<Viewpost />} />

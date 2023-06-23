@@ -28,11 +28,40 @@
   color: #61dafb;
 }
 label {
-  display: block;
+  color: white;
 }
-
+input {
+  border-radius: 6px;
+  border: none;
+  outline: 1px solid lightgray;
+  height: 30px;
+  width: 200px;
+}
+form {
+  color: "white";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  align-item: center;
+}
+button {
+  width: 200px;
+  padding: 5px 10px;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 20px;
+  background-color: white;
+  border: none;
+}
+button:hover {
+  background-color: lightyellow;
+}
 .custom-input {
   padding-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 20px;
 }
 
 .custom-input-error label {
@@ -47,6 +76,33 @@ label {
 .error {
   color: red;
   margin: 0;
+}
+.formsignup {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-item: center;
+}
+.formlogin {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 50%;
+  color: black;
+}
+.group-input-signup {
+  width: 350px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-item: center;
+}
+.group-input-signup input:focus {
+  filter: drop-shadow(1px 1px 1px lightyellow);
+}
+.group-input-signup input:hover {
+  filter: drop-shadow(1px 1px 1px lightyellow);
 }
 @keyframes App-logo-spin {
   from {
