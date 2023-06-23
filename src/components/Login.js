@@ -4,14 +4,7 @@ import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN_SUCCESS, getPost, login } from "../redux/action";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  BsYoutube,
-  BsFacebook,
-  BsInstagram,
-  BsTwitter,
-  BsPinterest
-} from "react-icons/bs";
-import { header } from "./Header";
+// import { header } from "./Header";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,10 +50,10 @@ export default function Login() {
     //   console.log("code");
     // }
     if (!form.username) {
-      errors.username = "Required";
+      errors.username = "Username is required";
     }
     if (!form.password) {
-      errors.password = "Required";
+      errors.password = "Password is required";
     }
     return errors;
   }
@@ -88,16 +81,9 @@ export default function Login() {
 
   return (
     <div>
-      {/* <Header /> */}
-      <div style={header}>
+      <div className="header">
         <h2
-          className="col-8"
-          style={{
-            fontSize: 50,
-            cursor: "pointer",
-            userSelect: "none",
-            marginLeft: 20
-          }}
+          className="logotext"
         >
           zoopee
         </h2>
@@ -108,52 +94,50 @@ export default function Login() {
         >
           {({ errors, handleSubmit }) => (
             <form onSubmit={handleSubmit} className="formlogin">
-              <div
-                className={`custom-input ${
-                  errors.username ? "custom-input-error" : ""
-                }`}
-              >
-                <label>Username</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={form.username || ""}
-                  onChange={handleChange}
-                />
+              <div>
+                <div
+                  className={`custom-input ${errors.username ? "custom-input-error" : ""
+                    } login`}
+                >
+                  <label>Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={form.username || ""}
+                    onChange={handleChange}
+                  />
+                </div>
                 <p className="error">{errors.username}</p>
               </div>
-              <div
-                className={`custom-input ${
-                  errors.password ? "custom-input-error" : ""
-                }`}
-              >
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={form.password || ""}
-                  onChange={handleChange}
-                />
+              <div>
+                <div
+                  className={`custom-input ${errors.password ? "custom-input-error" : ""
+                    } login`}
+                >
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={form.password || ""}
+                    onChange={handleChange}
+                  />
+
+                </div>
                 <p className="error">{errors.password}</p>
               </div>
-              <button type="submit">Login</button>
-              <br></br>
+
+              <button type="submit" className="button-login">Login</button>
             </form>
           )}
         </Formik>
       </div>
       <div
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/dhva3lwfk/image/upload/v1686124303/cld-sample-3.jpg')",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          height: "90vh"
-        }}
+      className="login-body"
       >
-        <Link to="/signup">Sign up here</Link>
+        <iframe src="creativeScroll.html" style={{width:"100%",height:"100%"}}></iframe>
+        {/* <Link to="/signup">Sign up here</Link> */}
       </div>
+      
     </div>
   );
 }

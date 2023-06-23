@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik } from "formik";
 import "../App.css";
-import { header } from "./Header";
+// import { header } from "./Header";
 import {
   BsYoutube,
   BsFacebook,
@@ -57,48 +57,30 @@ function Signup() {
   }
   return (
     <div>
-      {/* <Header /> */}
-      <div style={header}>
+      <div className="header">
         <h2
-          className="col-8"
-          style={{
-            fontSize: 50,
-            cursor: "pointer",
-            userSelect: "none",
-            marginLeft: 20
-          }}
+          className="logotext"
         >
           zoopee
         </h2>
         <div style={{ width: 200 }}>
           <BsYoutube
-            style={{ fontSize: 25, marginRight: 15, cursor: "pointer" }}
+            className="header-icon" style={{ fontSize: 25 }}
           />
           <BsFacebook
-            style={{ fontSize: 20, marginRight: 15, cursor: "pointer" }}
+            className="header-icon"
           />
           <BsInstagram
-            style={{ fontSize: 20, marginRight: 15, cursor: "pointer" }}
+            className="header-icon"
           />
           <BsTwitter
-            style={{ fontSize: 20, marginRight: 15, cursor: "pointer" }}
+            className="header-icon"
           />
-          <BsPinterest style={{ fontSize: 20, cursor: "pointer" }} />
+          <BsPinterest className="header-icon" style={{ marginRight: 0 }} />
         </div>
       </div>
       <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          backgroundImage:
-            "url('https://res.cloudinary.com/dhva3lwfk/image/upload/v1686124303/cld-sample-3.jpg')",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover"
-        }}
+        className="signup-body"
       >
         <h1>Sign Up</h1>
         <Formik
@@ -109,9 +91,8 @@ function Signup() {
           {({ errors, handleSubmit }) => (
             <form onSubmit={handleSubmit} className="formsignup">
               <div
-                className={`custom-input ${
-                  errors.name ? "custom-input-error" : ""
-                } `}
+                className={`custom-input ${errors.name ? "custom-input-error" : ""
+                  } `}
               >
                 <div className="group-input-signup">
                   <label>Name</label>
@@ -125,9 +106,8 @@ function Signup() {
                 <p className="error">{errors.name}</p>
               </div>
               <div
-                className={`custom-input ${
-                  errors.email ? "custom-input-error" : ""
-                }`}
+                className={`custom-input ${errors.email ? "custom-input-error" : ""
+                  }`}
               >
                 <div className="group-input-signup">
                   <label>E-mail</label>
@@ -142,9 +122,8 @@ function Signup() {
                 <p className="error">{errors.email}</p>
               </div>
               <div
-                className={`custom-input ${
-                  errors.username ? "custom-input-error" : ""
-                }`}
+                className={`custom-input ${errors.username ? "custom-input-error" : ""
+                  }`}
               >
                 <div className="group-input-signup">
                   <label>Username</label>
@@ -159,9 +138,8 @@ function Signup() {
                 <p className="error">{errors.username}</p>
               </div>
               <div
-                className={`custom-input ${
-                  errors.password ? "custom-input-error" : ""
-                }`}
+                className={`custom-input ${errors.password ? "custom-input-error" : ""
+                  }`}
               >
                 <div className="group-input-signup">
                   <label>Password</label>
@@ -176,9 +154,8 @@ function Signup() {
                 <p className="error">{errors.password}</p>
               </div>
               <div
-                className={`custom-input ${
-                  errors.confirmpassword ? "custom-input-error" : ""
-                }`}
+                className={`custom-input ${errors.confirmpassword ? "custom-input-error" : ""
+                  }`}
               >
                 <div className="group-input-signup">
                   <label>Confirm password</label>
@@ -191,7 +168,7 @@ function Signup() {
                 </div>
                 <p className="error">{errors.confirmpassword}</p>
               </div>
-              <button type="submit">Sign Up</button>
+              <button type="submit" className="button-signup">Sign Up</button>
               <br></br>
             </form>
           )}

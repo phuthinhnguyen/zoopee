@@ -3,22 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPost, getUserprofile, logout } from "../redux/action";
 import React, { useEffect } from "react";
 
-const link = {
-  textDecoration: "none",
-  color: "black",
-  fontSize: 25,
-  marginRight: 20
-};
-export const header = {
-  backgroundColor: "lightyellow",
-  color: "black",
-  height: 80,
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: 20,
-  width: "100%"
-};
+// const link = {
+//   textDecoration: "none",
+//   color: "var(--colortext)",
+//   fontSize: 25,
+//   marginRight: 20
+// };
+// export const header = {
+//   backgroundColor: "var(--background)",
+//   color: "var(--colortext)",
+//   height: 80,
+//   display: "flex",
+//   justifyContent: "space-between",
+//   alignItems: "center",
+//   padding: 20,
+//   width: "100%"
+// };
 function Header() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
@@ -39,24 +39,22 @@ function Header() {
     dispatch(getUserprofile(state.posts, state.user));
   }
   return (
-    <div className="row" style={header}>
-      <h2 className="col-8" style={{ fontSize: 50 }}>
+    <div className="header">
+      <h2 className="logotext">
         zoopee
       </h2>
-      <div
-        className="col-4"
-        style={{ display: "flex", justifyContent: "flex-end" }}
+      <div className="header-link-wrap"
       >
-        <Link to="/home" style={link} onClick={() => homeclick()}>
+        <Link to="/home" className="header-link" onClick={() => homeclick()}>
           Home
         </Link>
-        <Link to="/userprofile" style={link} onClick={() => userprofileclick()}>
+        <Link to="/userprofile" className="header-link" onClick={() => userprofileclick()}>
           Profile
         </Link>
-        <Link to="/addnewpost" style={link}>
+        <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
-        <Link to="/" style={link} onClick={() => logoutclick()}>
+        <Link to="/" className="header-link" onClick={() => logoutclick()}>
           Logout
         </Link>
       </div>
