@@ -18,7 +18,7 @@ function Updatepost() {
     if (user == null) {
       navigate("/");
     }
-  }, [user]);
+  }, []);
   function submitform(e) {
     e.preventDefault();
     dispatch(updatepost(form));
@@ -29,45 +29,51 @@ function Updatepost() {
   }
   return (
     <>
+    {user!=null ? 
+      <div>
       <Header />
-      <div className="m-auto col-6 mt-5">
-        <h2 className="col-6">Edit Post</h2>
-        <form className="mt-5 row" onSubmit={(e) => submitform(e)}>
-          <h6>Post Title</h6>
-          <input
-            style={{ with: "100%" }}
-            onChange={(e) => setForm({ ...form, title: e.target.value })}
-            value={form.title}
-          ></input>
-          <h6 style={{ marginTop: 20 }}>Author</h6>
-          <input
-            style={{ with: "100%" }}
-            onChange={(e) => setForm({ ...form, author: e.target.value })}
-            value={form.author}
-          ></input>
-          <h6 className="mt-4">Content</h6>
-          <textarea
-            rows={8}
-            style={{ resize: "none" }}
-            onChange={(e) => setForm({ ...form, body: e.target.value })}
-            value={form.body}
-          ></textarea>
-          <br></br>
-          <button type="submit" className="btn mt-5" style={button}>
-            Save Post
-          </button>
-          <button
-            className="btn mt-5"
-            style={button}
-            onClick={() => deletepostclick(form.id)}
-          >
-            Delete Post
-          </button>
-        </form>
+        <div className="m-auto col-6 mt-5">
+          <h2 className="col-6">Edit Post</h2>
+          <form className="mt-5 row" onSubmit={(e) => submitform(e)}>
+            <h6>Post Title</h6>
+            <input
+              style={{ with: "100%" }}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
+              value={form.title}
+            ></input>
+            <h6 style={{ marginTop: 20 }}>Author</h6>
+            <input
+              style={{ with: "100%" }}
+              onChange={(e) => setForm({ ...form, author: e.target.value })}
+              value={form.author}
+            ></input>
+            <h6 className="mt-4">Content</h6>
+            <textarea
+              rows={8}
+              style={{ resize: "none" }}
+              onChange={(e) => setForm({ ...form, body: e.target.value })}
+              value={form.body}
+            ></textarea>
+            <br></br>
+            <button type="submit" className="btn mt-5" style={button}>
+              Save Post
+            </button>
+            <button
+              className="btn mt-5"
+              style={button}
+              onClick={() => deletepostclick(form.id)}
+            >
+              Delete Post
+            </button>
+          </form>
+        </div>
+        <Link className="btn btn-primary m-auto mt-5 col-1 d-block" to="/home">
+          Back
+        </Link>
       </div>
-      <Link className="btn btn-primary m-auto mt-5 col-1 d-block" to="/home">
-        Back
-      </Link>
+      :navigate("/")}
+  
+    
     </>
   );
 }

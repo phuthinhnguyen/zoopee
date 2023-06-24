@@ -13,26 +13,20 @@ export default function Login() {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   };
   const [form, setForm] = useState({});
-  useEffect(() => {
-    let iscancel = false;
-    if (!iscancel) {
-      dispatch(login());
-    }
-    return () => {
-      iscancel = true;
-    };
-  }, []);
   // useEffect(() => {
-  //   console.log(state)
-  //     if (state.allusers != null) {
-
-  //       checkuser()
-
-  //     } else if (state.allusers == null) {
-  //       navigate("/");
-  //     }
-
-  // }, [state.allusers]);
+  //   let iscancel = false;
+  //   if (!iscancel) {
+  //     dispatch(login());
+  //   }
+  //   return () => {
+  //     iscancel = true;
+  //   };
+  // }, []);
+  useEffect(() => {
+      if (state.user != null) {
+        navigate("/home")
+      } 
+  }, [state.user]);
 
   function handleChange(event) {
     setForm({
@@ -57,26 +51,26 @@ export default function Login() {
     }
     return errors;
   }
-  function checkuser() {
-    const getusername = state.allusers.filter(
-      (item) => item.username == form.username
-    );
-    if (getusername.length == 0) {
-      alert("Username is not exists");
-    } else if (getusername[0].password == form.password) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: getusername[0]
-      });
-      navigate("/home");
-      dispatch(getPost());
-    } else if (getusername[0].password != form.password) {
-      alert("Username and password are not matched");
-    }
-  }
+  // function login() {
+  //   const getusername = state.allusers.filter(
+  //     (item) => item.username == form.username
+  //   );
+  //   if (getusername.length == 0) {
+  //     alert("Username is not exists");
+  //   } else if (getusername[0].password == form.password) {
+  //     dispatch({
+  //       type: LOGIN_SUCCESS,
+  //       payload: getusername[0]
+  //     });
+  //     navigate("/home");
+  //     dispatch(getPost());
+  //   } else if (getusername[0].password != form.password) {
+  //     alert("Username and password are not matched");
+  //   }
+  // }
 
   function handleSubmit() {
-    checkuser();
+    dispatch(login(form));
   }
 
   return (

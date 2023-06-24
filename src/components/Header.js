@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, getUserprofile, logout } from "../redux/action";
+import { LOGOUT_SUCCESS, getPost, getUserprofile, logout } from "../redux/action";
 import React, { useEffect } from "react";
 
 // const link = {
@@ -24,7 +24,9 @@ function Header() {
   const state = useSelector((state) => state);
   const navigate = useNavigate();
   function logoutclick() {
-    // state.user != null && dispatch(logout(user.id));
+    dispatch({
+      type:LOGOUT_SUCCESS
+    })
     navigate("/");
   }
   // useEffect(() => {

@@ -15,8 +15,8 @@ import { LOGIN_SUCCESS } from "./action";
 
 const initialState = {
   posts: [],
-  user: null,
-  allusers: null
+  user: null
+  // allusers: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -111,8 +111,8 @@ const rootReducer = (state = initialState, action) => {
         posts: [
           ...state.posts.filter((item) => item.id != action.payload.id),
           action.payload
-        ]
-        // user:{...state.user,userblogs:[...state.user.userblogs.filter(item=>item.id!=action.payload.id),action.payload]}
+        ],
+        user: { ...state.user, userblogs: [...state.user.userblogs.filter(item => item.id != action.payload.id), state.user.id == action.payload.userId && action.payload] }
       };
     case FETCH_USER_SUCCESS:
       return {
@@ -120,9 +120,9 @@ const rootReducer = (state = initialState, action) => {
         allusers: action.payload
       };
     case LOGIN_SUCCESS:
-      return { ...state, user: { ...state.user, ...action.payload } };
+      return { ...state, user: action.payload };
     case LOGOUT_SUCCESS:
-      return { ...state, user: { ...state.user, loginning: false } };
+      return { ...state, user: null };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
     default:

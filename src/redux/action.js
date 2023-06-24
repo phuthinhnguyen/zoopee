@@ -100,11 +100,28 @@ export const deletepost = (id) => {
   };
 };
 
-export const login = () => {
+export const login = (form) => {
   return async (dispatch) => {
     // let allusers = [];
     // let posts = [];
     const response = await axios.get(apiurlusers);
+    const getusername = response.data.filter(
+      (item) => item.username == form.username
+    );
+
+    if (getusername.length == 0) {
+      alert("Username is not exists");
+    }
+    else if (getusername[0].password != form.password) {
+      alert("Username and password are not matched");
+    }
+    else if (getusername[0].password == form.password) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: {...getusername[0],userblogs:[]}
+      });
+      // dispatch(getPost());
+    }
     // for (let item of response.data) {
     // if (item.tokenId) {
     //   posts.push(item);
@@ -113,10 +130,10 @@ export const login = () => {
     //   allusers.push(item);
     // }
     // }
-    dispatch({
-      type: FETCH_USER_SUCCESS,
-      payload: response.data
-    });
+    // dispatch({
+    //   type: FETCH_USER_SUCCESS,
+    //   payload: response.data
+    // });
     // const getusername = response.data.filter(
     //   (item) => item.username == form.username
     // );
@@ -133,17 +150,17 @@ export const login = () => {
   };
 };
 
-export const logout = (id) => {
-  return async (dispatch) => {
-    const response = await axios.put(`${apiurlusers}/${id}`, {
-      loginning: false
-    });
-    dispatch({
-      type: LOGOUT_SUCCESS,
-      payload: response.data
-    });
-  };
-};
+// export const logout = (id) => {
+//   return async (dispatch) => {
+//     const response = await axios.put(`${apiurlusers}/${id}`, {
+//       loginning: false
+//     });
+//     dispatch({
+//       type: LOGOUT_SUCCESS,
+//       payload: response.data
+//     });
+//   };
+// };
 
 export const getUserprofile = (posts, user) => {
   return async (dispatch) => {
