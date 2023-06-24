@@ -33,12 +33,11 @@ function Home() {
       {state.user != null ?
         <div>
           <Header />
-          <div>
+          <div className="home-body">
             {sortedposts.map((item, index) => (
               <div
-                className="mt-5 col-6 m-auto row"
+                className="home-body-item"
                 key={index}
-                style={{ border: "1px solid black", borderRadius: 10, padding: 20 }}
               >
                 <div className="">
                   <h3>{item.title}</h3>
@@ -56,9 +55,9 @@ function Home() {
                       {convertTime(item.createdAt)}
                     </a>
                   </div>
-                  <div className="mt-4" style={{ userSelect: "none" }}>
+                  <div className="reaction-wrap">
                     <a
-                      style={{ marginRight: 10, cursor: "pointer" }}
+                      className="reaction"
                       onClick={() =>
                         reactionclick("thumbsUp", item.id, item.thumbsUp)
                       }
@@ -66,25 +65,25 @@ function Home() {
                       👍 {item.thumbsUp}
                     </a>
                     <a
-                      style={{ marginRight: 10, cursor: "pointer" }}
+                      className="reaction"
                       onClick={() => reactionclick("wow", item.id, item.wow)}
                     >
                       😮 {item.wow}
                     </a>
                     <a
-                      style={{ marginRight: 10, cursor: "pointer" }}
+                      className="reaction"
                       onClick={() => reactionclick("heart", item.id, item.heart)}
                     >
                       ❤️ {item.heart}
                     </a>
                     <a
-                      style={{ marginRight: 10, cursor: "pointer" }}
+                      className="reaction"
                       onClick={() => reactionclick("rocket", item.id, item.rocket)}
                     >
                       🚀 {item.rocket}
                     </a>
                     <a
-                      style={{ marginRight: 10, cursor: "pointer" }}
+                      className="reaction"
                       onClick={() => reactionclick("coffee", item.id, item.coffee)}
                     >
                       ☕ {item.coffee}

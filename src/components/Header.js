@@ -51,14 +51,19 @@ function Header() {
           Home
         </Link>
         <Link to="/userprofile" className="header-link" onClick={() => userprofileclick()}>
-          Profile
+          Hi, {state.user.name}
         </Link>
         <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
+        {state.user.role=="admin" &&
+         <Link to="/adminworkspace" className="header-link">
+         Admin Workspace
+       </Link>}
         <Link to="/" className="header-link" onClick={() => logoutclick()}>
           Logout
         </Link>
+      
       </div>
     </div>
   );

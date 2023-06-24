@@ -118,7 +118,7 @@ export const login = (form) => {
     else if (getusername[0].password == form.password) {
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: {...getusername[0],userblogs:[]}
+        payload: { ...getusername[0], userblogs: [] }
       });
       // dispatch(getPost());
     }
@@ -172,3 +172,16 @@ export const getUserprofile = (posts, user) => {
     });
   };
 };
+
+export const signup = (form) => {
+  return async (dispatch) => {
+    const response = await axios.post(apiurlusers,{
+      name : form.name,
+      email : form.email,
+      username:form.username,
+      password:form.password,
+      role:form.role
+    })
+    alert("Sign up successfully")
+  }
+}

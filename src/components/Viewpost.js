@@ -27,10 +27,9 @@ function Viewpost() {
        <div>
        <Header />
     <div
-      className="mt-5 col-6 m-auto row"
-      style={{ border: "1px solid black", borderRadius: 10, padding: 20 }}
+      className="home-body"
     >
-      <div className="">
+      <div className="home-body-item">
         <h3>{iteminfo.title}</h3>
         <p style={{ fontStyle: "italic" }}>{iteminfo.body}</p>
         <div>
@@ -49,9 +48,9 @@ function Viewpost() {
             {convertTime(iteminfo.createdAt)}
           </a>
         </div>
-        <div className="mt-4" style={{ userSelect: "none" }}>
+        <div className="reaction-wrap">
           <a
-            style={{ marginRight: 10, cursor: "pointer" }}
+            className="reaction"
             onClick={() =>
               reactionclick("thumbsUp", iteminfo.id, iteminfo.thumbsUp)
             }
@@ -59,13 +58,13 @@ function Viewpost() {
             👍 {iteminfo.thumbsUp}
           </a>
           <a
-            style={{ marginRight: 10, cursor: "pointer" }}
+            className="reaction"
             onClick={() => reactionclick("wow", iteminfo.id, iteminfo.wow)}
           >
             😮 {iteminfo.wow}
           </a>
           <a
-            style={{ marginRight: 10, cursor: "pointer" }}
+            className="reaction"
             onClick={() =>
               reactionclick("heart", iteminfo.id, iteminfo.heart)
             }
@@ -73,7 +72,7 @@ function Viewpost() {
             ❤️ {iteminfo.heart}
           </a>
           <a
-            style={{ marginRight: 10, cursor: "pointer" }}
+            className="reaction"
             onClick={() =>
               reactionclick("rocket", iteminfo.id, iteminfo.rocket)
             }
@@ -81,7 +80,7 @@ function Viewpost() {
             🚀 {iteminfo.rocket}
           </a>
           <a
-            style={{ marginRight: 10, cursor: "pointer" }}
+            className="reaction"
             onClick={() =>
               reactionclick("coffee", iteminfo.id, iteminfo.coffee)
             }
@@ -90,10 +89,15 @@ function Viewpost() {
           </a>
         </div>
       </div>
+      <Link
+            className="button-back" style={{marginTop:100}}
+            to="/home"
+          // onClick={() => dispatch(getPost())}
+          >
+            Back
+          </Link>
     </div>
-    <Link className="btn btn-primary m-auto mt-5 col-1 d-block" to="/home">
-      Back
-    </Link>
+
     </div> 
     :navigate("/")}
      

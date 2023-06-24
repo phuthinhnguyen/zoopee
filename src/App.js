@@ -11,6 +11,7 @@ import Viewpost from "./components/Viewpost";
 import Login from "./components/Login";
 import Userprofile from "./components/Userprofile";
 import Signup from "./components/Signup";
+import Adminworkspace from "./components/Adminworkspace";
 function App() {
   return (
     <Provider store={store}>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/viewpost" element={<Viewpost />} />
           <Route path="/addnewpost" element={<Addnewpost />} />
           <Route path="/updatepost" element={<Updatepost />} />
+          <Route path="/adminworkspace" element={<Adminworkspace />} />
         </Routes>
       </BrowserRouter>
     </Provider>

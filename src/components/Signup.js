@@ -11,6 +11,9 @@ import {
   BsTwitter,
   BsPinterest
 } from "react-icons/bs";
+import { signup } from "../redux/action";
+// var passwordHash = require('password-hash');
+
 function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +28,6 @@ function Signup() {
       [event.target.name]: event.target.value
     });
   }
-
   function handleValidate() {
     const errors = {};
 
@@ -53,7 +55,21 @@ function Signup() {
   }
 
   function handleSubmit() {
-    alert("Sign up successfully");
+    if (!form.admintoken || form.admintoken=="") {
+      // const hash = bcrypt.hashSync(form.password, 1);
+      // console.log(hash)
+      dispatch(signup({...form,role:"user"}))
+      setForm({})
+    }
+    else {
+      if (form.admintoken != "@@@") {
+        alert("Your token is wrong.")
+      }
+      else if (form.admintoken == "@@@") {
+        dispatch(signup({...form,role:"admin"}))
+        setForm({})
+      }
+    }
   }
   return (
     <div>
@@ -163,6 +179,20 @@ function Signup() {
                     type="password"
                     name="confirmpassword"
                     value={form.confirmpassword || ""}
+                    onChange={handleChange}
+                  />
+                </div>
+                <p className="error">{errors.confirmpassword}</p>
+              </div>
+              <div
+                className={`custom-input`}
+              >
+                <div className="group-input-signup">
+                  <label style={{ maxWidth: 150 }}>For admin, please input your token</label>
+                  <input
+                    type="text"
+                    name="admintoken"
+                    value={form.admintoken || ""}
                     onChange={handleChange}
                   />
                 </div>
