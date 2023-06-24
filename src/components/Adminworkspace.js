@@ -1,22 +1,35 @@
 import { useDispatch, useSelector } from "react-redux";
-import { banuser, deletepost, getPost, getallusers, increment, login, toadmin } from "../redux/action";
-import { useEffect } from "react";
+import { banuser, deletepost, getPost, getallusers, increment, login, searchFilterChange, toadmin } from "../redux/action";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
+import { AudioOutlined } from '@ant-design/icons';
+import { Input, Space } from 'antd';
+import type { RadioChangeEvent } from 'antd';
+import { Radio } from 'antd';
 
 function Adminworkspace() {
+    const { Search } = Input;
+    const plainOptions = ['Title', 'Body', 'Author'];
+    const [searchradio, setSearchradio] = useState('Title');
+    const [searchtext, setSearchtext] = useState('');
+    const onChangeradio = ({ target: { value } }: RadioChangeEvent) => {
+        setSearchradio(value);
+    };
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const state = useSelector((state) => state);
-
+    const filterresult = state.posts.filter(item => {
+        return item[searchradio.toLowerCase()].includes(searchtext)
+    })
     useEffect(() => {
         dispatch(getPost());
         dispatch(getallusers())
     }, []);
 
-    // console.log(state.allusers)
-    const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
+
+    // const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 
     function reactionclick(emojiname, id, currentcount) {
         dispatch(increment(emojiname, id, currentcount));
@@ -30,8 +43,13 @@ function Adminworkspace() {
         dispatch(banuser(id))
     }
 
-    function toadminclick(id){
+    function toadminclick(id) {
         dispatch(toadmin(id))
+    }
+
+    const handleChangetextsearch = (e) => {
+        setSearchtext(e.target.value)
+        // dispatch(searchFilterChange(e.target.value));
     }
     return (
         <div>
@@ -65,17 +83,15 @@ function Adminworkspace() {
                                                 <td>{item.role}</td>
                                                 <td>
                                                     {(item.id != state.user.id) ? ((item.role != "admin" || item.id != 1) ?
-                                                        <button className="button-login" onClick={()=>banuserclick(item.id)}>Ban user</button>
+                                                        <button className="button-login" onClick={() => banuserclick(item.id)}>Ban user</button>
                                                         : <button className="button-disabled">Ban user</button>)
                                                         : <button className="button-disabled">Me</button>}
 
                                                     {(item.id != state.user.id) ? ((item.role != "admin" && item.id != 1) ?
-                                                        <button className="button-login" style={{ marginTop: 10 }} onClick={()=>toadminclick(item.id)}>To Admin</button>
+                                                        <button className="button-login" style={{ marginTop: 10 }} onClick={() => toadminclick(item.id)}>To Admin</button>
                                                         : <button className="button-disabled" style={{ marginTop: 10 }}>To Admin</button>)
                                                         : <button className="button-disabled" style={{ marginTop: 10 }}>Me</button>
                                                     }
-
-                                                  
                                                 </td>
                                             </tr>
                                         )}
@@ -84,13 +100,22 @@ function Adminworkspace() {
                                 </table>
 
                             </div>
-                            <div className="adminworkspace-analytics-filter">
-                                <h2>Filter</h2>
+                            <div className="adminworkspace-analytics-reviews">
+                                <h2>Analytic Reviews</h2>
+                                <div className="adminworkspace-analytics-reviews-wrap">
+                                  
+                                </div>
+
                             </div>
                         </div>
                         <div className="adminworkspace-posts">
                             <h2>All posts of users</h2>
-                            {sortedposts.map((item, index) => (
+                            <Space direction="vertical" >
+                                        <Search placeholder="input search text" onChange={handleChangetextsearch} enterButton/>
+                                        <Radio.Group options={plainOptions} onChange={onChangeradio} value={searchradio} className="searchradio" />
+                                    </Space><br></br>
+                                    
+                            {filterresult.map((item, index) => (
                                 <div className="adminworkspace-posts-wrap">
                                     <div
                                         className="home-body-item"
@@ -156,8 +181,6 @@ function Adminworkspace() {
                                         <div style={{ marginTop: 20 }}><button className="button-back" onClick={() => deletepostclick(item.id)}>Delete</button></div>
                                     </div>
                                 </div>
-
-
                             ))}
                         </div>
                     </div>

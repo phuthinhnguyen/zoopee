@@ -4,6 +4,7 @@ import {
   FETCH_USER_SUCCESS,
   GET_USERPROFILE_SUCCESS,
   LOGOUT_SUCCESS,
+  SEARCH_FILTER_SUCCESS,
   TO_ADMIN_SUCCESS
 } from "./action";
 import {
@@ -17,7 +18,7 @@ import { LOGIN_SUCCESS } from "./action";
 
 const initialState = {
   posts: [],
-  user: null
+  user: null,
   // allusers: null
 };
 
