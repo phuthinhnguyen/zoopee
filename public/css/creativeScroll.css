@@ -19,6 +19,8 @@
 	display: block;
 	position: absolute;
 	bottom: 20vh;
+	font-family: outfit-c;
+	font-size: 16px;
 }
 #signup:hover{
 	background-color: yellow;

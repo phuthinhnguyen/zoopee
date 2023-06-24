@@ -44,7 +44,10 @@ function Userprofile() {
                   <h3>{item.title}</h3>
                   <p style={{ fontStyle: "italic" }}>{item.body}</p>
                   <div>
-                    <Link to="/viewpost" state={item}>
+                    <Link to="/viewpost" state={item} onClick={() =>
+                        {reactionclick("view", item.id, item.view);
+                      }
+                      }>
                       View Post
                     </Link>
                     <a style={{ marginLeft: 10 }}> by </a>

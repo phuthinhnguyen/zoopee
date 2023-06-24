@@ -27,6 +27,7 @@ function Home() {
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
+   
   }
   return (
     <div>
@@ -43,7 +44,10 @@ function Home() {
                   <h3>{item.title}</h3>
                   <p style={{ fontStyle: "italic" }}>{item.body}</p>
                   <div>
-                    <Link to="/viewpost" state={item}>
+                    <Link state={item} to="/viewpost" onClick={() =>
+                        {reactionclick("view", item.id, item.view);
+                      }
+                      }>
                       View Post
                     </Link>
                     <a style={{ marginLeft: 10 }}> by </a>

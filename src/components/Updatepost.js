@@ -58,7 +58,7 @@ function Updatepost() {
                   Save Post
                 </button>
                 <button
-                  className="button-login"
+                  className="button-login" style={{width:150}}
                   onClick={() => deletepostclick(form.id)}
                 >
                   Delete Post

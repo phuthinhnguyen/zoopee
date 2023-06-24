@@ -33,8 +33,17 @@ body {
   --colortext: white;
   --buttonhover: yellow;
   --backgroundbody: rgb(24, 24, 24);
+  --fonttext: outfit-c;
+  --fontspecial: raleway-c;
 }
-
+@font-face {
+	font-family: outfit-c;
+	src: url(../public/fonts/outfit-regular.woff2);
+}
+@font-face {
+	font-family: raleway-c;
+	src: url(../public/fonts/raleway-regular.woff2);
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -59,12 +68,13 @@ body {
 .header {
   background-color: var(--backgroundhead);
   color: var(--colortext);
-  height: 80px;
+  height: 85px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 35px;
+  padding: 10px 35px;
   width: 100%;
+  font-family: var(--fonttext);
 }
 
 .header-link-wrap {
@@ -108,24 +118,29 @@ body {
 
 label {
   color: var(--colortext);
+  font-family: var(--fonttext);
+  font-size: 18px;
+  line-height: 40px;
 }
 
 input {
   border-radius: 6px;
   border: none;
-  outline: 1px solid lightgray;
-  height: 30px;
+  /* outline: 1px solid lightgray; */
+  height: 40px;
   width: 200px;
 }
 
 input:hover,
 textarea:hover {
-  filter: drop-shadow(1px 1px 1px var(--boldyellow));
+  outline: 2px solid var(--boldyellow);
+  border: 1px solid lightgray;
 }
 
 input:focus,
 textarea:focus {
-  filter: drop-shadow(1px 1px 1px var(--boldyellow));
+  outline: 2px solid var(--boldyellow);
+  border: 1px solid lightgray;
 }
 
 form {
@@ -155,6 +170,7 @@ form {
   display: block;
   margin-top: 100px;
   margin: auto;
+  font-family: var(--fonttext);
 }
 
 .button-back:hover {
@@ -231,7 +247,7 @@ form {
 } */
 .formlogin {
   flex: 1;
-  max-width: 700px;
+  max-width: 750px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -239,9 +255,6 @@ form {
   color: black;
 }
 
-.login label {
-  color: var(--colortext);
-}
 
 .button-login {
   width: 100px;
@@ -287,6 +300,7 @@ form {
   justify-content: center;
   align-items: center;
   padding: 50px;
+  font-family: var(--fonttext);
 }
 
 .addnewpost-body h2 {
@@ -308,6 +322,7 @@ form {
 .addnewpost-body-form textarea {
   width: 100%;
   margin-top: 10px;
+  border-radius: 10px;
 }
 
 .home-body {
@@ -348,63 +363,96 @@ form {
 
 .adminworkspace-wrap {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   width: 100%;
   height: 100%;
   min-height: 90vh;
   background-color: var(--backgroundbody);
   color: white;
+  padding: 50px;
 }
 
 .adminworkspace-posts {
-  width: 40%;
-  /* border: 1px solid gray; */
-  /* border-radius: 10px; */
+  width: 100%;
   padding: 30px 20px;
   overflow: auto;
-  /* height: 100%; */
-  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.adminworkspace-posts h2 {
+  text-align: center;
+  font-family: var(--fonttext);
 }
 
+.input-search-wrap{
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 30px;
+}
+.filter-checkbox-wrap{
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 70%;
+  column-gap: 50px;
+  margin-top: 30px;
+}
+.filter-checkbox-wrap .form-check{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+
+}
 .adminworkspace-posts-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-
+  column-gap: 40px;
+  margin-top: 40px;
+  width: 70%;
+  margin: auto;
 }
-
-.adminworkspace-posts h2 {
-  text-align: center;
+.adminworkspace-posts-showsearch{
+  max-height: 800px;
+  min-height: 300px;
+  overflow: auto;
+  margin-top: 30px;
+  padding-bottom: 20px;
 }
 
 .adminworkspace-posts-action {
   flex: 0.5;
 }
 
-.adminworkspace-analytics {
-  width: 60%;
-  /* border: 1px solid gray; */
-  /* border-radius: 10px; */
-  padding: 30px 40px;
 
-}
 
 .adminworkspace-analytics-users {
-  /* border: 1px solid gray; */
-  max-height: 500px;
-  overflow: auto;
-
+  margin-top: 80px;
+  padding: 50px;
 }
 
 .adminworkspace-analytics-users h2 {
   text-align: center;
+  font-family: var(--fonttext);
 }
-
+.adminworkspace-analytics-users-table-wrap{
+  max-height: 700px;
+  overflow: auto;
+  margin-top: 30px;
+}
 .adminworkspace-analytics-users-table {
+  max-width: 70%;
+  margin: auto;
   color: white;
   margin-top: 50px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
+  font-family: var(--fonttext);
 }
 
 .adminworkspace-analytics-users-table thead th {
@@ -420,19 +468,27 @@ form {
 
 .adminworkspace-analytics-reviews {
   /* border: 1px solid gray; */
-  margin-top: 40px;
+  margin-top: 80px;
   width: 100%;
+  padding: 50px;
+  max-height: 500px;
 }
 
 .adminworkspace-analytics-reviews h2 {
   text-align: center;
+  font-family: var(--fonttext);
 }
-
-.searchradio {
-  margin-top: 20px;
-  color: white;
+.adminworkspace-analytics-reviews-wrap{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
-
+.input-group .input-group-prepend .icon-search{
+  border-radius: 10px 1px 1px 10px;
+  background-color: var(--boldyellow);
+  border: 1px solid var(--boldyellow);
+  height: 40px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -56,7 +56,8 @@ export const addnewpost = (form, userid) => {
       wow: 0,
       heart: 0,
       rocket: 0,
-      coffee: 0
+      coffee: 0,
+      view:0
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
