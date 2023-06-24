@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import {
+  BAN_USER_SUCCESS,
   FETCH_USER_SUCCESS,
   GET_USERPROFILE_SUCCESS,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  TO_ADMIN_SUCCESS
 } from "./action";
 import {
   ADD_NEW_POST_SUCCESS,
@@ -125,6 +127,10 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, user: null };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
+    case BAN_USER_SUCCESS:
+      return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload)] };
+    case TO_ADMIN_SUCCESS:
+      return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload.id), action.payload] }
     default:
       return state;
   }

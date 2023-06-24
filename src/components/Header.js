@@ -51,7 +51,7 @@ function Header() {
           Home
         </Link>
         <Link to="/userprofile" className="header-link" onClick={() => userprofileclick()}>
-          Hi, {state.user.name}
+          My Profile
         </Link>
         <Link to="/addnewpost" className="header-link">
           New Post

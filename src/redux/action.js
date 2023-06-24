@@ -9,7 +9,8 @@ export const UPDATE_EMOJI_SUCCESS = "UPDATE_EMOJI_SUCCESS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
-
+export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
+export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
@@ -185,3 +186,36 @@ export const signup = (form) => {
     alert("Sign up successfully")
   }
 }
+
+export const getallusers = ()=>{
+  return async dispatch=>{
+    const response = await axios.get(apiurlusers)
+    dispatch({
+      type:FETCH_USER_SUCCESS,
+      payload:response.data
+    })
+  }
+}
+
+export const banuser = (id)=>{
+  return async dispatch=>{
+    const response = await axios.delete(`${apiurlusers}/${id}`)
+    dispatch({
+      type:BAN_USER_SUCCESS,
+      payload:id
+    })
+  }
+}
+
+export const toadmin = (id)=>{
+  return async dispatch=>{
+    const response = await axios.put(`${apiurlusers}/${id}`,{
+      role:"admin"
+    })
+    dispatch({
+      type:TO_ADMIN_SUCCESS,
+      payload:response.data
+    })
+  }
+}
+

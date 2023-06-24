@@ -12,7 +12,6 @@ import {
   BsPinterest
 } from "react-icons/bs";
 import { signup } from "../redux/action";
-// var passwordHash = require('password-hash');
 
 function Signup() {
   const dispatch = useDispatch();
@@ -56,8 +55,6 @@ function Signup() {
 
   function handleSubmit() {
     if (!form.admintoken || form.admintoken=="") {
-      // const hash = bcrypt.hashSync(form.password, 1);
-      // console.log(hash)
       dispatch(signup({...form,role:"user"}))
       setForm({})
     }
