@@ -11,7 +11,7 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
-
+import Alert from '@mui/material/Alert';
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
@@ -57,7 +57,7 @@ export const addnewpost = (form, userid) => {
       heart: 0,
       rocket: 0,
       coffee: 0,
-      view:0
+      view: 0
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -105,8 +105,7 @@ export const deletepost = (id) => {
 
 export const login = (form) => {
   return async (dispatch) => {
-    // let allusers = [];
-    // let posts = [];
+    // checkloginresult=  ""
     const response = await axios.get(apiurlusers);
     const getusername = response.data.filter(
       (item) => item.username == form.username
@@ -114,9 +113,14 @@ export const login = (form) => {
 
     if (getusername.length == 0) {
       alert("Username is not exists");
+      // checkloginresult = "Username is not exists"
     }
     else if (getusername[0].password != form.password) {
       alert("Username and password are not matched");
+    //   <Alert severity="success" color="info">
+    //   This is a success alert — check it out!
+    // </Alert>
+    // checkloginresult = "Username and password are not matched"
     }
     else if (getusername[0].password == form.password) {
       dispatch({
@@ -178,14 +182,27 @@ export const getUserprofile = (posts, user) => {
 
 export const signup = (form) => {
   return async (dispatch) => {
-    const response = await axios.post(apiurlusers, {
-      name: form.name,
-      email: form.email,
-      username: form.username,
-      password: form.password,
-      role: form.role
-    })
-    alert("Sign up successfully")
+    const responsegetuser = await axios.get(apiurlusers)
+    const checkusername = responsegetuser.data.filter(item => item.username == form.username)
+    const checkemail = responsegetuser.data.filter(item => item.email == form.email)
+
+    if (checkusername.length != 0) {
+      alert("Username already exists")
+    }
+    else if (checkemail.length != 0) {
+      alert("Email already exists")
+    }
+    else {
+      const response = await axios.post(apiurlusers, {
+        name: form.name,
+        email: form.email,
+        username: form.username,
+        password: form.password,
+        role: form.role
+      })
+      alert("Sign up successfully")
+
+    }
   }
 }
 

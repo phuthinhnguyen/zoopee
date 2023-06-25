@@ -4,6 +4,9 @@ import "../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGIN_SUCCESS, getPost, login } from "../redux/action";
 import { Link, useNavigate } from "react-router-dom";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import Box from "./Post";
 // import { header } from "./Header";
 export default function Login() {
   const dispatch = useDispatch();
@@ -23,9 +26,9 @@ export default function Login() {
   //   };
   // }, []);
   useEffect(() => {
-      if (state.user != null) {
-        navigate("/home")
-      } 
+    if (state.user != null) {
+      navigate("/home")
+    }
   }, [state.user]);
 
   function handleChange(event) {
@@ -126,12 +129,11 @@ export default function Login() {
         </Formik>
       </div>
       <div
-      className="login-body"
+        className="login-body"
       >
-        <iframe src="creativeScroll.html" style={{width:"100%",height:"100%"}}></iframe>
+        <iframe src="creativeScroll.html" style={{ width: "100%", height: "100%" }}></iframe>
         {/* <Link to="/signup">Sign up here</Link> */}
       </div>
-      
     </div>
   );
 }

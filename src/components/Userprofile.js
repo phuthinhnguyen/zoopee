@@ -5,6 +5,7 @@ import Header from "./Header";
 import { convertTime } from "./convertTime";
 import { getUserprofile } from "../redux/action";
 import { increment } from "../redux/action";
+import Post from "./Post";
 
 function Userprofile() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Userprofile() {
             {state.user != null &&
               sortedposts != false &&
               sortedposts.map((item, index) => (
+               <Post item={
                 <div
                 className="home-body-item"
                 key={index}
@@ -95,6 +97,7 @@ function Userprofile() {
                   </div>
                 </div>
               </div>
+               }/>
               ))}
           </div>
         </div>

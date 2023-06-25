@@ -3,6 +3,25 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+html{
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 10px;
+	  }
+	
+	  ::-webkit-scrollbar-track {
+		background: transparent;
+	  }
+	
+	  ::-webkit-scrollbar-thumb {
+		background: black;
+		border-radius: 5px;
+	  }
+	
+	  ::-webkit-scrollbar-thumb:hover {
+		background: black;
+	  }
+}
 :root {
 	--index: calc(1vw + 1vh);
 	--color-header: #f4efec;
