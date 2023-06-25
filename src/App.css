@@ -36,6 +36,8 @@ html {
   --backgroundbody: rgb(24, 24, 24);
   --fonttext: outfit-c;
   --fontspecial: raleway-c;
+  --success: #10e96a;
+  --error: #fc3e31;
 }
 @font-face {
 	font-family: outfit-c;
@@ -282,14 +284,15 @@ form {
 }
 
 .signup-body {
-  background-image: url('https://res.cloudinary.com/dhva3lwfk/image/upload/v1686124303/cld-sample-3.jpg');
+  /* background-image: url('../public/img/creativeScroll-hero.png');
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  height: 90vh;
+  background-size: cover; */
+  /* height: 90vh; */
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--backgroundhead);
 }
 
 .addnewpost-body {

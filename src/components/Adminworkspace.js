@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { banuser, deletepost, getPost, getallusers, increment, login, searchFilterChange, toadmin } from "../redux/action";
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
@@ -13,11 +13,24 @@ import { gettoppost } from "./analytic";
 import { GrOverview } from "react-icons/gr";
 import { BsSearch } from "react-icons/bs";
 import Post from "./Post";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
+
+
+function SlideTransition(props) {
+    return <Slide {...props} direction="up" />;
+  }
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 function Adminworkspace() {
     const { Search } = Input;
     const [searchradio, setSearchradio] = useState('title');
     const [searchtext, setSearchtext] = useState('');
     const [tabvalue, setTabvalue] = useState(0);
+    const [open,setOpen] = useState(false)
+    const [message,setMessage] = useState("")
     const handleChangetab = (event, newValue) => {
         setTabvalue(newValue);
     };
@@ -36,29 +49,39 @@ function Adminworkspace() {
         dispatch(getallusers())
     }, []);
 
-
-
-
     function reactionclick(emojiname, id, currentcount) {
         dispatch(increment(emojiname, id, currentcount));
     }
 
     function deletepostclick(id) {
         dispatch(deletepost(id));
+        setMessage("Your post has been deleted successfully");
+        setOpen(true)
     }
 
     function banuserclick(id) {
         dispatch(banuser(id))
+        setMessage("You have banned user successfully");
+        setOpen(true)
     }
 
     function toadminclick(id) {
         dispatch(toadmin(id))
+        setMessage("You have made user to admin successfully");
+        setOpen(true)
     }
 
     const handleChangetextsearch = (e) => {
         setSearchtext(e.target.value)
         // dispatch(searchFilterChange(e.target.value));
     }
+
+    const closealert = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false)
+      };
     return (
         <div>
             {state.user != null ?
@@ -675,6 +698,11 @@ function Adminworkspace() {
                             </div>
                         } />
                     </div>
+                    <Snackbar open={open} autoHideDuration={4000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
+                        <Alert onClose={closealert} severity="success" sx={{ width: '100%', marginBottom: 4, marginRight: 2, backgroundColor: "var(--backgroundbody)", color: "var(--success)" }}>
+                            {message}
+                        </Alert>
+                    </Snackbar>
                 </div>
                 : navigate("/")}
         </div>

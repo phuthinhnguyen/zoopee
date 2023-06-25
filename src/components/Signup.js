@@ -95,7 +95,6 @@ function Signup() {
       <div
         className="signup-body"
       >
-        <h1>Sign Up</h1>
         <Formik
           initialValues={form}
           validate={handleValidate}
@@ -201,6 +200,7 @@ function Signup() {
           )}
         </Formik>
       </div>
+      <iframe src="creativeScroll.html" style={{ width: "100%", height: "90vh" }}></iframe>
     </div>
   );
 }

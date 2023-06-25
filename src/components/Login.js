@@ -17,13 +17,15 @@ function SlideTransition(props) {
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-// import { header } from "./Header";
+
+
+
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+  const [open,setOpen] = useState(false)
   // const { enqueueSnackbar } = useSnackbar();
-  const [open, setOpen] = useState(false);
   // console.log(open1)
   // const REGEX = {
   //   email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -48,15 +50,21 @@ function Login() {
   //   };
   // }, []);
   useEffect(() => {
-    if (state.user != null) {
-      if (state.user.checkloginresult == "Login successfully") {
-        navigate("home")
+    if (state.user != null) { 
+      if(state.user.checkloginresult == "Login successfully"){
+        navigate("/home")
       }
+      else setOpen(true)
       // else enqueueSnackbar(state.user.checkloginresult, "success" );
-      else setOpen(true);
     }
-
   }, [state.user]);
+
+  const closealert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false)
+  };
 
   function handleChange(event) {
     setForm({
@@ -101,6 +109,7 @@ function Login() {
 
   function handleSubmit() {
     dispatch(login(form));
+
   }
 
   return (
@@ -161,13 +170,11 @@ function Login() {
         <iframe src="creativeScroll.html" style={{ width: "100%", height: "100%" }}></iframe>
         {/* <Link to="/signup">Sign up here</Link> */}
       </div>
-      {/* <Snackbar open={open} autoHideDuration={4000} onClose={closealert}  anchorOrigin={{ vertical:"bottom", horizontal:"right" }}  TransitionComponent={SlideTransition}>
-        <Alert onClose={closealert} severity="error" sx={{ width: '100%',marginBottom: 4,marginRight: 2,backgroundColor:"var(--backgroundbody)",color:"var(--boldyellow)"}}>
+      <Snackbar open={open} autoHideDuration={4000} onClose={closealert}  anchorOrigin={{ vertical:"bottom", horizontal:"right" }}  TransitionComponent={SlideTransition}>
+        <Alert onClose={closealert} severity="error" sx={{ width: '100%',marginBottom: 4,marginRight: 2,backgroundColor:"var(--backgroundbody)",color:"var(--error)"}}>
           {state.user!=null && state.user.checkloginresult}
         </Alert>
-      </Snackbar> */}
-      {state.user!=null &&  console.log(state.user.checkloginresult)}
-      { state.user!=null && <Alertinfo status={true} message={state.user.checkloginresult}/>}
+      </Snackbar>
     </div>
   );
 }

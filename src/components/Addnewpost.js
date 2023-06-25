@@ -1,13 +1,24 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addnewpost } from "../redux/action";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
-import { getPost } from "../redux/action";
 import "../App.css";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Slide from '@mui/material/Slide';
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 function Addnewpost() {
   const [form, setForm] = useState({ title: "", body: "", author: "" });
   const user = useSelector((state) => state.user);
+  const [open,setOpen] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -15,11 +26,20 @@ function Addnewpost() {
       navigate("/");
     }
   }, []);
+
+  const closealert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false)
+  };
+
   function submitform(e) {
     e.preventDefault();
     if (form.title != "" && form.body != "" && form.author != "") {
       dispatch(addnewpost(form, user.id));
       setForm({ title: "", body: "", author: "" });
+      setOpen(true)
     }
   }
   return (
@@ -64,7 +84,11 @@ function Addnewpost() {
             Back
           </Link>
           </div>
-        
+          <Snackbar open={open} autoHideDuration={4000} onClose={closealert}  anchorOrigin={{ vertical:"bottom", horizontal:"right" }}  TransitionComponent={SlideTransition}>
+        <Alert onClose={closealert} severity="success" sx={{ width: '100%',marginBottom: 4,marginRight: 2,backgroundColor:"var(--backgroundbody)",color:"var(--success)"}}>
+          Your post has been uploaded successfully
+        </Alert>
+      </Snackbar>
         </div>
         : navigate("/")}
     </>
