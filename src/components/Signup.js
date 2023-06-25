@@ -200,7 +200,7 @@ function Signup() {
           )}
         </Formik>
       </div>
-      <iframe src="creativeScroll.html" style={{ width: "100%", height: "90vh" }}></iframe>
+    
     </div>
   );
 }
