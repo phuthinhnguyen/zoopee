@@ -11,7 +11,7 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
-import Alert from '@mui/material/Alert';
+
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
@@ -105,30 +105,32 @@ export const deletepost = (id) => {
 
 export const login = (form) => {
   return async (dispatch) => {
-    // checkloginresult=  ""
+    let checkloginresult=  ""
     const response = await axios.get(apiurlusers);
     const getusername = response.data.filter(
       (item) => item.username == form.username
     );
 
     if (getusername.length == 0) {
-      alert("Username is not exists");
-      // checkloginresult = "Username is not exists"
+      // alert("Username is not exists");
+      checkloginresult = "Username is not exists"
     }
     else if (getusername[0].password != form.password) {
-      alert("Username and password are not matched");
+      // alert("Username and password are not matched");
     //   <Alert severity="success" color="info">
     //   This is a success alert — check it out!
     // </Alert>
-    // checkloginresult = "Username and password are not matched"
+    checkloginresult = "Username and password are not matched"
     }
     else if (getusername[0].password == form.password) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: { ...getusername[0], userblogs: [] }
-      });
+      checkloginresult = "Login successfully"
+    
       // dispatch(getPost());
     }
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: { ...getusername[0], userblogs: [],checkloginresult:checkloginresult }
+    });
     // for (let item of response.data) {
     // if (item.tokenId) {
     //   posts.push(item);
