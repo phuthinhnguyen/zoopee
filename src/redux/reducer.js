@@ -126,9 +126,9 @@ const rootReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };
     case SIGNUP_SUCCESS:
-      return {...state,checksignupresult:action.payload}
+      return {...state,user:{...state.user,checktype:action.payload.checktype,result:action.payload.result}}
     case LOGOUT_SUCCESS:
-      return { ...state, user: null,checksignupresult:undefined };
+      return { ...state, user: null};
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
     case BAN_USER_SUCCESS:

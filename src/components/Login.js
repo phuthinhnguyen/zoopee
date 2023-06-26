@@ -28,8 +28,9 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
-  const [loginorsignup, setLoginorsignup] = useState("")
-  const [open, setOpen] = useState(false);
+  // const [loginorsignup, setLoginorsignup] = useState("")
+  // const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState({open:false,message:""});
   const [checked, setChecked] = useState(false);
   // const { enqueueSnackbar } = useSnackbar();
   // console.log(open1)
@@ -61,22 +62,24 @@ function Login() {
   });
 
   useEffect(() => {
-    if (state.user != null) {
-      if (state.user.checkloginresult == "Login successfully") {
+    if (state.user != null && state.user.checktype=="login") {
+      if (state.user.result == "Login successfully") {
         navigate("/home")
       }
-      else setOpen(true)
+      else setAlert({open:true,message:state.user.result})
     }
-    else if (state.user == null) {
-      if (state.checksignupresult != undefined) setOpen(true)
+    else if (state.user != null && state.user.checktype=="signup") {
+       setAlert({open:true,message:state.user.result})
     }
   }, [state]);
+
+  console.log(state.user)
 
   const closealert = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setOpen(false)
+    setAlert({...alert,open:false})
   };
 
   function handleChangelogin(event) {
@@ -110,7 +113,7 @@ function Login() {
     });
     if (formlogin.username != "" && formlogin.password !== "") {
       dispatch(login(formlogin));
-      setLoginorsignup("login")
+      // setLoginorsignup("login")
     }
   }
 
@@ -148,7 +151,7 @@ function Login() {
     if (formsignup.name != "" && formsignup.email != "" && formsignup.username != "" && formsignup.password != "" && formsignup.confirmpassword != "" && errors.email == "") {
       if (!formsignup.admintoken || formsignup.admintoken == "") {
         dispatch(signup({ ...formsignup, role: "user" }))
-        setLoginorsignup("signup")
+        // setLoginorsignup("signup")
         // setFormsignup({})
       }
       else {
@@ -157,7 +160,7 @@ function Login() {
         }
         else if (formsignup.admintoken == "@@@") {
           dispatch(signup({ ...formsignup, role: "admin" }))
-          setLoginorsignup("signup")
+          // setLoginorsignup("signup")
           // setFormsignup({})
         }
       }
@@ -339,10 +342,10 @@ function Login() {
         {/* <Link to="/signup">Sign up here</Link> */}
       </div>
 
-      <Snackbar open={open} autoHideDuration={2000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
-        <Alert onClose={closealert} severity={state.checksignupresult == "Sign up successfully" ? "success" : "error"} sx={state.checksignupresult == "Sign up successfully" ? { ...alrertstylesuccess, color: "var(--success)" } : { ...alrertstylesuccess, color: "var(--error)" }}>
-          {(state.user != null && loginorsignup == "login" && state.user.checkloginresult) ||
-            (state.checksignupresult != null && loginorsignup == "signup" && state.checksignupresult)}
+      <Snackbar open={alert.open} autoHideDuration={2000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
+        <Alert onClose={closealert} severity={alert.message.includes("successfully") ? "success" : "error"} sx={alert.message.includes("successfully") ? { ...alrertstylesuccess, color: "var(--success)" } : { ...alrertstylesuccess, color: "var(--error)" }}>
+          {/* {(state.user != null && loginorsignup == "login" && state.user.checkloginresult) ||
+            (state.checksignupresult != null && loginorsignup == "signup" && state.checksignupresult)} */}{alert.message}
         </Alert>
       </Snackbar>
     </div>

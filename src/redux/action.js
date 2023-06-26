@@ -114,6 +114,10 @@ export const login = (form) => {
     if (getusername.length == 0) {
       // alert("Username is not exists");
       checkloginresult = "Username is not exists"
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { userblogs: [], checktype:"login",result: checkloginresult }
+      });
     }
     else if (getusername[0].password != form.password) {
       // alert("Username and password are not matched");
@@ -121,16 +125,20 @@ export const login = (form) => {
       //   This is a success alert — check it out!
       // </Alert>
       checkloginresult = "Username and password are not matched"
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { userblogs: [], checktype:"login",result: checkloginresult }
+      });
     }
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
-
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: { ...getusername[0], userblogs: [], checktype:"login",result: checkloginresult }
+      });
       // dispatch(getPost());
     }
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: { ...getusername[0], userblogs: [], checkloginresult: checkloginresult }
-    });
+
     // for (let item of response.data) {
     // if (item.tokenId) {
     //   posts.push(item);
@@ -210,7 +218,7 @@ export const signup = (form) => {
     }
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: checksignupresult
+      payload: {checktype:"signup",result:checksignupresult}
     });
   }
 }
