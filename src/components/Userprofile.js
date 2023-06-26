@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
@@ -10,6 +10,7 @@ import Post from "./Post";
 function Userprofile() {
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+  const [sharethinking, setSharethinking] = useState("")
   const dispatch = useDispatch();
   useEffect(() => {
     if (state.user == null) {
@@ -23,7 +24,9 @@ function Userprofile() {
       blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
   }
 
-  // }
+  const sharethinkingonChange = (e) => {
+    setSharethinking(e.target.value)
+  }
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
@@ -41,6 +44,10 @@ function Userprofile() {
               <img src={state.user.avatar} alt="Image link not found" className="avatar"></img>
             </div>
             <h1 className="home-body-name">{state.user.name}</h1>
+            <div className="share-thinking" style={{ marginTop: 80 }}>
+              <input type="text" class="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking} />
+              <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
+            </div>
             {state.user != null &&
               sortedposts != false &&
               sortedposts.map((item, index) => (

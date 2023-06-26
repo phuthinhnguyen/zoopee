@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addnewpost } from "../redux/action";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "../App.css";
 import Snackbar from '@mui/material/Snackbar';
@@ -16,9 +16,10 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 function Addnewpost() {
-  const [form, setForm] = useState({ title: "", body: "", author: "" });
+  const { state } = useLocation()
+  const [form, setForm] = useState({ title: "", body: state || "", author: "" });
   const user = useSelector((state) => state.user);
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -71,24 +72,24 @@ function Addnewpost() {
               <button
                 type="submit"
                 className="button-login"
-                // style={{ backgroundColor: "purple", color: "white" }}
+              // style={{ backgroundColor: "purple", color: "white" }}
               >
                 Save Post
               </button>
             </form>
             <Link
-            className="button-back"
-            to="/home"
-          // onClick={() => dispatch(getPost())}
-          >
-            Back
-          </Link>
+              className="button-back"
+              to="/home"
+            // onClick={() => dispatch(getPost())}
+            >
+              Back
+            </Link>
           </div>
-          <Snackbar open={open} autoHideDuration={4000} onClose={closealert}  anchorOrigin={{ vertical:"bottom", horizontal:"right" }}  TransitionComponent={SlideTransition}>
-        <Alert onClose={closealert} severity="success" sx={{ width: '100%',marginBottom: 4,marginRight: 2,backgroundColor:"var(--backgroundbody)",color:"var(--success)"}}>
-          Your post has been uploaded successfully
-        </Alert>
-      </Snackbar>
+          <Snackbar open={open} autoHideDuration={4000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
+            <Alert onClose={closealert} severity="success" sx={{ width: '100%', marginBottom: 4, marginRight: 2, backgroundColor: "var(--backgroundbody)", color: "var(--success)" }}>
+              Your post has been uploaded successfully
+            </Alert>
+          </Snackbar>
         </div>
         : navigate("/")}
     </>

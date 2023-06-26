@@ -5,11 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
 import Post from "./Post";
+import { useState } from "react";
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+  const [sharethinking,setSharethinking] = useState("")
   // if (state.user == null) {
   //   navigate("/")
   // }
@@ -18,7 +20,9 @@ function Home() {
     dispatch(getPost());
   }, []);
 
-
+  const sharethinkingonChange = (e)=>{
+    setSharethinking(e.target.value)
+  }
   console.log(state);
   // useEffect(() => {
   //   dispatch(getPost());
@@ -35,6 +39,11 @@ function Home() {
         <div>
           <Header />
           <div className="home-body">
+            <div className="share-thinking">
+            <input type="text" class="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking}/>
+            <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
+            </div>
+          
             {sortedposts.map((item, index) => (
               <Post item={
                 <div
