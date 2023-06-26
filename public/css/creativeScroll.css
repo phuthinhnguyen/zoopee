@@ -87,6 +87,7 @@ body {
 	bottom: 35vh;
 	line-height: .9;
 }
+
 .gallery {
 	display: flex;
 	padding: calc(var(--index) * 8) 0;

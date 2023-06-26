@@ -11,7 +11,7 @@ export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
-
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
@@ -105,7 +105,7 @@ export const deletepost = (id) => {
 
 export const login = (form) => {
   return async (dispatch) => {
-    let checkloginresult=  ""
+    let checkloginresult = ""
     const response = await axios.get(apiurlusers);
     const getusername = response.data.filter(
       (item) => item.username == form.username
@@ -117,19 +117,19 @@ export const login = (form) => {
     }
     else if (getusername[0].password != form.password) {
       // alert("Username and password are not matched");
-    //   <Alert severity="success" color="info">
-    //   This is a success alert — check it out!
-    // </Alert>
-    checkloginresult = "Username and password are not matched"
+      //   <Alert severity="success" color="info">
+      //   This is a success alert — check it out!
+      // </Alert>
+      checkloginresult = "Username and password are not matched"
     }
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
-    
+
       // dispatch(getPost());
     }
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: { ...getusername[0], userblogs: [],checkloginresult:checkloginresult }
+      payload: { ...getusername[0], userblogs: [], checkloginresult: checkloginresult }
     });
     // for (let item of response.data) {
     // if (item.tokenId) {
@@ -184,15 +184,18 @@ export const getUserprofile = (posts, user) => {
 
 export const signup = (form) => {
   return async (dispatch) => {
+    let checksignupresult = ""
     const responsegetuser = await axios.get(apiurlusers)
     const checkusername = responsegetuser.data.filter(item => item.username == form.username)
     const checkemail = responsegetuser.data.filter(item => item.email == form.email)
 
     if (checkusername.length != 0) {
-      alert("Username already exists")
+      // alert("Username already exists")
+      checksignupresult = "Username already exists"
     }
     else if (checkemail.length != 0) {
-      alert("Email already exists")
+      // alert("Email already exists")
+      checksignupresult = "Email already exists"
     }
     else {
       const response = await axios.post(apiurlusers, {
@@ -202,9 +205,13 @@ export const signup = (form) => {
         password: form.password,
         role: form.role
       })
-      alert("Sign up successfully")
-
+      checksignupresult = "Sign up successfully"
+      // alert("Sign up successfully")
     }
+    dispatch({
+      type: SIGNUP_SUCCESS,
+      payload: checksignupresult
+    });
   }
 }
 

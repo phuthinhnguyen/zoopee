@@ -9,7 +9,6 @@ import { SnackbarProvider, useSnackbar } from 'notistack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-import Alertinfo from "./Alertinfo";
 import Collapse from '@mui/material/Collapse';
 import { signup } from "../redux/action";
 import { VscTriangleUp } from 'react-icons/vsc';
@@ -21,12 +20,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-
+const alrertstylesuccess = {
+  width: '100%', marginBottom: 4, marginRight: 2, backgroundColor: "var(--backgroundbody)"
+}
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+  const [loginorsignup, setLoginorsignup] = useState("")
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   // const { enqueueSnackbar } = useSnackbar();
@@ -57,24 +59,18 @@ function Login() {
     admintoken: "",
     errormessage: { name: "", email: "", username: "", password: "", confirmpassword: "", admintoken: "" }
   });
-  // useEffect(() => {
-  //   let iscancel = false;
-  //   if (!iscancel) {
-  //     dispatch(login());
-  //   }
-  //   return () => {
-  //     iscancel = true;
-  //   };
-  // }, []);
+
   useEffect(() => {
     if (state.user != null) {
       if (state.user.checkloginresult == "Login successfully") {
         navigate("/home")
       }
       else setOpen(true)
-      // else enqueueSnackbar(state.user.checkloginresult, "success" );
     }
-  }, [state.user]);
+    else if (state.user == null) {
+      if (state.checksignupresult != undefined) setOpen(true)
+    }
+  }, [state]);
 
   const closealert = (event, reason) => {
     if (reason === 'clickaway') {
@@ -96,59 +92,6 @@ function Login() {
       [event.target.name]: event.target.value
     });
   }
-  // function handleValidate() {
-  //   const errors = {};
-  //   if (!form.email) {
-  //     errors.email = "Required";
-  //   } else if (!REGEX.email.test(form.email)) {
-  //     errors.email = "Invalid email address";
-  //     console.log("code");
-  //   }
-  //   if (!form.username) {
-  //     errors.username = "Username is required";
-  //   }
-  //   if (!form.password) {
-  //     errors.password = "Password is required";
-  //   }
-
-  //   if (!formsignup.name) {
-  //     errors.name = "Required";
-  //   }
-  //   if (!formsignup.email) {
-  //     errors.email = "Required";
-  //   } else if (!REGEX.email.test(form.email)) {
-  //     errors.email = "Invalid email address";
-  //   }
-  //   if (!formsignup.usernamesignup) {
-  //     errors.usernamesignup = "Required";
-  //   }
-  //   if (!formsignup.passwordsignup) {
-  //     errors.passwordsignup = "Required";
-  //   }
-  //   if (!formsignup.confirmpassword) {
-  //     errors.confirmpassword = "Required";
-  //   } else if (formsignup.password != form.confirmpassword) {
-  //     errors.confirmpassword = "Password and Confirmpassword are not matched";
-  //   }
-  //   return errors;
-  // }
-  // function login() {
-  //   const getusername = state.allusers.filter(
-  //     (item) => item.username == form.username
-  //   );
-  //   if (getusername.length == 0) {
-  //     alert("Username is not exists");
-  //   } else if (getusername[0].password == form.password) {
-  //     dispatch({
-  //       type: LOGIN_SUCCESS,
-  //       payload: getusername[0]
-  //     });
-  //     navigate("/home");
-  //     dispatch(getPost());
-  //   } else if (getusername[0].password != form.password) {
-  //     alert("Username and password are not matched");
-  //   }
-  // }
 
   function handleSubmitlogin(event, formlogin) {
     event.preventDefault();
@@ -167,6 +110,7 @@ function Login() {
     });
     if (formlogin.username != "" && formlogin.password !== "") {
       dispatch(login(formlogin));
+      setLoginorsignup("login")
     }
   }
 
@@ -199,11 +143,12 @@ function Login() {
     else errors.confirmpassword = "";
     setFormsignup({
       ...formsignup,
-      errormessage: { name: errors.name, email: errors.email, username: errors.username, password: errors.password, confirmpassword: errors.confirmpassword }
+      errormessage: { name: errors.name, email: errors.email, username: errors.username, password: errors.password, confirmpassword: errors.confirmpassword, admintoken: errors.admintoken }
     });
     if (formsignup.name != "" && formsignup.email != "" && formsignup.username != "" && formsignup.password != "" && formsignup.confirmpassword != "" && errors.email == "") {
       if (!formsignup.admintoken || formsignup.admintoken == "") {
         dispatch(signup({ ...formsignup, role: "user" }))
+        setLoginorsignup("signup")
         // setFormsignup({})
       }
       else {
@@ -212,6 +157,7 @@ function Login() {
         }
         else if (formsignup.admintoken == "@@@") {
           dispatch(signup({ ...formsignup, role: "admin" }))
+          setLoginorsignup("signup")
           // setFormsignup({})
         }
       }
@@ -233,55 +179,59 @@ function Login() {
         >
           zoopee
         </h2>
-        <form onSubmit={(e) => handleSubmitlogin(e, formlogin)} className="formlogin">
-          <div>
-            <div
-              className={`${formlogin.errormessage.username != "" ? "custom-input-error" : ""
-                } login`}
-            >
-              <label>Username</label>
-              <input
-                type="text"
-                name="username"
-                value={formlogin.username}
-                onChange={(event) => handleChangelogin(event)}
-              />
+        <div className="header-form">
+          <form onSubmit={(e) => handleSubmitlogin(e, formlogin)} className="formlogin">
+            <div>
+              <div
+                className={`${formlogin.errormessage.username != "" ? "custom-input-error" : ""
+                  } login`}
+              >
+                <label>Username</label>
+                <input
+                  type="text"
+                  name="username"
+                  value={formlogin.username}
+                  onChange={(event) => handleChangelogin(event)}
+                />
+              </div>
+              <p className="error">{formlogin.errormessage.username}</p>
             </div>
-            <p className="error">{formlogin.errormessage.username}</p>
-          </div>
-          <div>
-            <div
-              className={`${formlogin.errormessage.password != "" ? "custom-input-error" : ""
-                } login`}
-            >
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                value={formlogin.password}
-                onChange={(event) => handleChangelogin(event)}
-              />
+            <div>
+              <div
+                className={`${formlogin.errormessage.password != "" ? "custom-input-error" : ""
+                  } login`}
+              >
+                <label>Password</label>
+                <input
+                  type="password"
+                  name="password"
+                  value={formlogin.password}
+                  onChange={(event) => handleChangelogin(event)}
+                />
 
+              </div>
+              <p className="error">{formlogin.errormessage.password}</p>
             </div>
-            <p className="error">{formlogin.errormessage.password}</p>
-          </div>
 
-          <button type="submit" className="button-login">Login</button>
-        </form>
-        <button className="button-login" onClick={showcollapse}>Sign up</button>
+            <button type="submit" className="button-login">Login</button>
+          </form>
+          <button className="button-signup-header-form" onClick={showcollapse}>Sign up</button>
+        </div>
+
+
       </div>
-      
+
       <Collapse in={checked} timeout={1000}>
         <div
           className="signup-body"
         >
-          
+
           <form onSubmit={(e) => handleSubmitsignup(e, formsignup)} className="formsignup">
             <div className="formsignup-wrap">
               <div className="formsignup-items-wrap">
                 <div
                   className={`custom-input ${formsignup.errormessage.name != "" ? "custom-input-error" : ""
-                    } `}
+                    } custom-signup-input `}
                 >
                   <div className="group-input-signup">
                     <label>Name</label>
@@ -296,7 +246,7 @@ function Login() {
                 </div>
                 <div
                   className={`custom-input ${formsignup.errormessage.email ? "custom-input-error" : ""
-                    }`}
+                    } custom-signup-input`}
                 >
                   <div className="group-input-signup">
                     <label>E-mail</label>
@@ -312,7 +262,7 @@ function Login() {
                 </div>
                 <div
                   className={`custom-input ${formsignup.errormessage.username ? "custom-input-error" : ""
-                    }`}
+                    } custom-signup-input`}
                 >
                   <div className="group-input-signup">
                     <label>Username</label>
@@ -330,7 +280,7 @@ function Login() {
               <div className="formsignup-items-wrap">
                 <div
                   className={`custom-input ${formsignup.errormessage.password ? "custom-input-error" : ""
-                    }`}
+                    } custom-signup-input`}
                 >
                   <div className="group-input-signup">
                     <label>Password</label>
@@ -346,7 +296,7 @@ function Login() {
                 </div>
                 <div
                   className={`custom-input ${formsignup.errormessage.confirmpassword ? "custom-input-error" : ""
-                    }`}
+                    } custom-signup-input`}
                 >
                   <div className="group-input-signup">
                     <label>Confirm password</label>
@@ -360,7 +310,7 @@ function Login() {
                   <p className="error">{formsignup.errormessage.confirmpassword}</p>
                 </div>
                 <div
-                  className={`custom-input`}
+                  className={`custom-input custom-signup-input`}
                 >
                   <div className="group-input-signup">
                     <label style={{ maxWidth: 150 }}>For admin, please input your token</label>
@@ -375,35 +325,28 @@ function Login() {
                 </div>
               </div>
             </div>
-            <button type="submit" className="button-signup">Sign Up</button>
+            <button type="submit" className="button-signup" style={{ marginTop: -20 }}>Sign Up</button>
           </form>
-          <button onClick={hidecollapse} className="closecollapse"><VscTriangleUp className="closecollapse-icon" style={{fontSize:90,color:"var(--boldyellow)"}}/></button>
+          <button onClick={hidecollapse} className="closecollapse"><VscTriangleUp className="closecollapse-icon" style={{ fontSize: 90, color: "var(--boldyellow)" }} /></button>
         </div>
-        
+
       </Collapse>
+
       <div
         className="login-body"
       >
         <iframe src="creativeScroll.html" style={{ width: "100%", height: "100%" }}></iframe>
         {/* <Link to="/signup">Sign up here</Link> */}
       </div>
-      <Snackbar open={open} autoHideDuration={4000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
-        <Alert onClose={closealert} severity="error" sx={{ width: '100%', marginBottom: 4, marginRight: 2, backgroundColor: "var(--backgroundbody)", color: "var(--error)" }}>
-          {state.user != null && state.user.checkloginresult}
+
+      <Snackbar open={open} autoHideDuration={2000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
+        <Alert onClose={closealert} severity={state.checksignupresult == "Sign up successfully" ? "success" : "error"} sx={state.checksignupresult == "Sign up successfully" ? { ...alrertstylesuccess, color: "var(--success)" } : { ...alrertstylesuccess, color: "var(--error)" }}>
+          {(state.user != null && loginorsignup == "login" && state.user.checkloginresult) ||
+            (state.checksignupresult != null && loginorsignup == "signup" && state.checksignupresult)}
         </Alert>
       </Snackbar>
     </div>
   );
 }
-// export default function IntegrationNotistack() {
-//   return (
-//     <SnackbarProvider maxSnack={3} autoHideDuration={4000} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-//     open={open}
-//     message="I love snacks"
-//     severity="error"
-//     key={{vertical: 'bottom', horizontal: 'center'}}>
-//       <Login />
-//     </SnackbarProvider>
-//   );
-// }
+
 export default Login;

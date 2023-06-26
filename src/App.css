@@ -79,7 +79,36 @@ html {
   width: 100%;
   font-family: var(--fonttext);
 }
+.logotext {
+  font-size: 50px;
+  cursor: pointer;
+  user-select: none;
+  width: 50%;
+  font-family: var(--fonttext);
+  text-decoration-line: underline;
+  text-decoration-color: var(--boldyellow);  
+  text-decoration-style: wavy;
+}
 
+.header-form{
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-signup-header-form{
+  width: 100px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background-color: var(--boldyellow);
+  border: none;
+  display: block;
+  margin: auto;
+}
+.button-signup-header-form:hover{
+  background-color: var(--buttonhover);
+}
 .header-link-wrap {
   display: flex;
   justify-content: flex-end;
@@ -106,12 +135,6 @@ html {
   color: black;
 }
 
-.logotext {
-  font-size: 50px;
-  cursor: pointer;
-  user-select: none;
-  width: 200px;
-}
 
 .header-icon {
   font-size: 20px;
@@ -132,6 +155,7 @@ input {
   /* outline: 1px solid lightgray; */
   height: 40px;
   width: 200px;
+  padding-left: 8px;
 }
 
 input:hover,
@@ -228,7 +252,19 @@ form {
   color: red;
   margin: 0;
 }
-
+.signup-body {
+  /* background-image: url('../public/img/creativeScroll-hero.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  /* height: 90vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: var(--backgroundhead);
+  padding-top: 30px;
+}
 .formsignup {
   width: 100%;
   /* display: flex;
@@ -237,16 +273,19 @@ form {
   align-items: center; */
 }
 .formsignup-wrap{
-  width: 80%;
-  padding: 20px;
+  width: 60%;
+  padding: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 60px;
 }
 .formsignup-items-wrap{
   flex: 1;
+}
+.custom-signup-input{
+  height: 80px;
 }
 .group-input-signup {
   width: 100%;
@@ -254,7 +293,9 @@ form {
   justify-content: space-between;
   align-items: center;
 }
-
+.group-input-signup label{
+  min-width: 300px;
+}
 /* .group-input-signup input:focus {
   filter: drop-shadow(1px 1px 1px var(--boldyellow));
 }
@@ -302,24 +343,12 @@ form {
   overflow: hidden;
 }
 
-.signup-body {
-  /* background-image: url('../public/img/creativeScroll-hero.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-  /* height: 90vh; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--backgroundhead);
-  padding-top: 30px;
-}
+
 .closecollapse{
   width: 100%;
   border: none;
   height: 6px;
-  margin-top: 50px;
+  margin-top: 60px;
   background-color: var(--boldyellow);
   padding: 0;
   display: flex;
@@ -364,8 +393,11 @@ form {
   width: 100%;
   margin-top: 10px;
   border-radius: 10px;
+  padding-left: 8px;
 }
-
+.addnewpost-body-form textarea{
+  padding-top: 8px;
+}
 .home-body {
   background-color: var(--backgroundbody);
   height: 100%;

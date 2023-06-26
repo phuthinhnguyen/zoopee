@@ -5,6 +5,7 @@ import {
   GET_USERPROFILE_SUCCESS,
   LOGOUT_SUCCESS,
   SEARCH_FILTER_SUCCESS,
+  SIGNUP_SUCCESS,
   TO_ADMIN_SUCCESS
 } from "./action";
 import {
@@ -124,8 +125,10 @@ const rootReducer = (state = initialState, action) => {
       };
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };
+    case SIGNUP_SUCCESS:
+      return {...state,checksignupresult:action.payload}
     case LOGOUT_SUCCESS:
-      return { ...state, user: null };
+      return { ...state, user: null,checksignupresult:undefined };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
     case BAN_USER_SUCCESS:
