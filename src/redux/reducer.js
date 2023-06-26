@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {
   BAN_USER_SUCCESS,
   FETCH_USER_SUCCESS,
+  GET_USERPROFILEONLINE_SUCCESS,
   GET_USERPROFILE_SUCCESS,
   LOGOUT_SUCCESS,
   SEARCH_FILTER_SUCCESS,
@@ -126,11 +127,13 @@ const rootReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return { ...state, user: action.payload };
     case SIGNUP_SUCCESS:
-      return {...state,user:{...state.user,checktype:action.payload.checktype,result:action.payload.result}}
+      return { ...state, user: { ...state.user, checktype: action.payload.checktype, result: action.payload.result } }
     case LOGOUT_SUCCESS:
-      return { ...state, user: null};
+      return { ...state, user: null };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
+    case GET_USERPROFILEONLINE_SUCCESS:
+      return { ...state, useronline: { ...action.payload[0], userblogs: action.payload[1] } }
     case BAN_USER_SUCCESS:
       return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload)] };
     case TO_ADMIN_SUCCESS:

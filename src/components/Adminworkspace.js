@@ -82,6 +82,9 @@ function Adminworkspace() {
         }
         setOpen(false)
     };
+    function gotouserprofile(userId){
+        navigate("/userprofileonline",{state:userId})
+      }
     return (
         <div>
             {state.user != null ?
@@ -91,28 +94,28 @@ function Adminworkspace() {
                         <div className="adminworkspace-posts">
                             <h2>All posts of users</h2>
                             <div className="input-search-wrap">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text icon-search"><BsSearch /></div>
+                                <div className="input-group mb-2">
+                                    <div className="input-group-prepend">
+                                        <div className="input-group-text icon-search"><BsSearch /></div>
                                     </div>
-                                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Input text search" onChange={handleChangetextsearch} />
+                                    <input type="text" className="form-control" id="inlineFormInputGroup" placeholder="Input text search" onChange={handleChangetextsearch} />
                                 </div>
                                 <div className="filter-checkbox-wrap">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={onChangeradio} value="title" checked />
-                                        <label class="form-check-label" for="flexRadioDefault1">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" onChange={onChangeradio} value="title" checked />
+                                        <label class="form-check-label">
                                             Title
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={onChangeradio} value="body" />
-                                        <label class="form-check-label" for="flexRadioDefault2">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onChange={onChangeradio} value="body" />
+                                        <label className="form-check-label">
                                             Body
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" onChange={onChangeradio} value="author" />
-                                        <label class="form-check-label" for="flexRadioDefault3">
+                                        <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" onChange={onChangeradio} value="author" />
+                                        <label className="form-check-label">
                                             Author
                                         </label>
                                     </div>
@@ -128,9 +131,9 @@ function Adminworkspace() {
                                             >
                                                 <div className="home-body-item-head">
                                                     <div className="home-body-item-avatar">
-                                                        <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                        <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                     </div>
-                                                    <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                    <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                 </div>
                                                 <div className="home-body-item-post">
                                                     <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -276,9 +279,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -354,9 +357,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -432,9 +435,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -510,9 +513,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -588,9 +591,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
@@ -666,9 +669,9 @@ function Adminworkspace() {
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
                                                             <div className="home-body-item-avatar">
-                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                                                             </div>
-                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                                                         </div>
                                                         <div className="home-body-item-post">
                                                             <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>

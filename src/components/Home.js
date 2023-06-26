@@ -33,6 +33,9 @@ function Home() {
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
   }
+  function gotouserprofile(userId){
+    navigate("/userprofileonline",{state:userId})
+  }
   return (
     <div>
       {state.user != null ?
@@ -40,7 +43,7 @@ function Home() {
           <Header />
           <div className="home-body">
             <div className="share-thinking">
-            <input type="text" class="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking}/>
+            <input type="text" className="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking}/>
             <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
             </div>
           
@@ -52,9 +55,9 @@ function Home() {
                 >
                   <div className="home-body-item-head">
                     <div className="home-body-item-avatar">
-                      <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                      <img src={item.avatar} alt="Image link not found" className="avatar" onClick={()=>gotouserprofile(item.userId)}></img>
                     </div>
-                    <h5 style={{fontSize:16,color:"lightgray"}}>{item.name}</h5>
+                    <h5 style={{fontSize:16,color:"lightgray"}} onClick={()=>gotouserprofile(item.userId)}>{item.name}</h5>
                   </div>
                   <div className="home-body-item-post">
                     <h3 style={{fontSize:24,marginTop:0}}>{item.title}</h3>

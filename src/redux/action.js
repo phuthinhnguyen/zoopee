@@ -1,5 +1,4 @@
 import axios, { all } from "axios";
-import { v4 as uuidv4 } from "uuid";
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const ADD_NEW_POST_SUCCESS = "ADD_NEW_POST_SUCCESS";
@@ -9,6 +8,7 @@ export const UPDATE_EMOJI_SUCCESS = "UPDATE_EMOJI_SUCCESS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
+export const GET_USERPROFILEONLINE_SUCCESS = "GET_USERPROFILEONLINE_SUCCESS"
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
@@ -191,6 +191,17 @@ export const getUserprofile = (posts, user) => {
     });
   };
 };
+
+export const getUserprofileonline = (posts,userid) => {
+  return async (dispatch) => {
+    const response = await axios.get(`${apiurlusers}/${userid}`);
+    const userblogs = posts.filter((item) => item.userId == userid);
+    dispatch({
+      type: GET_USERPROFILEONLINE_SUCCESS,
+      payload: [response.data,userblogs]
+    });
+  };
+}
 
 export const signup = (form) => {
   return async (dispatch) => {

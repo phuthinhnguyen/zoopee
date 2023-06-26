@@ -73,8 +73,6 @@ function Login() {
     }
   }, [state]);
 
-  console.log(state.user)
-
   const closealert = (event, reason) => {
     if (reason === 'clickaway') {
       return;

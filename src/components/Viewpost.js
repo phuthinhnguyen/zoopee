@@ -21,6 +21,9 @@ function Viewpost() {
     setIteminfo({ ...iteminfo, [emojiname]: currentcount + 1 });
     dispatch(increment(emojiname, id, currentcount));
   }
+  function gotouserprofile(userId) {
+    navigate("/userprofileonline", { state: userId })
+  }
   return (
     <>
       {user != null ?
@@ -32,9 +35,9 @@ function Viewpost() {
             <div className="home-body-item">
               <div className="home-body-item-head">
                 <div className="home-body-item-avatar">
-                  <img src={iteminfo.avatar} alt="Image link not found" className="avatar"></img>
+                  <img src={iteminfo.avatar} alt="Image link not found" className="avatar" onClick={() => gotouserprofile(iteminfo.userId)}></img>
                 </div>
-                <h5 style={{ fontSize: 16, color: "lightgray" }}>{iteminfo.name}</h5>
+                <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={() => gotouserprofile(iteminfo.userId)}>{iteminfo.name}</h5>
               </div>
               <div className="home-body-item-post">
                 <h3 style={{ fontSize: 24, marginTop: 0 }}>{iteminfo.title}</h3>

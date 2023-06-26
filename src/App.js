@@ -12,6 +12,7 @@ import Login from "./components/Login";
 import Userprofile from "./components/Userprofile";
 import Signup from "./components/Signup";
 import Adminworkspace from "./components/Adminworkspace";
+import Userprofileonline from "./components/Userprofileonline";
 function App() {
   return (
     <Provider store={store}>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userprofile" element={<Userprofile />} />
+          <Route path="/userprofileonline" element={<Userprofileonline />} />
           <Route path="/viewpost" element={<Viewpost />} />
           <Route path="/addnewpost" element={<Addnewpost />} />
           <Route path="/updatepost" element={<Updatepost />} />

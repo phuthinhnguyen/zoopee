@@ -7,19 +7,20 @@ import { getUserprofile } from "../redux/action";
 import { increment } from "../redux/action";
 import Post from "./Post";
 
+
 function Userprofile() {
   const navigate = useNavigate();
-  const state = useSelector((state) => state);
+  const stateselector = useSelector((state) => state);
   const [sharethinking, setSharethinking] = useState("")
   const dispatch = useDispatch();
   useEffect(() => {
-    if (state.user == null) {
+    if (stateselector.user == null) {
       navigate("/");
     }
   }, []);
-  // const blogs = useSelector(state => state.user.userblogs);
-  if (state.user != null) {
-    const blogs = state.user.userblogs;
+  // const blogs = useSelector(stateselector => stateselector.user.userblogs);
+  if (stateselector.user != null) {
+    const blogs = stateselector.user.userblogs;
     var sortedposts =
       blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
   }
@@ -33,22 +34,22 @@ function Userprofile() {
   }
   return (
     <div>
-      {state.user != null ?
+      {stateselector.user != null ?
         <div>
           <Header />
           <div className="home-body userprofile-body">
             <div className="home-body-coverphoto">
-              <img src={state.user.coverphoto} alt="Image link not found" className="coverphoto"></img>
+              <img src={stateselector.user.coverphoto} alt="Image link not found" className="coverphoto"></img>
             </div>
             <div className="home-body-avatar">
-              <img src={state.user.avatar} alt="Image link not found" className="avatar"></img>
+              <img src={stateselector.user.avatar} alt="Image link not found" className="avatar"></img>
             </div>
-            <h1 className="home-body-name">{state.user.name}</h1>
+            <h1 className="home-body-name">{stateselector.user.name}</h1>
             <div className="share-thinking" style={{ marginTop: 80 }}>
-              <input type="text" class="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking} />
+              <input type="text" className="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking} />
               <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
             </div>
-            {state.user != null &&
+            {stateselector.user != null &&
               sortedposts != false &&
               sortedposts.map((item, index) => (
                 <Post item={
@@ -66,7 +67,7 @@ function Userprofile() {
                       <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
                       <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                       <div>
-                        <Link to="/viewpost" state={item} onClick={() => {
+                        <Link to="/viewpost" stateselector={item} onClick={() => {
                           reactionclick("view", item.id, item.view);
                         }
                         }>
