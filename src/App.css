@@ -27,12 +27,13 @@ html {
   }
 }
 
-
+/* --menuitemhover: rgb(247, 228, 56); */
 :root {
   --boldyellow: rgb(245, 204, 25);
   --backgroundhead: black;
   --colortext: white;
   --buttonhover: yellow;
+  --menuitemhover: rgb(232, 200, 25);
   --backgroundbody: rgb(24, 24, 24);
   --fonttext: outfit-c;
   --fontspecial: raleway-c;
@@ -88,6 +89,7 @@ html {
   text-decoration-line: underline;
   text-decoration-color: var(--boldyellow);  
   text-decoration-style: wavy;
+  margin-top: -20px;
 }
 
 .header-form{
@@ -113,21 +115,24 @@ html {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 50%;
 }
 
 .header-link {
   text-decoration: none;
-  width: 220px;
-  color: black;
+  /* width: 220px; */
+  color: var(--boldyellow);
   text-align: center;
-  font-size: 22px;
+  font-size: 18px;
   margin-right: 20px;
-  height: 45px;
+  /* height: 45px; */
   padding: 0 20px;
-  line-height: 45px;
+  height: 30px;
+  /* line-height: 45px; */
   border-radius: 20px;
-  background-color: var(--boldyellow);
-  box-shadow: 0 2px 2px 0 var(--boldyellow), 0 4px 6px 0 var(--buttonhover);
+  /* background-color: var(--backgroundbody); */
+  background-color: var(--backgroundhead);
+  /* box-shadow: 0 2px 2px 0 var(--boldyellow), 0 4px 6px 0 var(--buttonhover); */
 }
 
 .header-link:hover {
@@ -135,13 +140,31 @@ html {
   color: black;
 }
 
-
 .header-icon {
   font-size: 20px;
   margin-right: 15px;
   cursor: pointer;
 }
 
+.usermenu{
+  width: 100%;
+  text-decoration: none;
+  /* color: var(--boldyellow); */
+  color: black;
+  text-align: center;
+  font-size: 15px;
+  padding: 0 20px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 20px;
+  /* background-color: var(--backgroundbody); */
+  /* background-color: var(--backgroundhead); */
+  font-family: var(--fonttext);
+}
+.usermenu:hover{
+  color: black;
+  background-color: var(--menuitemhover);
+}
 label {
   color: var(--colortext);
   font-family: var(--fonttext);
@@ -406,18 +429,66 @@ form {
   flex-direction: column;
   padding: 50px;
 }
+.userprofile-body{
+  padding: 0;
+  padding-bottom: 50px;
+}
 
+.home-body-coverphoto{
+  width: 100%;
+  height: 65vh;
+}
+.coverphoto{
+  width: 100%;
+  height: 100%;
+}
+.home-body-avatar{
+  position: absolute;
+  top: calc(65vh - 30px);
+  left: calc(50% - 110px);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
+}
+.avatar{
+  width: 100%;
+  height: 100%;
+}
+.home-body-name{
+  margin: auto;
+  margin-top: 140px;
+  text-align: center;
+}
 .home-body-item {
   width: 50%;
   min-width: 500px;
   margin: auto;
   /* border: 1px solid gray; */
   /* border-radius: 10px; */
-  padding: 30px 40px;
-  margin-top: 40px;
+  padding: 10px 20px 20px 20px;
+  margin-top: 85px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
 }
-
+.home-body-item-head{
+  width: 100%;
+  padding: 10px 0;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1); */
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+.home-body-item-avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
+}
+.home-body-item-post{
+  margin-left: 70px;
+}
 .reaction-wrap {
   user-select: none;
   margin-top: 20px;

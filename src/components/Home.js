@@ -28,7 +28,6 @@ function Home() {
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
-
   }
   return (
     <div>
@@ -42,9 +41,15 @@ function Home() {
                   className="home-body-item"
                   key={index}
                 >
-                  <div className="">
-                    <h3>{item.title}</h3>
-                    <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                  <div className="home-body-item-head">
+                    <div className="home-body-item-avatar">
+                      <img src={state.user.avatar} alt="Image link not found" className="avatar"></img>
+                    </div>
+                    <h5 style={{fontSize:16,color:"lightgray"}}>Phu Thinh Nguyen</h5>
+                  </div>
+                  <div className="home-body-item-post">
+                    <h3 style={{fontSize:24,marginTop:0}}>{item.title}</h3>
+                    <p style={{ fontStyle: "italic",marginTop:15}}>{item.body}</p>
                     <div>
                       <Link state={item} to="/viewpost" onClick={() => {
                         reactionclick("view", item.id, item.view);

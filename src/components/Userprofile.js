@@ -33,7 +33,14 @@ function Userprofile() {
       {state.user != null ?
         <div>
           <Header />
-          <div className="home-body">
+          <div className="home-body userprofile-body">
+            <div className="home-body-coverphoto">
+              <img src={state.user.coverphoto} alt="Image link not found" className="coverphoto"></img>
+            </div>
+            <div className="home-body-avatar">
+                <img src={state.user.avatar} alt="Image link not found" className="avatar"></img>
+            </div>
+            <h1 className="home-body-name">{state.user.name}</h1>
             {state.user != null &&
               sortedposts != false &&
               sortedposts.map((item, index) => (
