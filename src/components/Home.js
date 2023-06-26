@@ -43,9 +43,9 @@ function Home() {
                 >
                   <div className="home-body-item-head">
                     <div className="home-body-item-avatar">
-                      <img src={state.user.avatar} alt="Image link not found" className="avatar"></img>
+                      <img src={item.avatar} alt="Image link not found" className="avatar"></img>
                     </div>
-                    <h5 style={{fontSize:16,color:"lightgray"}}>Phu Thinh Nguyen</h5>
+                    <h5 style={{fontSize:16,color:"lightgray"}}>{item.name}</h5>
                   </div>
                   <div className="home-body-item-post">
                     <h3 style={{fontSize:24,marginTop:0}}>{item.title}</h3>

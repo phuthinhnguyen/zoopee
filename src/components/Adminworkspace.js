@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { banuser, deletepost, getPost, getallusers, increment, login, searchFilterChange, toadmin } from "../redux/action";
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
@@ -20,17 +20,17 @@ import Slide from '@mui/material/Slide';
 
 function SlideTransition(props) {
     return <Slide {...props} direction="up" />;
-  }
-  const Alert = React.forwardRef(function Alert(props, ref) {
+}
+const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
+});
 function Adminworkspace() {
     const { Search } = Input;
     const [searchradio, setSearchradio] = useState('title');
     const [searchtext, setSearchtext] = useState('');
     const [tabvalue, setTabvalue] = useState(0);
-    const [open,setOpen] = useState(false)
-    const [message,setMessage] = useState("")
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState("")
     const handleChangetab = (event, newValue) => {
         setTabvalue(newValue);
     };
@@ -78,10 +78,10 @@ function Adminworkspace() {
 
     const closealert = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setOpen(false)
-      };
+    };
     return (
         <div>
             {state.user != null ?
@@ -126,9 +126,15 @@ function Adminworkspace() {
                                                 className="home-body-item"
                                                 key={index}
                                             >
-                                                <div className="">
-                                                    <h3>{item.title}</h3>
-                                                    <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                <div className="home-body-item-head">
+                                                    <div className="home-body-item-avatar">
+                                                        <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                    </div>
+                                                    <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                </div>
+                                                <div className="home-body-item-post">
+                                                    <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                    <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                     <div>
                                                         <Link to="/viewpost" state={item} onClick={() => {
                                                             reactionclick("view", item.id, item.view);
@@ -220,12 +226,12 @@ function Adminworkspace() {
                                                     <td>{item.email}</td>
                                                     <td>{item.role}</td>
                                                     <td>
-                                                        {(item.id != state.user.id) ? ((item.role != "admin" || item.id != 1) ?
+                                                        {(item.id != state.user.id) ? ((item.role != "admin" || item.email != "phuthinhnguyen1101@gmail.com") ?
                                                             <button className="button-login" onClick={() => banuserclick(item.id)}>Ban user</button>
                                                             : <button className="button-disabled">Ban user</button>)
                                                             : <button className="button-disabled">Me</button>}
 
-                                                        {(item.id != state.user.id) ? ((item.role != "admin" && item.id != 1) ?
+                                                        {(item.id != state.user.id) ? ((item.role != "admin" && item.email != "phuthinhnguyen1101@gmail.com") ?
                                                             <button className="button-login" style={{ marginTop: 10 }} onClick={() => toadminclick(item.id)}>To Admin</button>
                                                             : <button className="button-disabled" style={{ marginTop: 10 }}>To Admin</button>)
                                                             : <button className="button-disabled" style={{ marginTop: 10 }}>Me</button>
@@ -268,9 +274,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);
@@ -340,9 +352,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);
@@ -412,9 +430,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);
@@ -484,9 +508,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);
@@ -556,9 +586,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);
@@ -628,9 +664,15 @@ function Adminworkspace() {
                                                         className="home-body-item"
                                                         key={index}
                                                     >
-                                                        <div className="">
-                                                            <h3>{item.title}</h3>
-                                                            <p style={{ fontStyle: "italic" }}>{item.body}</p>
+                                                        <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
+                                                            <div className="home-body-item-avatar">
+                                                                <img src={item.avatar} alt="Image link not found" className="avatar"></img>
+                                                            </div>
+                                                            <h5 style={{ fontSize: 16, color: "lightgray" }}>{item.name}</h5>
+                                                        </div>
+                                                        <div className="home-body-item-post">
+                                                            <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
+                                                            <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                                                             <div>
                                                                 <Link to="/viewpost" state={item} onClick={() => {
                                                                     reactionclick("view", item.id, item.view);

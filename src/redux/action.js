@@ -31,7 +31,7 @@ export const getPost = () => {
   };
 };
 
-export const addnewpost = (form, userid) => {
+export const addnewpost = (form, user) => {
   // const newpost = {
   //   createdAt: Date.now(),
   //   userId: userid,
@@ -48,7 +48,7 @@ export const addnewpost = (form, userid) => {
   return async (dispatch) => {
     const response = await axios.post(`${apiurlblogs}`, {
       createdAt: Date.now(),
-      userId: userid,
+      userId: user.id,
       title: form.title,
       body: form.body,
       author: form.author,
@@ -57,7 +57,9 @@ export const addnewpost = (form, userid) => {
       heart: 0,
       rocket: 0,
       coffee: 0,
-      view: 0
+      view: 0,
+      name: user.name,
+      avatar:user.avatar
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,

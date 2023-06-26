@@ -37,7 +37,7 @@ function Addnewpost() {
   function submitform(e) {
     e.preventDefault();
     if (form.title != "" && form.body != "" && form.author != "") {
-      dispatch(addnewpost(form, user.id));
+      dispatch(addnewpost(form, user));
       setForm({ title: "", body: "", author: "" });
       setOpen(true)
     }
