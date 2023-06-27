@@ -7,7 +7,8 @@ import {
   LOGOUT_SUCCESS,
   SEARCH_FILTER_SUCCESS,
   SIGNUP_SUCCESS,
-  TO_ADMIN_SUCCESS
+  TO_ADMIN_SUCCESS,
+  UPLOAD_AVATAR_SUCCESS
 } from "./action";
 import {
   ADD_NEW_POST_SUCCESS,
@@ -138,6 +139,8 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload)] };
     case TO_ADMIN_SUCCESS:
       return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload.id), action.payload] }
+    case UPLOAD_AVATAR_SUCCESS:
+      return {...state,user:{...state.user,[action.payload[1]]:action.payload[0]}}
     default:
       return state;
   }

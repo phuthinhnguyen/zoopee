@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
-import { getUserprofile } from "../redux/action";
+import { getUserprofile, uploadavatar } from "../redux/action";
 import { increment } from "../redux/action";
 import Post from "./Post";
-
+import Avatar from '@mui/material/Avatar';
 
 function Userprofile() {
   const navigate = useNavigate();
   const stateselector = useSelector((state) => state);
-  const [sharethinking, setSharethinking] = useState("")
+  const [sharethinking, setSharethinking] = useState("");
+  const [image, setImage] = useState({file:"",type:""});
+  const [url, setUrl] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     if (stateselector.user == null) {
@@ -32,6 +34,35 @@ function Userprofile() {
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
   }
+  useEffect(() => {
+    if (image.file != "") {
+      const data = new FormData();
+      data.append("file", image.file);
+      data.append("upload_preset", "phuthinhnguyen1101");
+      data.append("cloud_name", "dhva3lwfk");
+      dispatch(uploadavatar(data, stateselector.user.id,image.type))
+      //  setUrl(stateselector.user.avatar)
+    }
+  }, [image.file])
+  // if (image != "") {
+  //   const data = new FormData();
+  //   data.append("file", image);
+  //   data.append("upload_preset", "phuthinhnguyen1101");
+  //   data.append("cloud_name", "dhva3lwfk");
+  //   // fetch("https://api.cloudinary.com/v1_1/dhva3lwfk/image/upload", {
+  //   //   method: "post",
+  //   //   body: image
+  //   // })
+  //   //   .then((resp) => resp.json())
+  //   //   .then((data) => {
+  //   //     setUrl(data.url)
+  //   //   })
+  //   // dispatch(uploadavatar(data,stateselector.user.id))
+  //   // setUrl(stateselector.user.avatar)
+  // }
+
+  // console.log(stateselector.user.avatar)
+
   return (
     <div>
       {stateselector.user != null ?
@@ -39,10 +70,20 @@ function Userprofile() {
           <Header />
           <div className="home-body userprofile-body">
             <div className="home-body-coverphoto">
-              <img src={stateselector.user.coverphoto} alt="Image link not found" className="coverphoto"></img>
+              <div className="parent-coverphoto">
+                <img src={stateselector.user.coverphoto} alt=""></img>
+                <div className="file-upload">
+                  <input type="file" onChange={(e) => setImage({file:e.target.files[0],type:"coverphoto"})}></input>
+                </div>
+              </div>
             </div>
             <div className="home-body-avatar">
-              <img src={stateselector.user.avatar} alt="Image link not found" className="avatar"></img>
+              <div className="parent">
+                <div><Avatar alt={stateselector.user.name} src={stateselector.user.avatar}/></div>
+                <div className="file-upload">
+                  <input type="file" onChange={(e) => setImage({file:e.target.files[0],type:"avatar"})}></input>
+                </div>
+              </div>
             </div>
             <h1 className="home-body-name">{stateselector.user.name}</h1>
             <div className="share-thinking" style={{ marginTop: 80 }}>
@@ -67,7 +108,7 @@ function Userprofile() {
                       <h3 style={{ fontSize: 24, marginTop: 0 }}>{item.title}</h3>
                       <p style={{ fontStyle: "italic", marginTop: 15 }}>{item.body}</p>
                       <div>
-                        <Link to="/viewpost" stateselector={item} onClick={() => {
+                        <Link to="/viewpost" state={item} onClick={() => {
                           reactionclick("view", item.id, item.view);
                         }
                         }>

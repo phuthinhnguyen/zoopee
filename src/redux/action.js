@@ -12,6 +12,7 @@ export const GET_USERPROFILEONLINE_SUCCESS = "GET_USERPROFILEONLINE_SUCCESS"
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
+export const UPLOAD_AVATAR_SUCCESS = "UPLOAD_AVATAR_SUCCESS"
 // const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
@@ -59,7 +60,7 @@ export const addnewpost = (form, user) => {
       coffee: 0,
       view: 0,
       name: user.name,
-      avatar:user.avatar
+      avatar: user.avatar
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -118,7 +119,7 @@ export const login = (form) => {
       checkloginresult = "Username is not exists"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { userblogs: [], checktype:"login",result: checkloginresult }
+        payload: { userblogs: [], checktype: "login", result: checkloginresult }
       });
     }
     else if (getusername[0].password != form.password) {
@@ -129,14 +130,14 @@ export const login = (form) => {
       checkloginresult = "Username and password are not matched"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { userblogs: [], checktype:"login",result: checkloginresult }
+        payload: { userblogs: [], checktype: "login", result: checkloginresult }
       });
     }
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { ...getusername[0], userblogs: [], checktype:"login",result: checkloginresult }
+        payload: { ...getusername[0], userblogs: [], checktype: "login", result: checkloginresult }
       });
       // dispatch(getPost());
     }
@@ -192,13 +193,13 @@ export const getUserprofile = (posts, user) => {
   };
 };
 
-export const getUserprofileonline = (posts,userid) => {
+export const getUserprofileonline = (posts, userid) => {
   return async (dispatch) => {
     const response = await axios.get(`${apiurlusers}/${userid}`);
     const userblogs = posts.filter((item) => item.userId == userid);
     dispatch({
       type: GET_USERPROFILEONLINE_SUCCESS,
-      payload: [response.data,userblogs]
+      payload: [response.data, userblogs]
     });
   };
 }
@@ -224,14 +225,16 @@ export const signup = (form) => {
         email: form.email,
         username: form.username,
         password: form.password,
-        role: form.role
+        role: form.role,
+        avatar:"a",
+        coverphoto:"https://res.cloudinary.com/dhva3lwfk/image/upload/v1687881220/Asset_5_pakypu.png"
       })
       checksignupresult = "Sign up successfully"
       // alert("Sign up successfully")
     }
     dispatch({
       type: SIGNUP_SUCCESS,
-      payload: {checktype:"signup",result:checksignupresult}
+      payload: { checktype: "signup", result: checksignupresult }
     });
   }
 }
@@ -265,6 +268,26 @@ export const toadmin = (id) => {
       type: TO_ADMIN_SUCCESS,
       payload: response.data
     })
+  }
+}
+export const uploadavatar = (image, id,type) => {
+  return async dispatch => {
+    fetch("https://api.cloudinary.com/v1_1/dhva3lwfk/image/upload", {
+      method: "post",
+      body: image
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        axios.put(`${apiurlusers}/${id}`, {
+          [type]: data.url
+        })
+        dispatch({
+          type: UPLOAD_AVATAR_SUCCESS,
+          payload: [data.url,type]
+        });
+      })
+      .catch((err) => console.log(err));
+
   }
 }
 

@@ -139,14 +139,17 @@ function Login() {
     }
     else errors.password = "";
     if (formsignup.confirmpassword == "") {
-      errors.confirmpassword = "Confirm password is wrong";
+      errors.confirmpassword = "Confirm password is required";
+    }
+    else if (formsignup.password != formsignup.confirmpassword) {
+      errors.confirmpassword = "Password and Confirmpassword are not matched";
     }
     else errors.confirmpassword = "";
     setFormsignup({
       ...formsignup,
       errormessage: { name: errors.name, email: errors.email, username: errors.username, password: errors.password, confirmpassword: errors.confirmpassword, admintoken: errors.admintoken }
     });
-    if (formsignup.name != "" && formsignup.email != "" && formsignup.username != "" && formsignup.password != "" && formsignup.confirmpassword != "" && errors.email == "") {
+    if (errors.name == "" && errors.email == "" && errors.username == "" && errors.password == "" && errors.confirmpassword == "") {
       if (!formsignup.admintoken || formsignup.admintoken == "") {
         dispatch(signup({ ...formsignup, role: "user" }))
         // setLoginorsignup("signup")
