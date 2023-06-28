@@ -126,7 +126,10 @@ body {
 	margin-bottom: var(--gallery-gap);
 	max-height: 180vh;
 	border-radius: 8px;
-	height: 400px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
 }
 
 .gallery__left {
