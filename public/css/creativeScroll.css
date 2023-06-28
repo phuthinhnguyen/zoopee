@@ -126,6 +126,8 @@ body {
 	margin-bottom: var(--gallery-gap);
 	max-height: 180vh;
 	border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
+	padding: 50px 0;
 	/* height: 200px;
 	display: flex;
 	align-items: center;
