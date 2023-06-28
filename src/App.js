@@ -10,7 +10,6 @@ import Updatepost from "./components/Updatepost";
 import Viewpost from "./components/Viewpost";
 import Login from "./components/Login";
 import Userprofile from "./components/Userprofile";
-import Signup from "./components/Signup";
 import Adminworkspace from "./components/Adminworkspace";
 import Userprofileonline from "./components/Userprofileonline";
 function App() {
@@ -19,7 +18,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/userprofileonline" element={<Userprofileonline />} />

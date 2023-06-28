@@ -1,29 +1,34 @@
 import { motion, useAnimation } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+// import { useInView } from "react-intersection-observer";
+import { useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
+
 const boxVariant = {
     visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } },
-    hidden: { opacity: 0, scale: 0 }
+    hidden: { opacity: 0, scale: 0 },
+
 }
 const Post = ({ item }) => {
     const control = useAnimation()
-    const [ref, inView] = useInView()
+    // const [ref, inView] = useInView({ once: true })
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true });
     useEffect(() => {
-        if (inView) {
+        if (isInView) {
             control.start("visible");
         }
         else {
             control.start("hidden");
         }
-    }, [control, inView]);
+    }, [isInView]);
     return (
-        <motion.div variants={boxVariant}
+        <motion.div
             ref={ref}
             initial="hidden"
             animate={control}
             className="box"
             variants={boxVariant}>
-           {item}
+            {item}
         </motion.div>
     );
 };

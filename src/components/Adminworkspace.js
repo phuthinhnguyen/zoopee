@@ -272,9 +272,9 @@ function Adminworkspace() {
                                         </Tabs>
                                         <TabPanel value={tabvalue} index={0}>
                                             {gettoppost(state.posts, "view")[0] != undefined && gettoppost(state.posts, "view").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
@@ -350,9 +350,9 @@ function Adminworkspace() {
                                         </TabPanel>
                                         <TabPanel value={tabvalue} index={1}>
                                             {gettoppost(state.posts, "thumbsUp")[0] != undefined && gettoppost(state.posts, "thumbsUp").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
@@ -428,9 +428,9 @@ function Adminworkspace() {
                                         </TabPanel>
                                         <TabPanel value={tabvalue} index={2}>
                                             {gettoppost(state.posts, "wow")[0] != undefined && gettoppost(state.posts, "wow").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
@@ -506,9 +506,9 @@ function Adminworkspace() {
                                         </TabPanel>
                                         <TabPanel value={tabvalue} index={3}>
                                             {gettoppost(state.posts, "heart")[0] != undefined && gettoppost(state.posts, "heart").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
@@ -584,9 +584,9 @@ function Adminworkspace() {
                                         </TabPanel>
                                         <TabPanel value={tabvalue} index={4}>
                                             {gettoppost(state.posts, "rocket")[0] != undefined && gettoppost(state.posts, "rocket").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>
@@ -662,9 +662,9 @@ function Adminworkspace() {
                                         </TabPanel>
                                         <TabPanel value={tabvalue} index={5}>
                                             {gettoppost(state.posts, "coffee")[0] != undefined && gettoppost(state.posts, "coffee").map((item, index) =>
-                                                <div className="adminworkspace-posts-wrap">
+                                                <div className="adminworkspace-posts-wrap tabpanel">
                                                     <div
-                                                        className="home-body-item"
+                                                        className="home-body-item tabpanel-item"
                                                         key={index}
                                                     >
                                                         <div className="home-body-item-head" style={{ fontFamily: "var(--fonttext)" }}>

@@ -97,20 +97,22 @@ html {
 }
 
 .header-form {
-  width: 50%;
+  width: 70%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  column-gap: 20px;
 }
 
 .button-signup-header-form {
   width: 100px;
+  /* flex: 0.3; */
   padding: 5px 10px;
   border-radius: 20px;
   background-color: var(--boldyellow);
   border: none;
   display: block;
-  margin: auto;
+  /* margin: auto; */
 }
 
 .button-signup-header-form:hover {
@@ -342,13 +344,14 @@ form {
   filter: drop-shadow(1px 1px 1px var(--boldyellow));
 } */
 .formlogin {
-  flex: 1;
-  max-width: 750px;
+  /* flex: 1; */
+  /* max-width: 750px; */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   color: black;
+  column-gap: 20px;
 }
 
 .login {
@@ -360,7 +363,7 @@ form {
 }
 
 .button-login {
-  width: 100px;
+  min-width: 100px;
   padding: 5px 10px;
   border-radius: 20px;
   background-color: var(--boldyellow);
@@ -631,7 +634,20 @@ form {
   width: 70%;
   margin: auto;
 }
-
+.tabpanel{
+  /* width: 100%; */
+  width: 800px;
+  justify-content: flex-start;
+  /* max-height: 100px; */
+  align-items: center;
+  height: 400px;
+  /* height: 100px; */
+  margin: 0;
+}
+.tabpanel-item{
+  margin: 0;
+  width: 800px;
+}
 .adminworkspace-posts-showsearch {
   max-height: 800px;
   min-height: 300px;
