@@ -9,11 +9,11 @@ import { state, useState } from "react";
 function Viewpost() {
   const { state } = useLocation();
   const user = useSelector((state) => state.user);
-  useEffect(() => {
-    if (user == null) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user == null) {
+  //     navigate("/");
+  //   }
+  // }, []);
   const [iteminfo, setIteminfo] = useState(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,38 +22,62 @@ function Viewpost() {
     dispatch(increment(emojiname, id, currentcount));
   }
   function gotouserprofile(userId) {
-    navigate("/userprofileonline", { state: userId })
+    navigate("/userprofileonline", { state: userId });
   }
   return (
     <>
-      {user != null ?
+      {user != null ? (
         <div>
           <Header />
-          <div
-            className="home-body"
-          >
+          <div className="home-body">
             <div className="home-body-item">
               <div className="home-body-item-head">
                 <div className="home-body-item-avatar">
-                  <img src={iteminfo.avatar} alt="Image link not found" className="avatar" onClick={() => gotouserprofile(iteminfo.userId)}></img>
+                  <img
+                    src={iteminfo.avatar}
+                    alt="Image link not found"
+                    className="avatar"
+                    onClick={() => gotouserprofile(iteminfo.userId)}
+                  ></img>
                 </div>
-                <h5 style={{ fontSize: 16, color: "lightgray" }} onClick={() => gotouserprofile(iteminfo.userId)}>{iteminfo.name}</h5>
+                <h5
+                  style={{ fontSize: 16, color: "lightgray" }}
+                  onClick={() => gotouserprofile(iteminfo.userId)}
+                >
+                  {iteminfo.name}
+                </h5>
               </div>
               <div className="home-body-item-post">
                 <h3 style={{ fontSize: 24, marginTop: 0 }}>{iteminfo.title}</h3>
-                <p style={{ fontStyle: "italic", marginTop: 15 }}>{iteminfo.body}</p>
+                <p style={{ fontStyle: "italic", marginTop: 15 }}>
+                  {iteminfo.body}
+                </p>
                 <div>
                   {iteminfo.userId == user.id ? (
                     <Link to="/updatepost" state={iteminfo}>
                       Edit post
                     </Link>
                   ) : (
-                    <p style={{ display: "inline", color: "gray", fontStyle: "italic" }}>Edit post</p>
+                    <p
+                      style={{
+                        display: "inline",
+                        color: "gray",
+                        fontStyle: "italic"
+                      }}
+                    >
+                      Edit post
+                    </p>
                   )}
                   {/* <Link to="/updatepost" state={iteminfo}>Edit post</Link> */}
                   <a style={{ marginLeft: 10 }}> by </a>
                   <a style={{ fontWeight: 500 }}>{iteminfo.author}</a>
-                  <a style={{ marginLeft: 10, fontStyle: "italic", fontSize: 14 }}>
+                  <a
+                    style={{
+                      marginLeft: 10,
+                      fontStyle: "italic",
+                      fontSize: 14
+                    }}
+                  >
                     {" "}
                     {convertTime(iteminfo.createdAt)}
                   </a>
@@ -69,7 +93,9 @@ function Viewpost() {
                   </a>
                   <a
                     className="reaction"
-                    onClick={() => reactionclick("wow", iteminfo.id, iteminfo.wow)}
+                    onClick={() =>
+                      reactionclick("wow", iteminfo.id, iteminfo.wow)
+                    }
                   >
                     😮 {iteminfo.wow}
                   </a>
@@ -99,21 +125,20 @@ function Viewpost() {
                   </a>
                 </div>
               </div>
-
             </div>
             <Link
-              className="button-back" style={{ marginTop: 100 }}
+              className="button-back"
+              style={{ marginTop: 100 }}
               to="/home"
-            // onClick={() => dispatch(getPost())}
+              // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>
           </div>
-
         </div>
-        : navigate("/")}
-
-
+      ) : (
+        navigate("/")
+      )}
     </>
   );
 }

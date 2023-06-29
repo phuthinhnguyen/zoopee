@@ -1,11 +1,11 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { deletepost, updatepost } from "../redux/action";
 import Header from "./Header";
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import Slide from '@mui/material/Slide';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import Slide from "@mui/material/Slide";
 
 function SlideTransition(props) {
   return <Slide {...props} direction="up" />;
@@ -19,41 +19,43 @@ function Updatepost() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  const [open,setOpen] = useState(false)
-  const [message,setMessage] = useState("")
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
   const [form, setForm] = useState(state);
-  useEffect(() => {
-    if (user == null) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (user == null) {
+  //     navigate("/");
+  //   }
+  // }, []);
   function submitform(e) {
     e.preventDefault();
     dispatch(updatepost(form));
-    setMessage("Your post has been updated successfully")
-    setOpen(true)
+    setMessage("Your post has been updated successfully");
+    setOpen(true);
   }
   function deletepostclick() {
     dispatch(deletepost(form.id));
     navigate("/");
   }
 
-  
   const closealert = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
-    setOpen(false)
+    setOpen(false);
   };
 
   return (
     <>
-      {user != null ?
+      {user != null ? (
         <div>
           <Header />
           <div className="addnewpost-body">
             <h2>Edit Post</h2>
-            <form className="addnewpost-body-form" onSubmit={(e) => submitform(e)}>
+            <form
+              className="addnewpost-body-form"
+              onSubmit={(e) => submitform(e)}
+            >
               <h6>Post Title</h6>
               <input
                 onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -77,31 +79,47 @@ function Updatepost() {
                   Save Post
                 </button>
                 <button
-                  className="button-login" style={{ width: 150 }}
+                  className="button-login"
+                  style={{ width: 150 }}
                   onClick={() => deletepostclick(form.id)}
                 >
                   Delete Post
                 </button>
               </div>
-
             </form>
             <Link
               className="button-back"
               to="/home"
-            // onClick={() => dispatch(getPost())}
+              // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>
           </div>
-          <Snackbar open={open} autoHideDuration={4000} onClose={closealert} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} TransitionComponent={SlideTransition}>
-            <Alert onClose={closealert} severity="success" sx={{ width: '100%', marginBottom: 4, marginRight: 2, backgroundColor: "var(--backgroundbody)", color: "var(--success)" }}>
+          <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            onClose={closealert}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            TransitionComponent={SlideTransition}
+          >
+            <Alert
+              onClose={closealert}
+              severity="success"
+              sx={{
+                width: "100%",
+                marginBottom: 4,
+                marginRight: 2,
+                backgroundColor: "var(--backgroundbody)",
+                color: "var(--success)"
+              }}
+            >
               {message}
             </Alert>
           </Snackbar>
         </div>
-        : navigate("/")}
-
-
+      ) : (
+        navigate("/")
+      )}
     </>
   );
 }

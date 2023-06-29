@@ -1,13 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT_SUCCESS, getPost, getUserprofile, logout } from "../redux/action";
+import {
+  LOGOUT_SUCCESS,
+  getPost,
+  getUserprofile,
+  logout
+} from "../redux/action";
 import React, { useEffect } from "react";
-import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
+import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
 import { Hidden } from "@mui/material";
 
 // const link = {
@@ -31,11 +36,12 @@ function Header() {
   const state = useSelector((state) => state);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const settings = ['Profile', 'Account', 'Logout'];
+  const settings = ["Profile", "Account", "Logout"];
   function logoutclick() {
     dispatch({
       type: LOGOUT_SUCCESS
-    })
+    });
+    window.localStorage.setItem("login", false);
     navigate("/");
   }
   // useEffect(() => {
@@ -49,9 +55,7 @@ function Header() {
   function userprofileclick() {
     dispatch(getUserprofile(state.posts, state.user));
   }
-  function settingsclick(){
-
-  }
+  function settingsclick() {}
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -61,11 +65,8 @@ function Header() {
   };
   return (
     <div className="header">
-      <h2 className="logotext">
-        zoopee
-      </h2>
-      <div className="header-link-wrap"
-      >
+      <h2 className="logotext">zoopee</h2>
+      <div className="header-link-wrap">
         <Link to="/home" className="header-link" onClick={() => homeclick()}>
           Home
         </Link>
@@ -75,56 +76,59 @@ function Header() {
         <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
-        {state.user.role == "admin" &&
+        {state.user.role == "admin" && (
           <Link to="/adminworkspace" className="header-link">
             Admin
-          </Link>}
+          </Link>
+        )}
         {/* <Link to="/" className="header-link" onClick={() => logoutclick()}>
           Logout
         </Link> */}
         {/* <Navbar /> */}
-        <Box sx={{ flexGrow: 0}} >
+        <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar alt={state.user.name} src={state.user.avatar} />
             </IconButton>
           </Tooltip>
           <Menu
-            sx={{ mt: '45px'}}
+            sx={{ mt: "45px" }}
             id="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right"
             }}
             keepMounted
             transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: "top",
+              horizontal: "right"
             }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
           >
-
-            <MenuItem onClick={handleCloseUserMenu} style={{marginTop:0 }}>
-              <Link to="/userprofile" className="usermenu" onClick={() => userprofileclick()}>
+            <MenuItem onClick={handleCloseUserMenu} style={{ marginTop: 0 }}>
+              <Link
+                to="/userprofile"
+                className="usermenu"
+                onClick={() => userprofileclick()}
+              >
                 Profile
               </Link>
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu} style={{ }}>
+            <MenuItem onClick={handleCloseUserMenu} style={{}}>
               {/* <Typography textAlign="center">{setting}</Typography> */}
               <Link className="usermenu" onClick={() => settingsclick()}>
                 Settings
               </Link>
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu} style={{marginBottom:0 }}>
+            <MenuItem onClick={handleCloseUserMenu} style={{ marginBottom: 0 }}>
               <Link to="/" className="usermenu" onClick={() => logoutclick()}>
                 Logout
               </Link>
             </MenuItem>
           </Menu>
         </Box>
-
       </div>
     </div>
   );
