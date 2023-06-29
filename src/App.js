@@ -1,30 +1,106 @@
 import logo from "./logo.svg";
 import "./App.css";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Home from "./components/Home";
-import Addnewpost from "./components/Addnewpost";
-import Updatepost from "./components/Updatepost";
-import Viewpost from "./components/Viewpost";
-import Login from "./components/Login";
-import Userprofile from "./components/Userprofile";
-import Adminworkspace from "./components/Adminworkspace";
-import Userprofileonline from "./components/Userprofileonline";
+// import Home from "./components/Home";
+// import Addnewpost from "./components/Addnewpost";
+// import Updatepost from "./components/Updatepost";
+// import Viewpost from "./components/Viewpost";
+// import Login from "./components/Login";
+// import Userprofile from "./components/Userprofile";
+// import Adminworkspace from "./components/Adminworkspace";
+// import Userprofileonline from "./components/Userprofileonline";
+
+const Home = React.lazy(() => import("./components/Home"));
+const Addnewpost = React.lazy(() => import("./components/Addnewpost"));
+const Updatepost = React.lazy(() => import("./components/Updatepost"));
+const Viewpost = React.lazy(() => import("./components/Viewpost"));
+const Login = React.lazy(() => import("./components/Login"));
+const Userprofile = React.lazy(() => import("./components/Userprofile"));
+const Adminworkspace = React.lazy(() => import("./components/Adminworkspace"));
+const Userprofileonline = React.lazy(() =>
+  import("./components/Userprofileonline")
+);
 function App() {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Login />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/home"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Home />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/userprofile"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Userprofile />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/userprofileonline"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Userprofileonline />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/viewpost"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Viewpost />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/addnewpost"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Addnewpost />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/updatepost"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Updatepost />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/adminworkspace"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <Adminworkspace />
+              </Suspense>
+            }
+          />
+          {/* <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/userprofileonline" element={<Userprofileonline />} />
           <Route path="/viewpost" element={<Viewpost />} />
           <Route path="/addnewpost" element={<Addnewpost />} />
           <Route path="/updatepost" element={<Updatepost />} />
-          <Route path="/adminworkspace" element={<Adminworkspace />} />
+          <Route path="/adminworkspace" element={<Adminworkspace />} /> */}
         </Routes>
       </BrowserRouter>
     </Provider>
