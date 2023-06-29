@@ -113,6 +113,11 @@ export const login = (form) => {
     const getusername = response.data.filter(
       (item) => item.username == form.username
     );
+    const allusersprofile = structuredClone(response.data);
+    for (let item of allusersprofile) {
+      delete item.username;
+      delete item.password
+    }
 
     if (getusername.length == 0) {
       // alert("Username is not exists");
@@ -137,7 +142,7 @@ export const login = (form) => {
       checkloginresult = "Login successfully"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { ...getusername[0], userblogs: [], checktype: "login", result: checkloginresult }
+        payload: [{...allusersprofile.filter(item=>item.id==getusername[0].id)[0] , userblogs: [], checktype: "login", result: checkloginresult },allusersprofile]
       });
       // dispatch(getPost());
     }
@@ -226,8 +231,8 @@ export const signup = (form) => {
         username: form.username,
         password: form.password,
         role: form.role,
-        avatar:"a",
-        coverphoto:"https://res.cloudinary.com/dhva3lwfk/image/upload/v1687881220/Asset_5_pakypu.png"
+        avatar: "a",
+        coverphoto: "https://res.cloudinary.com/dhva3lwfk/image/upload/v1687881220/Asset_5_pakypu.png"
       })
       checksignupresult = "Sign up successfully"
       // alert("Sign up successfully")
@@ -270,7 +275,7 @@ export const toadmin = (id) => {
     })
   }
 }
-export const uploadavatar = (image, id,type) => {
+export const uploadavatar = (image, id, type) => {
   return async dispatch => {
     fetch("https://api.cloudinary.com/v1_1/dhva3lwfk/image/upload", {
       method: "post",
@@ -283,7 +288,7 @@ export const uploadavatar = (image, id,type) => {
         })
         dispatch({
           type: UPLOAD_AVATAR_SUCCESS,
-          payload: [data.url,type]
+          payload: [data.url, type]
         });
       })
       .catch((err) => console.log(err));

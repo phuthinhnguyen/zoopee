@@ -22,7 +22,7 @@ import { LOGIN_SUCCESS } from "./action";
 const initialState = {
   posts: [],
   user: null,
-  // allusers: null
+  allusersprofile:null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -126,7 +126,7 @@ const rootReducer = (state = initialState, action) => {
         allusers: action.payload
       };
     case LOGIN_SUCCESS:
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload [0],allusersprofile:action.payload[1]};
     case SIGNUP_SUCCESS:
       return { ...state, user: { ...state.user, checktype: action.payload.checktype, result: action.payload.result } }
     case LOGOUT_SUCCESS:

@@ -11,6 +11,13 @@ function Home() {
   const navigate = useNavigate();
   let x = window.localStorage.getItem("login");
   console.log(x);
+
+  if (x=="false"){
+    console.log("ehhe")
+  }
+  else if (x=="true"){
+    console.log("ehihi")
+  }
   // if (x==false){
   //   navigate("/")
   // }
@@ -21,8 +28,9 @@ function Home() {
   // } else console.log("userlogining");
 
   const dispatch = useDispatch();
-
+ 
   const state = useSelector((state) => state);
+
   const [sharethinking, setSharethinking] = useState("");
   // if (state.user == null) {
   //   navigate("/")
@@ -50,9 +58,9 @@ function Home() {
   }
   return (
     <div>
-      {state.user != null ? (
+      {state != null ? (
         <div>
-          <Header />
+          {/* <Header userrole={state.user.role}/> */}
           <div className="home-body">
             <div className="share-thinking">
               <input
@@ -172,7 +180,7 @@ function Home() {
           </div>
         </div>
       ) : (
-        navigate("/")
+       null
       )}
     </div>
   );

@@ -31,7 +31,7 @@ import { Hidden } from "@mui/material";
 //   padding: 20,
 //   width: "100%"
 // };
-function Header() {
+function Header(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const navigate = useNavigate();
@@ -63,6 +63,8 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const userrole = props.userrole
+
   return (
     <div className="header">
       <h2 className="logotext">zoopee</h2>
@@ -76,7 +78,7 @@ function Header() {
         <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
-        {state.user.role == "admin" && (
+        {userrole == "admin" && (
           <Link to="/adminworkspace" className="header-link">
             Admin
           </Link>
