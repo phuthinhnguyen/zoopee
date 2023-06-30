@@ -65,7 +65,7 @@ function Home() {
   }
   return (
     <div>
-      {state != null ? (
+      {state.user != null ? (
         <div>
           <Header/>
           <div className="home-body">
