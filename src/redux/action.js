@@ -124,7 +124,8 @@ export const login = (form) => {
       checkloginresult = "Username is not exists"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { userblogs: [], checktype: "login", result: checkloginresult }
+        // payload: { userblogs: [], checktype: "login", result: checkloginresult }
+        payload: [{userblogs: [], checktype: "login",result: checkloginresult },null]
       });
     }
     else if (getusername[0].password != form.password) {
@@ -135,14 +136,15 @@ export const login = (form) => {
       checkloginresult = "Username and password are not matched"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: { userblogs: [], checktype: "login", result: checkloginresult }
+        // payload: { userblogs: [], checktype: "login", result: checkloginresult }
+        payload: [{userblogs: [], checktype: "login",result: checkloginresult },null]
       });
     }
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: [{...allusersprofile.filter(item=>item.id==getusername[0].id)[0] , userblogs: [], checktype: "login", result: checkloginresult },allusersprofile]
+        payload: [{...allusersprofile.filter(item=>item.id==getusername[0].id)[0] , userblogs: [], checktype: "login",result: checkloginresult },allusersprofile]
       });
       // dispatch(getPost());
     }
@@ -254,6 +256,20 @@ export const getallusers = () => {
   }
 }
 
+
+export const getallusersforposts = ()=>{
+  return async dispatch=>{
+    const response = await axios.get(apiurlusers)
+    for (let item of response.data){
+      delete item.username;
+      delete item.password;
+    }
+    dispatch({
+      type: FETCH_USER_SUCCESS,
+      payload: response.data
+    })
+  }
+}
 export const banuser = (id) => {
   return async dispatch => {
     const response = await axios.delete(`${apiurlusers}/${id}`)

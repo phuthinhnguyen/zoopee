@@ -35,6 +35,9 @@ function Userprofile() {
     dispatch(increment(emojiname, id, currentcount));
   }
   useEffect(() => {
+    if (stateselector.user == null) {
+      navigate("/");
+    }
     if (image.file != "") {
       const data = new FormData();
       data.append("file", image.file);

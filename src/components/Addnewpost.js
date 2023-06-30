@@ -17,20 +17,22 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 function Addnewpost() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     title: "",
     body: state || "",
     author: ""
   });
   const user = useSelector((state) => state.user);
+
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (user == null) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if(user==null){
+      navigate("/")
+    }
+  }, []);
 
   const closealert = (event, reason) => {
     if (reason === "clickaway") {

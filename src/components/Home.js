@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, increment, login } from "../redux/action";
+import { getPost, getallusers, getallusersforposts, increment, login } from "../redux/action";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
@@ -9,15 +9,15 @@ import { useState } from "react";
 
 function Home() {
   const navigate = useNavigate();
-  let x = window.localStorage.getItem("login");
-  console.log(x);
+  // let x = window.localStorage.getItem("login");
+  // console.log(x);
 
-  if (x=="false"){
-    console.log("ehhe")
-  }
-  else if (x=="true"){
-    console.log("ehihi")
-  }
+  // if (x=="false"){
+  //   console.log("ehhe")
+  // }
+  // else if (x=="true"){
+  //   console.log("ehihi")
+  // }
   // if (x==false){
   //   navigate("/")
   // }
@@ -26,11 +26,13 @@ function Home() {
   // if (y[1] == " false") {
   //   navigate("/");
   // } else console.log("userlogining");
-
+  
   const dispatch = useDispatch();
  
   const state = useSelector((state) => state);
-
+  if(state.user==null){
+    navigate("/")
+  }
   const [sharethinking, setSharethinking] = useState("");
   // if (state.user == null) {
   //   navigate("/")
@@ -38,12 +40,13 @@ function Home() {
 
   useEffect(() => {
     dispatch(getPost());
+    dispatch(getallusersforposts());
   }, []);
 
   const sharethinkingonChange = (e) => {
     setSharethinking(e.target.value);
   };
-  console.log(state);
+  // console.log(state);
   // useEffect(() => {
   //   dispatch(getPost());
   // }, []);
@@ -56,11 +59,15 @@ function Home() {
   function gotouserprofile(userId) {
     navigate("/userprofileonline", { state: userId });
   }
+
+  function getavatarforpost(id){
+    return state.allusers.filter(item=>item.id==id)[0].avatar
+  }
   return (
     <div>
       {state != null ? (
         <div>
-          {/* <Header userrole={state.user.role}/> */}
+          <Header/>
           <div className="home-body">
             <div className="share-thinking">
               <input
@@ -87,7 +94,7 @@ function Home() {
                     <div className="home-body-item-head">
                       <div className="home-body-item-avatar">
                         <img
-                          src={item.avatar}
+                          src={getavatarforpost(item.userId)}
                           alt="Image link not found"
                           className="avatar"
                           onClick={() => gotouserprofile(item.userId)}

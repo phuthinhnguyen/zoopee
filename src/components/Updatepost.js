@@ -22,11 +22,11 @@ function Updatepost() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState(state);
-  // useEffect(() => {
-  //   if (user == null) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user == null) {
+      navigate("/");
+    }
+  }, []);
   function submitform(e) {
     e.preventDefault();
     dispatch(updatepost(form));

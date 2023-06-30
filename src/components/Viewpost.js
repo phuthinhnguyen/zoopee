@@ -9,11 +9,11 @@ import { state, useState } from "react";
 function Viewpost() {
   const { state } = useLocation();
   const user = useSelector((state) => state.user);
-  // useEffect(() => {
-  //   if (user == null) {
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user == null) {
+      navigate("/");
+    }
+  }, []);
   const [iteminfo, setIteminfo] = useState(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();

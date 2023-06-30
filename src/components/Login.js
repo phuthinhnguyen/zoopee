@@ -29,34 +29,18 @@ const alrertstylesuccess = {
 
 function Login() {
   const navigate = useNavigate();
-  let x = window.localStorage.getItem("login");
-  console.log(x);
-  
-  // if (y[1] == " false") {
-  //   console.log("userlogout");
-  //   // navigate("/")
-  // } else console.log("userlogining");
+
   const dispatch = useDispatch();
 
   const state = useSelector((state) => state);
-  // const [loginorsignup, setLoginorsignup] = useState("")
-  // const [open, setOpen] = useState(false);
+
   const [alert, setAlert] = useState({ open: false, message: "" });
   const [checked, setChecked] = useState(false);
-  // const { enqueueSnackbar } = useSnackbar();
-  // console.log(open1)
+
   const REGEX = {
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   };
-  // const closealert = (event, reason) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
-  //   setOpen(false);
-  // };
-  // const openalert = () => {
-  //   setOpen(true);
-  // };
+
   const [formlogin, setFormlogin] = useState({
     username: "",
     password: "",
@@ -79,16 +63,25 @@ function Login() {
     }
   });
 
+  // useEffect(() => {
+  //   if (state.user != null && state.user.checktype == "login") {
+  //     if (state.user.result == "Login successfully") {   
+  //       navigate("/home");
+  //     } 
+  //     else setAlert({ open: true, message: state.user.result });
+  //   } 
+  //   else if (state.user != null && state.user.checktype == "signup") {
+  //     setAlert({ open: true, message: state.user.result });
+  //   }
+  // }, [state]);
+
   useEffect(() => {
-    if (state.user != null && state.user.checktype == "login") {
-      if (state.user.result == "Login successfully") {
-        window.localStorage.setItem("login", true);
-        navigate("/home");
-        // document.cookie = `userid=${state.user.id};`;
-      } else setAlert({ open: true, message: state.user.result });
-    } else if (state.user != null && state.user.checktype == "signup") {
-      setAlert({ open: true, message: state.user.result });
-    }
+      if (state.user!=null){
+        if (state.user.result == "Login successfully") {   
+          navigate("/home");
+        } 
+        else setAlert({ open: true, message: state.user.result });
+      } 
   }, [state]);
 
   const closealert = (event, reason) => {

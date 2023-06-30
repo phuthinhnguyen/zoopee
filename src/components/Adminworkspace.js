@@ -53,7 +53,10 @@ function Adminworkspace() {
     return item[searchradio.toLowerCase()].includes(searchtext);
   });
   useEffect(() => {
-    dispatch(getPost());
+    if(state.user==null){
+      navigate("/")
+    }
+    // dispatch(getPost());
     dispatch(getallusers());
   }, []);
 

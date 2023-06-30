@@ -15,9 +15,9 @@ function Userprofileonline() {
   const [sharethinking, setSharethinking] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    // if (stateselector.user == null) {
-    //     navigate("/");
-    // }
+    if (stateselector.user == null) {
+        navigate("/");
+    }
     dispatch(getUserprofileonline(stateselector.posts, state));
   }, []);
   // const blogs = useSelector(stateselector => stateselector.user.userblogs);

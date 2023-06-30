@@ -22,7 +22,7 @@ import { LOGIN_SUCCESS } from "./action";
 const initialState = {
   posts: [],
   user: null,
-  allusersprofile:null
+  allusersprofile: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -126,11 +126,15 @@ const rootReducer = (state = initialState, action) => {
         allusers: action.payload
       };
     case LOGIN_SUCCESS:
-      return { ...state, user: action.payload [0],allusersprofile:action.payload[1]};
+      return { ...state, user: action.payload[0], allusersprofile: action.payload[1] };
     case SIGNUP_SUCCESS:
       return { ...state, user: { ...state.user, checktype: action.payload.checktype, result: action.payload.result } }
     case LOGOUT_SUCCESS:
-      return { ...state, user: null };
+      return {
+        posts: [],
+        user: null,
+        allusersprofile: null
+      };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
     case GET_USERPROFILEONLINE_SUCCESS:
@@ -140,7 +144,7 @@ const rootReducer = (state = initialState, action) => {
     case TO_ADMIN_SUCCESS:
       return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload.id), action.payload] }
     case UPLOAD_AVATAR_SUCCESS:
-      return {...state,user:{...state.user,[action.payload[1]]:action.payload[0]}}
+      return { ...state, user: { ...state.user, [action.payload[1]]: action.payload[0] } }
     default:
       return state;
   }

@@ -41,7 +41,7 @@ function Header(props) {
     dispatch({
       type: LOGOUT_SUCCESS
     });
-    window.localStorage.setItem("login", false);
+    // window.localStorage.setItem("login", false);
     navigate("/");
   }
   // useEffect(() => {
@@ -63,7 +63,7 @@ function Header(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const userrole = props.userrole
+  // const userrole = props.userrole
 
   return (
     <div className="header">
@@ -78,7 +78,7 @@ function Header(props) {
         <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
-        {userrole == "admin" && (
+        {state.user.role == "admin" && (
           <Link to="/adminworkspace" className="header-link">
             Admin
           </Link>
