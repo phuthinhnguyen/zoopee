@@ -7,16 +7,25 @@ import { increment } from "../redux/action";
 import { state, useState } from "react";
 
 function Viewpost() {
+  // const user = useSelector((state) => state.user);
+  const stateselector = useSelector(state=>state)
   const { state } = useLocation();
-  const user = useSelector((state) => state.user);
   useEffect(() => {
-    if (user == null) {
+    if (stateselector.user == null) {
       navigate("/");
     }
+    if (state==null){
+      navigate("/home")
+    }
   }, []);
+
   const [iteminfo, setIteminfo] = useState(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  if (state!=null){
+    var useronline = stateselector.allusers.filter(item => item.id == state.userId)
+  }
+ 
   function reactionclick(emojiname, id, currentcount) {
     setIteminfo({ ...iteminfo, [emojiname]: currentcount + 1 });
     dispatch(increment(emojiname, id, currentcount));
@@ -26,7 +35,7 @@ function Viewpost() {
   }
   return (
     <>
-      {user != null ? (
+      {state != null ? (
         <div>
           <Header />
           <div className="home-body">
@@ -34,7 +43,7 @@ function Viewpost() {
               <div className="home-body-item-head">
                 <div className="home-body-item-avatar">
                   <img
-                    src={iteminfo.avatar}
+                    src={useronline[0].avatar}
                     alt="Image link not found"
                     className="avatar"
                     onClick={() => gotouserprofile(iteminfo.userId)}
@@ -44,7 +53,7 @@ function Viewpost() {
                   style={{ fontSize: 16, color: "lightgray" }}
                   onClick={() => gotouserprofile(iteminfo.userId)}
                 >
-                  {iteminfo.name}
+                  {useronline[0].name}
                 </h5>
               </div>
               <div className="home-body-item-post">
@@ -53,7 +62,7 @@ function Viewpost() {
                   {iteminfo.body}
                 </p>
                 <div>
-                  {iteminfo.userId == user.id ? (
+                  {iteminfo.userId == stateselector.user.id ? (
                     <Link to="/updatepost" state={iteminfo}>
                       Edit post
                     </Link>
@@ -137,7 +146,7 @@ function Viewpost() {
           </div>
         </div>
       ) : (
-        navigate("/")
+        null
       )}
     </>
   );

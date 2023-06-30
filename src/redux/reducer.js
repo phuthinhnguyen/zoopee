@@ -137,8 +137,8 @@ const rootReducer = (state = initialState, action) => {
       };
     case GET_USERPROFILE_SUCCESS:
       return { ...state, user: { ...state.user, userblogs: action.payload } };
-    case GET_USERPROFILEONLINE_SUCCESS:
-      return { ...state, useronline: { ...action.payload[0], userblogs: action.payload[1] } }
+    // case GET_USERPROFILEONLINE_SUCCESS:
+    //   return { ...state, useronline: { ...action.payload[0], userblogs: action.payload[1] } }
     case BAN_USER_SUCCESS:
       return { ...state, allusers: [...state.allusers.filter(item => item.id != action.payload)] };
     case TO_ADMIN_SUCCESS:

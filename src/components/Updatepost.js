@@ -26,6 +26,9 @@ function Updatepost() {
     if (user == null) {
       navigate("/");
     }
+    if (state==null){
+      navigate("/home");
+    }
   }, []);
   function submitform(e) {
     e.preventDefault();
@@ -47,7 +50,7 @@ function Updatepost() {
 
   return (
     <>
-      {user != null ? (
+      {state!=null ? (
         <div>
           <Header />
           <div className="addnewpost-body">
@@ -118,7 +121,7 @@ function Updatepost() {
           </Snackbar>
         </div>
       ) : (
-        navigate("/")
+        null
       )}
     </>
   );

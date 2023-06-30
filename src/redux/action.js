@@ -59,8 +59,8 @@ export const addnewpost = (form, user) => {
       rocket: 0,
       coffee: 0,
       view: 0,
-      name: user.name,
-      avatar: user.avatar
+      // name: user.name,
+      // avatar: user.avatar
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -200,16 +200,16 @@ export const getUserprofile = (posts, user) => {
   };
 };
 
-export const getUserprofileonline = (posts, userid) => {
-  return async (dispatch) => {
-    const response = await axios.get(`${apiurlusers}/${userid}`);
-    const userblogs = posts.filter((item) => item.userId == userid);
-    dispatch({
-      type: GET_USERPROFILEONLINE_SUCCESS,
-      payload: [response.data, userblogs]
-    });
-  };
-}
+// export const getUserprofileonline = (posts, userid) => {
+//   return async (dispatch) => {
+//     const response = await axios.get(`${apiurlusers}/${userid}`);
+//     const userblogs = posts.filter((item) => item.userId == userid);
+//     dispatch({
+//       type: GET_USERPROFILEONLINE_SUCCESS,
+//       payload: [response.data, userblogs]
+//     });
+//   };
+// }
 
 export const signup = (form) => {
   return async (dispatch) => {

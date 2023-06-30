@@ -16,16 +16,22 @@ function Userprofileonline() {
   const dispatch = useDispatch();
   useEffect(() => {
     if (stateselector.user == null) {
-        navigate("/");
+      navigate("/");
     }
-    dispatch(getUserprofileonline(stateselector.posts, state));
+    // dispatch(getUserprofileonline(stateselector.posts, state));
   }, []);
   // const blogs = useSelector(stateselector => stateselector.user.userblogs);
-  if (stateselector.useronline != null) {
-    const blogs = stateselector.useronline.userblogs;
-    var sortedposts =
-      blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
-  }
+  const useronline = stateselector.allusers.filter(item => item.id == state)
+  const userblogs = stateselector.posts.filter(item => item.userId == state)
+  var sortedposts =userblogs.sort((a, b) => b.createdAt - a.createdAt);
+  // if (stateselector.useronline != null) {
+  //   const blogs = stateselector.useronline.userblogs;
+  //   var sortedposts =
+  //     blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
+  // }
+
+
+
   //   const sharethinkingonChange = (e) => {
   //     setSharethinking(e.target.value)
   //   }
@@ -41,30 +47,30 @@ function Userprofileonline() {
       {stateselector.user != null ? (
         <div>
           <Header />
-          {stateselector.useronline != undefined && (
+          {useronline != undefined && (
             <div className="home-body userprofile-body">
               <div className="home-body-coverphoto">
                 <img
-                  src={stateselector.useronline.coverphoto}
+                  src={useronline[0].coverphoto}
                   alt="Image link not found"
                   className="coverphoto"
                 ></img>
               </div>
               <div className="home-body-avatar">
                 <img
-                  src={stateselector.useronline.avatar}
+                  src={useronline[0].avatar}
                   alt="Image link not found"
                   className="avatar"
                 ></img>
               </div>
               <h1 className="home-body-name">
-                {stateselector.useronline.name}
+                {useronline[0].name}
               </h1>
               {/* <div className="share-thinking" style={{ marginTop: 80 }}>
            <input type="text" className="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking} />
            <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
          </div> */}
-              {stateselector.useronline != null &&
+              {useronline != null &&
                 sortedposts != false &&
                 sortedposts.map((item, index) => (
                   <Post
