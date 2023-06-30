@@ -60,7 +60,7 @@ function Userprofileonline() {
                 <img
                   src={useronline[0].avatar}
                   alt="Image link not found"
-                  className="avatar"
+                  className="avatar avataruserprofile"
                 ></img>
               </div>
               <h1 className="home-body-name">
@@ -79,7 +79,7 @@ function Userprofileonline() {
                         <div className="home-body-item-head">
                           <div className="home-body-item-avatar">
                             <img
-                              src={item.avatar}
+                              src={useronline[0].avatar}
                               alt="Image link not found"
                               className="avatar"
                               onClick={() => gotouserprofile(item.userId)}

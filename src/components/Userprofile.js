@@ -130,7 +130,7 @@ function Userprofile() {
                       <div className="home-body-item-head">
                         <div className="home-body-item-avatar">
                           <img
-                            src={item.avatar}
+                            src={stateselector.user.avatar}
                             alt="Image link not found"
                             className="avatar"
                           ></img>

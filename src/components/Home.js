@@ -42,7 +42,7 @@ function Home() {
     dispatch(getPost());
     dispatch(getallusersforposts());
   }, []);
-
+  console.log(state)
   const sharethinkingonChange = (e) => {
     setSharethinking(e.target.value);
   };

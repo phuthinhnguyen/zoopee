@@ -508,7 +508,9 @@ form {
   height: 100%;
   cursor: pointer;
 }
-
+.avataruserprofile{
+  cursor: auto;
+}
 .home-body-item-head h5{
   cursor: pointer;
 }

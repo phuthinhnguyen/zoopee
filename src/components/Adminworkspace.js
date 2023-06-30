@@ -48,10 +48,15 @@ function Adminworkspace() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
+
   const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
   const filterresult = sortedposts.filter((item) => {
     return item[searchradio.toLowerCase()].includes(searchtext);
   });
+
+  function getavatarforpost(id){
+    return state.allusers.filter(item=>item.id==id)[0].avatar
+  }
   useEffect(() => {
     if(state.user==null){
       navigate("/")
@@ -165,7 +170,7 @@ function Adminworkspace() {
                           <div className="home-body-item-head">
                             <div className="home-body-item-avatar">
                               <img
-                                src={item.avatar}
+                                src={getavatarforpost(item.userId)}
                                 alt="Image link not found"
                                 className="avatar"
                                 onClick={() => gotouserprofile(item.userId)}
@@ -437,7 +442,7 @@ function Adminworkspace() {
                                 >
                                   <div className="home-body-item-avatar">
                                     <img
-                                      src={item.avatar}
+                                      src={getavatarforpost(item.userId)}
                                       alt="Image link not found"
                                       className="avatar"
                                       onClick={() =>
@@ -590,7 +595,7 @@ function Adminworkspace() {
                                   >
                                     <div className="home-body-item-avatar">
                                       <img
-                                        src={item.avatar}
+                                        src={getavatarforpost(item.userId)}
                                         alt="Image link not found"
                                         className="avatar"
                                         onClick={() =>
@@ -752,7 +757,7 @@ function Adminworkspace() {
                                 >
                                   <div className="home-body-item-avatar">
                                     <img
-                                      src={item.avatar}
+                                      src={getavatarforpost(item.userId)}
                                       alt="Image link not found"
                                       className="avatar"
                                       onClick={() =>
@@ -905,7 +910,7 @@ function Adminworkspace() {
                                   >
                                     <div className="home-body-item-avatar">
                                       <img
-                                        src={item.avatar}
+                                        src={getavatarforpost(item.userId)}
                                         alt="Image link not found"
                                         className="avatar"
                                         onClick={() =>
@@ -1068,7 +1073,7 @@ function Adminworkspace() {
                                   >
                                     <div className="home-body-item-avatar">
                                       <img
-                                        src={item.avatar}
+                                        src={getavatarforpost(item.userId)}
                                         alt="Image link not found"
                                         className="avatar"
                                         onClick={() =>
@@ -1231,7 +1236,7 @@ function Adminworkspace() {
                                   >
                                     <div className="home-body-item-avatar">
                                       <img
-                                        src={item.avatar}
+                                        src={getavatarforpost(item.userId)}
                                         alt="Image link not found"
                                         className="avatar"
                                         onClick={() =>

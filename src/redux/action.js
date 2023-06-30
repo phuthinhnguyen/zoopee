@@ -59,7 +59,7 @@ export const addnewpost = (form, user) => {
       rocket: 0,
       coffee: 0,
       view: 0,
-      // name: user.name,
+      name: user.name,
       // avatar: user.avatar
     });
     dispatch({
