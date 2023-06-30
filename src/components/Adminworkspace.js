@@ -103,7 +103,7 @@ function Adminworkspace() {
   }
   return (
     <div>
-      {state.user != null ? (
+      {state.user != null && state.user.role=="admin" ? (
         <div>
           <Header />
           <div className="adminworkspace-wrap">

@@ -146,7 +146,7 @@ function Viewpost() {
           </div>
         </div>
       ) : (
-        null
+        navigate("/home")
       )}
     </>
   );
