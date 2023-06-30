@@ -13,6 +13,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import Userprofile from "./components/Userprofile";
 // import Adminworkspace from "./components/Adminworkspace";
 // import Userprofileonline from "./components/Userprofileonline";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
 const Home = React.lazy(() => import("./components/Home"));
 const Addnewpost = React.lazy(() => import("./components/Addnewpost"));
@@ -24,76 +26,79 @@ const Adminworkspace = React.lazy(() => import("./components/Adminworkspace"));
 const Userprofileonline = React.lazy(() =>
   import("./components/Userprofileonline")
 );
+
 function App() {
+  let persistor = persistStore(store);
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Login />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Home />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/userprofile"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Userprofile />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/userprofileonline"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Userprofileonline />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/viewpost"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Viewpost />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/addnewpost"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Addnewpost />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/updatepost"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Updatepost />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/adminworkspace"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <Adminworkspace />
-              </Suspense>
-            }
-          />
-          {/* <Route path="/" element={<Login />} />
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Login />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/home"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Home />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/userprofile"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Userprofile />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/userprofileonline"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Userprofileonline />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/viewpost"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Viewpost />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/addnewpost"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Addnewpost />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/updatepost"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Updatepost />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/adminworkspace"
+              element={
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Adminworkspace />
+                </Suspense>
+              }
+            />
+            {/* <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userprofile" element={<Userprofile />} />
           <Route path="/userprofileonline" element={<Userprofileonline />} />
@@ -101,8 +106,9 @@ function App() {
           <Route path="/addnewpost" element={<Addnewpost />} />
           <Route path="/updatepost" element={<Updatepost />} />
           <Route path="/adminworkspace" element={<Adminworkspace />} /> */}
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }
