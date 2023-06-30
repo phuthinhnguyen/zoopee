@@ -125,7 +125,7 @@ export const login = (form) => {
       dispatch({
         type: LOGIN_SUCCESS,
         // payload: { userblogs: [], checktype: "login", result: checkloginresult }
-        payload: [{userblogs: [], checktype: "login",result: checkloginresult },null]
+        payload: [{ userblogs: [], checktype: "login", result: checkloginresult }, null]
       });
     }
     else if (getusername[0].password != form.password) {
@@ -137,14 +137,14 @@ export const login = (form) => {
       dispatch({
         type: LOGIN_SUCCESS,
         // payload: { userblogs: [], checktype: "login", result: checkloginresult }
-        payload: [{userblogs: [], checktype: "login",result: checkloginresult },null]
+        payload: [{ userblogs: [], checktype: "login", result: checkloginresult }, null]
       });
     }
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
       dispatch({
         type: LOGIN_SUCCESS,
-        payload: [{...allusersprofile.filter(item=>item.id==getusername[0].id)[0] , userblogs: [], checktype: "login",result: checkloginresult },allusersprofile]
+        payload: [{ ...allusersprofile.filter(item => item.id == getusername[0].id)[0], userblogs: [], checktype: "login", result: checkloginresult }, allusersprofile]
       });
       // dispatch(getPost());
     }
@@ -233,7 +233,7 @@ export const signup = (form) => {
         username: form.username,
         password: form.password,
         role: form.role,
-        avatar: "a",
+        avatar: "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png",
         coverphoto: "https://res.cloudinary.com/dhva3lwfk/image/upload/v1687881220/Asset_5_pakypu.png"
       })
       checksignupresult = "Sign up successfully"
@@ -257,10 +257,10 @@ export const getallusers = () => {
 }
 
 
-export const getallusersforposts = ()=>{
-  return async dispatch=>{
+export const getallusersforposts = () => {
+  return async dispatch => {
     const response = await axios.get(apiurlusers)
-    for (let item of response.data){
+    for (let item of response.data) {
       delete item.username;
       delete item.password;
     }
