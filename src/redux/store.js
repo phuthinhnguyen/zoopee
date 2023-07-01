@@ -1,10 +1,10 @@
-import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./reducer";
 import thunk from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import { persistReducer } from "redux-persist";
 
+// use redux-persist library to save store when user refreshing browser
 const persistConfig = {
   key: "root",
   storage
@@ -17,8 +17,5 @@ const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk]
 });
-// export const store = createStore(persistedReducer);
-
-// const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;

@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS";
 export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
 export const ADD_NEW_POST_SUCCESS = "ADD_NEW_POST_SUCCESS";
@@ -8,23 +8,21 @@ export const UPDATE_EMOJI_SUCCESS = "UPDATE_EMOJI_SUCCESS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
-export const GET_USERPROFILEONLINE_SUCCESS = "GET_USERPROFILEONLINE_SUCCESS"
+// export const GET_USERPROFILEONLINE_SUCCESS = "GET_USERPROFILEONLINE_SUCCESS"
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
 export const UPLOAD_AVATAR_SUCCESS = "UPLOAD_AVATAR_SUCCESS"
-// const apiurl = "https://648e53e52de8d0ea11e8ab7f.mockapi.io/blogs"
+
+// user 2 api, first one includes information about users (id,username,password,avatar,coverphoto...)
+// last one includes information about posts (id,title,body,author...) 
 const apiurlusers = "https://649117572f2c7ee6c2c7b99a.mockapi.io/users";
 const apiurlblogs = "https://649117572f2c7ee6c2c7b99a.mockapi.io/blogs";
+
+// get all posts to load in home page
 export const getPost = () => {
   return async (dispatch) => {
     const response = await axios.get(apiurlblogs);
-    // let posts = []
-    // for (let item of response.data){
-    //   if (item.tokenId) {
-    //     posts.push(item);
-    //   }
-    // }
     dispatch({
       type: FETCH_POST_SUCCESS,
       payload: response.data
@@ -32,20 +30,8 @@ export const getPost = () => {
   };
 };
 
+// call api when user add new post/update/delete post
 export const addnewpost = (form, user) => {
-  // const newpost = {
-  //   createdAt: Date.now(),
-  //   userId: userid,
-  //   tokenId: tokenid,
-  //   title: form.title,
-  //   body: form.body,
-  //   author: form.author,
-  //   thumbsUp: 0,
-  //   wow: 0,
-  //   heart: 0,
-  //   rocket: 0,
-  //   coffee: 0
-  // };
   return async (dispatch) => {
     const response = await axios.post(`${apiurlblogs}`, {
       createdAt: Date.now(),
@@ -60,7 +46,6 @@ export const addnewpost = (form, user) => {
       coffee: 0,
       view: 0,
       name: user.name,
-      // avatar: user.avatar
     });
     dispatch({
       type: ADD_NEW_POST_SUCCESS,
@@ -84,18 +69,7 @@ export const updatepost = (form) => {
   };
 };
 
-export const increment = (emojiname, id, currentcount) => {
-  return async (dispatch) => {
-    const response = await axios.put(`${apiurlblogs}/${id}`, {
-      [emojiname]: currentcount + 1
-    });
-    dispatch({
-      type: UPDATE_EMOJI_SUCCESS,
-      // payload: { emojiname, id, currentcount }
-      payload: response.data
-    });
-  };
-};
+
 export const deletepost = (id) => {
   return async (dispatch) => {
     const response = await axios.delete(`${apiurlblogs}/${id}`);
@@ -106,92 +80,68 @@ export const deletepost = (id) => {
   };
 };
 
+// call api when user click to reactions in post
+export const increment = (emojiname, id, currentcount) => {
+  return async (dispatch) => {
+    const response = await axios.put(`${apiurlblogs}/${id}`, {
+      [emojiname]: currentcount + 1
+    });
+    dispatch({
+      type: UPDATE_EMOJI_SUCCESS,
+      payload: response.data
+    });
+  };
+};
+
+
 export const login = (form) => {
   return async (dispatch) => {
-    let checkloginresult = ""
+    let checkloginresult = "";
     const response = await axios.get(apiurlusers);
+
+    // when user click login button, check whether username is existed on database
     const getusername = response.data.filter(
       (item) => item.username == form.username
     );
+
+    // clone all users database with delete username and password when change them to store
     const allusersprofile = structuredClone(response.data);
     for (let item of allusersprofile) {
       delete item.username;
       delete item.password
     }
-
+    
+    // if no username exists, store error to variable and do dispatch
     if (getusername.length == 0) {
-      // alert("Username is not exists");
       checkloginresult = "Username is not exists"
       dispatch({
         type: LOGIN_SUCCESS,
-        // payload: { userblogs: [], checktype: "login", result: checkloginresult }
         payload: [{ userblogs: [], checktype: "login", result: checkloginresult }, null]
       });
     }
+    // if username exists but password not matched, store error to variable and do dispatch
     else if (getusername[0].password != form.password) {
-      // alert("Username and password are not matched");
-      //   <Alert severity="success" color="info">
-      //   This is a success alert — check it out!
-      // </Alert>
       checkloginresult = "Username and password are not matched"
       dispatch({
         type: LOGIN_SUCCESS,
-        // payload: { userblogs: [], checktype: "login", result: checkloginresult }
         payload: [{ userblogs: [], checktype: "login", result: checkloginresult }, null]
       });
     }
+    // if username exists and password matched
     else if (getusername[0].password == form.password) {
       checkloginresult = "Login successfully"
       dispatch({
         type: LOGIN_SUCCESS,
+        // checktype : login is used for distinguishing between login or signup information 
         payload: [{ ...allusersprofile.filter(item => item.id == getusername[0].id)[0], userblogs: [], checktype: "login", result: checkloginresult }, allusersprofile]
       });
-      // dispatch(getPost());
     }
-
-    // for (let item of response.data) {
-    // if (item.tokenId) {
-    //   posts.push(item);
-    // }
-    // if (!item.tokenId && item.username) {
-    //   allusers.push(item);
-    // }
-    // }
-    // dispatch({
-    //   type: FETCH_USER_SUCCESS,
-    //   payload: response.data
-    // });
-    // const getusername = response.data.filter(
-    //   (item) => item.username == form.username
-    // );
-    // if (getusername.length == 0) {
-    //   alert("Username is not exists");
-    // } else if (getusername[0].password == form.password) {
-    //   dispatch({
-    //     type: LOGIN_SUCCESS,
-    //     payload: response.data
-    //   });
-    // } else if (getusername[0].password != form.password) {
-    //   alert("Username and password are not matched");
-    // }
   };
 };
 
-// export const logout = (id) => {
-//   return async (dispatch) => {
-//     const response = await axios.put(`${apiurlusers}/${id}`, {
-//       loginning: false
-//     });
-//     dispatch({
-//       type: LOGOUT_SUCCESS,
-//       payload: response.data
-//     });
-//   };
-// };
-
+// get information of loginning user to load on profile page
 export const getUserprofile = (posts, user) => {
   return async (dispatch) => {
-    // const response = await axios.get(`${apiurlusers}`);
     const userblogs = posts.filter((item) => item.userId == user.id);
     dispatch({
       type: GET_USERPROFILE_SUCCESS,
@@ -200,32 +150,24 @@ export const getUserprofile = (posts, user) => {
   };
 };
 
-// export const getUserprofileonline = (posts, userid) => {
-//   return async (dispatch) => {
-//     const response = await axios.get(`${apiurlusers}/${userid}`);
-//     const userblogs = posts.filter((item) => item.userId == userid);
-//     dispatch({
-//       type: GET_USERPROFILEONLINE_SUCCESS,
-//       payload: [response.data, userblogs]
-//     });
-//   };
-// }
 
 export const signup = (form) => {
   return async (dispatch) => {
-    let checksignupresult = ""
+    let checksignupresult = "";
     const responsegetuser = await axios.get(apiurlusers)
+
+    // check whether username and email is existed on database
     const checkusername = responsegetuser.data.filter(item => item.username == form.username)
     const checkemail = responsegetuser.data.filter(item => item.email == form.email)
 
+    // if exist, store error to variable checksignupresult
     if (checkusername.length != 0) {
-      // alert("Username already exists")
       checksignupresult = "Username already exists"
     }
     else if (checkemail.length != 0) {
-      // alert("Email already exists")
       checksignupresult = "Email already exists"
     }
+    // if not exist, process to call api and dispatch
     else {
       const response = await axios.post(apiurlusers, {
         name: form.name,
@@ -233,11 +175,11 @@ export const signup = (form) => {
         username: form.username,
         password: form.password,
         role: form.role,
+        // new user have default avatar and coverphoto as link below
         avatar: "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png",
         coverphoto: "https://res.cloudinary.com/dhva3lwfk/image/upload/v1687881220/Asset_5_pakypu.png"
       })
       checksignupresult = "Sign up successfully"
-      // alert("Sign up successfully")
     }
     dispatch({
       type: SIGNUP_SUCCESS,
@@ -246,6 +188,7 @@ export const signup = (form) => {
   }
 }
 
+// get all users information (includes username,password,email,name...) for showing in admin page (only role admin can see it)
 export const getallusers = () => {
   return async dispatch => {
     const response = await axios.get(apiurlusers)
@@ -256,10 +199,11 @@ export const getallusers = () => {
   }
 }
 
-
+// get all users information for loading posts (includes avatar,name,title,body,author,time...) in home page
 export const getallusersforposts = () => {
   return async dispatch => {
     const response = await axios.get(apiurlusers)
+    // to hide users's username and password when storing them
     for (let item of response.data) {
       delete item.username;
       delete item.password;
@@ -270,6 +214,8 @@ export const getallusersforposts = () => {
     })
   }
 }
+
+// delete specific user (only root admin and admin can do this)
 export const banuser = (id) => {
   return async dispatch => {
     const response = await axios.delete(`${apiurlusers}/${id}`)
@@ -280,6 +226,7 @@ export const banuser = (id) => {
   }
 }
 
+// change role from user to admin
 export const toadmin = (id) => {
   return async dispatch => {
     const response = await axios.put(`${apiurlusers}/${id}`, {
@@ -291,6 +238,8 @@ export const toadmin = (id) => {
     })
   }
 }
+
+// use cloudinary api to host uploaded image and retrieve url of image
 export const uploadavatar = (image, id, type) => {
   return async dispatch => {
     fetch("https://api.cloudinary.com/v1_1/dhva3lwfk/image/upload", {
@@ -308,7 +257,6 @@ export const uploadavatar = (image, id, type) => {
         });
       })
       .catch((err) => console.log(err));
-
   }
 }
 

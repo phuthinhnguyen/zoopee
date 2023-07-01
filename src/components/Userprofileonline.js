@@ -47,7 +47,7 @@ function Userprofileonline() {
       {stateselector.user != null ? (
         <div>
           <Header />
-          {useronline != undefined && (
+          {useronline != undefined && useronline.length!=0 ? (
             <div className="home-body userprofile-body">
               <div className="home-body-coverphoto">
                 <img
@@ -174,7 +174,7 @@ function Userprofileonline() {
                   />
                 ))}
             </div>
-          )}
+          ) : <div className="userdeleted">This user is deleted</div>}
         </div>
       ) : (
         navigate("/")

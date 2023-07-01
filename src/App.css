@@ -7,6 +7,8 @@
   pointer-events: none;
 }
 
+
+/* customize scrollbar */
 html {
   ::-webkit-scrollbar {
     width: 8px;
@@ -27,7 +29,7 @@ html {
   }
 }
 
-/* --menuitemhover: rgb(247, 228, 56); */
+
 :root {
   --boldyellow: rgb(245, 204, 25);
   --backgroundhead: black;
@@ -72,6 +74,7 @@ html {
   color: #61dafb;
 }
 
+/* css header */
 .header {
   background-color: var(--backgroundhead);
   color: var(--colortext);
@@ -106,13 +109,11 @@ html {
 
 .button-signup-header-form {
   width: 100px;
-  /* flex: 0.3; */
   padding: 5px 10px;
   border-radius: 20px;
   background-color: var(--boldyellow);
   border: none;
   display: block;
-  /* margin: auto; */
 }
 
 .button-signup-header-form:hover {
@@ -128,19 +129,14 @@ html {
 
 .header-link {
   text-decoration: none;
-  /* width: 220px; */
   color: var(--boldyellow);
   text-align: center;
   font-size: 18px;
   margin-right: 20px;
-  /* height: 45px; */
   padding: 0 20px;
   height: 30px;
-  /* line-height: 45px; */
   border-radius: 20px;
-  /* background-color: var(--backgroundbody); */
   background-color: var(--backgroundhead);
-  /* box-shadow: 0 2px 2px 0 var(--boldyellow), 0 4px 6px 0 var(--buttonhover); */
 }
 
 .header-link:hover {
@@ -148,16 +144,10 @@ html {
   color: black;
 }
 
-.header-icon {
-  font-size: 20px;
-  margin-right: 15px;
-  cursor: pointer;
-}
 
 .usermenu {
   width: 100%;
   text-decoration: none;
-  /* color: var(--boldyellow); */
   color: black;
   text-align: center;
   font-size: 15px;
@@ -165,8 +155,6 @@ html {
   height: 30px;
   line-height: 30px;
   border-radius: 20px;
-  /* background-color: var(--backgroundbody); */
-  /* background-color: var(--backgroundhead); */
   font-family: var(--fonttext);
 }
 
@@ -175,6 +163,8 @@ html {
   background-color: var(--menuitemhover);
 }
 
+
+/* css element of form */
 label {
   color: var(--colortext);
   font-family: var(--fonttext);
@@ -185,7 +175,6 @@ label {
 input {
   border-radius: 6px;
   border: none;
-  /* outline: 1px solid lightgray; */
   height: 40px;
   width: 200px;
   padding-left: 8px;
@@ -286,12 +275,8 @@ form {
   margin: 0;
 }
 
+/* css signup area */
 .signup-body {
-  /* background-image: url('../public/img/creativeScroll-hero.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-  /* height: 90vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -302,10 +287,6 @@ form {
 
 .formsignup {
   width: 100%;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
 }
 
 .formsignup-wrap {
@@ -337,15 +318,7 @@ form {
   min-width: 300px;
 }
 
-/* .group-input-signup input:focus {
-  filter: drop-shadow(1px 1px 1px var(--boldyellow));
-}
-.group-input-signup input:hover {
-  filter: drop-shadow(1px 1px 1px var(--boldyellow));
-} */
 .formlogin {
-  /* flex: 1; */
-  /* max-width: 750px; */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -371,14 +344,11 @@ form {
   display: block;
 }
 
-/* rgb(221, 221, 72); */
-/* rgb(245, 204, 25); */
 .button-login:hover {
   background-color: var(--buttonhover);
 }
 
 .login-body {
-  /* background-image: url('https://res.cloudinary.com/dhva3lwfk/image/upload/v1686124303/cld-sample-3.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -403,9 +373,7 @@ form {
   background-color: var(--buttonhover);
 }
 
-/* .closecollapse:hover .closecollapse-icon{
-  color: var(--buttonhover);
-} */
+/* css addnewpost page*/
 .addnewpost-body {
   width: 100%;
   background-color: var(--backgroundbody);
@@ -445,6 +413,8 @@ form {
   padding-top: 8px;
 }
 
+
+/* css home page */
 .home-body {
   background-color: var(--backgroundbody);
   height: 100%;
@@ -528,8 +498,6 @@ form {
   width: 50%;
   min-width: 500px;
   margin: auto;
-  /* border: 1px solid gray; */
-  /* border-radius: 10px; */
   padding: 10px 20px 20px 20px;
   margin-top: 85px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
@@ -538,7 +506,6 @@ form {
 .home-body-item-head {
   width: 100%;
   padding: 10px 0;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1); */
   display: flex;
   align-items: center;
   column-gap: 20px;
@@ -552,7 +519,6 @@ form {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 1);
 }
 .home-body-item-avatar:hover{
-  /* border: 1px solid var(--boldyellow); */
   box-shadow: 0 2px 2px 0 var(--boldyellow), 0 2px 10px 0 var(--boldyellow);
 }
 .home-body-item-post {
@@ -575,6 +541,8 @@ form {
   color: white;
 }
 
+
+/* css admin page */
 .adminworkspace-wrap {
   display: flex;
   flex-direction: column;
@@ -636,20 +604,20 @@ form {
   width: 70%;
   margin: auto;
 }
+
 .tabpanel{
-  /* width: 100%; */
   width: 800px;
   justify-content: flex-start;
-  /* max-height: 100px; */
   align-items: center;
   height: 400px;
-  /* height: 100px; */
   margin: 0;
 }
+
 .tabpanel-item{
   margin: 0;
   width: 800px;
 }
+
 .adminworkspace-posts-showsearch {
   max-height: 800px;
   min-height: 300px;
@@ -661,7 +629,6 @@ form {
 .adminworkspace-posts-action {
   flex: 0.5;
 }
-
 
 
 .adminworkspace-analytics-users {
@@ -701,7 +668,6 @@ form {
 }
 
 .adminworkspace-analytics-reviews {
-  /* border: 1px solid gray; */
   margin-top: 80px;
   width: 100%;
   padding: 50px;
@@ -726,6 +692,7 @@ form {
   height: 40px;
 }
 
+/* css userprofile page */
 .parent {
   position: relative;
   width: 100%;
@@ -736,6 +703,7 @@ form {
   cursor: pointer;
   overflow: hidden;
 }
+
 .parent-coverphoto{
   position: relative;
   width: 100%;
@@ -744,15 +712,18 @@ form {
   cursor: pointer;
   overflow: hidden;
 }
+
 .parent-coverphoto img{
   width: 100%;
   height: 100%;
 }
+
 .file-upload {
   text-align: center;
   padding: 1.5rem;
   cursor: pointer;
 }
+
 .parent div {
   width: 100%;
   height: 100%;
@@ -771,6 +742,18 @@ form {
   cursor: pointer;
 
 }
+
+.userdeleted{
+  width: 100%;
+  height: calc(100vh - 85px);
+  background-color: var(--backgroundbody);
+  font-size: 50px;
+  text-align: center;
+  color: white;
+  padding-top: 150px;
+  font-family: var(--fonttext);
+}
+/* css preloader */
 .preloader-wrap{
   width: 100%;
   height: 100vh;
@@ -778,12 +761,12 @@ form {
   position: relative;
 }
 .preloader{
-  /* width: 100px;
-  height: 100px; */
   position: absolute;
   top: 50%;
   left: 50%;
 }
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

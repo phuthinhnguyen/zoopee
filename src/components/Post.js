@@ -19,7 +19,7 @@ const Post = ({ item }) => {
         }
         else {
             control.start("hidden");
-        }
+        } 
     }, [isInView]);
     return (
         <motion.div
@@ -30,6 +30,7 @@ const Post = ({ item }) => {
             variants={boxVariant}>
             {item}
         </motion.div>
+        // <div>{item}</div>
     );
 };
 export default Post;

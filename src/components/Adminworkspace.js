@@ -55,7 +55,13 @@ function Adminworkspace() {
   });
 
   function getavatarforpost(id){
-    return state.allusers.filter(item=>item.id==id)[0].avatar
+    if (state.allusers != null) {
+      const allusersfilter = state.allusers.filter(item => item.id == id)
+      if (allusersfilter.length==0){
+        return "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png"
+      }
+      return allusersfilter[0].avatar
+    }
   }
   useEffect(() => {
     if(state.user==null){

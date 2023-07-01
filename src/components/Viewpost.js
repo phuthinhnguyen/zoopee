@@ -8,13 +8,13 @@ import { state, useState } from "react";
 
 function Viewpost() {
   // const user = useSelector((state) => state.user);
-  const stateselector = useSelector(state=>state)
+  const stateselector = useSelector(state => state)
   const { state } = useLocation();
   useEffect(() => {
     if (stateselector.user == null) {
       navigate("/");
     }
-    if (state==null){
+    if (state == null) {
       navigate("/home")
     }
   }, []);
@@ -22,10 +22,15 @@ function Viewpost() {
   const [iteminfo, setIteminfo] = useState(state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  if (state!=null){
+
+  if (state != null) {
     var useronline = stateselector.allusers.filter(item => item.id == state.userId)
+    // if (useronline.length == 0) {
+    //   return "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png"
+    // }
+    // return useronline[0].avatar
   }
- 
+
   function reactionclick(emojiname, id, currentcount) {
     setIteminfo({ ...iteminfo, [emojiname]: currentcount + 1 });
     dispatch(increment(emojiname, id, currentcount));
@@ -43,7 +48,7 @@ function Viewpost() {
               <div className="home-body-item-head">
                 <div className="home-body-item-avatar">
                   <img
-                    src={useronline[0].avatar}
+                    src={useronline.length != 0 ? useronline[0].avatar : "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png"}
                     alt="Image link not found"
                     className="avatar"
                     onClick={() => gotouserprofile(iteminfo.userId)}
@@ -53,7 +58,7 @@ function Viewpost() {
                   style={{ fontSize: 16, color: "lightgray" }}
                   onClick={() => gotouserprofile(iteminfo.userId)}
                 >
-                  {useronline[0].name}
+                  {iteminfo.name}
                 </h5>
               </div>
               <div className="home-body-item-post">
@@ -139,7 +144,7 @@ function Viewpost() {
               className="button-back"
               style={{ marginTop: 100 }}
               to="/home"
-              // onClick={() => dispatch(getPost())}
+            // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>

@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
 import Post from "./Post";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import Loadingpath from "./Loadingpath";
 
 function Home() {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ function Home() {
   // if (y[1] == " false") {
   //   navigate("/");
   // } else console.log("userlogining");
-  
+
   const dispatch = useDispatch();
- 
+
   const state = useSelector((state) => state);
-  if(state.user==null){
+  if (state.user == null) {
     navigate("/")
   }
   const [sharethinking, setSharethinking] = useState("");
@@ -60,17 +61,20 @@ function Home() {
     navigate("/userprofileonline", { state: userId });
   }
 
-  function getavatarforpost(id){
-    if (state.allusers!=null){
-      return state.allusers.filter(item=>item.id==id)[0].avatar
+  function getavatarforpost(id) {
+    if (state.allusers != null) {
+      const allusersfilter = state.allusers.filter(item => item.id == id)
+      if (allusersfilter.length==0){
+        return "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png"
+      }
+      return allusersfilter[0].avatar
     }
-    
   }
   return (
     <div>
       {state.user != null ? (
         <div>
-          <Header/>
+          <Header />
           <div className="home-body">
             <div className="share-thinking">
               <input
@@ -89,7 +93,6 @@ function Home() {
                 Share
               </Link>
             </div>
-
             {sortedposts.map((item, index) => (
               <Post
                 item={
@@ -190,7 +193,7 @@ function Home() {
           </div>
         </div>
       ) : (
-       null
+        null
       )}
     </div>
   );
