@@ -15,6 +15,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 // import Userprofileonline from "./components/Userprofileonline";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
+import Loadinglogin from "./components/Loadinglogin";
+import Loadingpath from "./components/Loadingpath";
 
 const Home = React.lazy(() => import("./components/Home"));
 const Addnewpost = React.lazy(() => import("./components/Addnewpost"));
@@ -31,13 +33,13 @@ function App() {
   let persistor = persistStore(store);
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<Loadinglogin/>} persistor={persistor}>
         <BrowserRouter>
           <Routes>
             <Route
               path="/"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Login />
                 </Suspense>
               }
@@ -45,7 +47,7 @@ function App() {
             <Route
               path="/home"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Home />
                 </Suspense>
               }
@@ -53,7 +55,7 @@ function App() {
             <Route
               path="/userprofile"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Userprofile />
                 </Suspense>
               }
@@ -61,7 +63,7 @@ function App() {
             <Route
               path="/userprofileonline"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Userprofileonline />
                 </Suspense>
               }
@@ -69,7 +71,7 @@ function App() {
             <Route
               path="/viewpost"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Viewpost />
                 </Suspense>
               }
@@ -77,7 +79,7 @@ function App() {
             <Route
               path="/addnewpost"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Addnewpost />
                 </Suspense>
               }
@@ -85,7 +87,7 @@ function App() {
             <Route
               path="/updatepost"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Updatepost />
                 </Suspense>
               }
@@ -93,7 +95,7 @@ function App() {
             <Route
               path="/adminworkspace"
               element={
-                <Suspense fallback={<div>Loading...</div>}>
+                <Suspense fallback={<Loadingpath/>}>
                   <Adminworkspace />
                 </Suspense>
               }

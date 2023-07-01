@@ -61,7 +61,10 @@ function Home() {
   }
 
   function getavatarforpost(id){
-    return state.allusers.filter(item=>item.id==id)[0].avatar
+    if (state.allusers!=null){
+      return state.allusers.filter(item=>item.id==id)[0].avatar
+    }
+    
   }
   return (
     <div>
