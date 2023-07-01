@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
-import { getUserprofile, uploadavatar } from "../redux/action";
+import { uploadavatar } from "../redux/action";
 import { increment } from "../redux/action";
 import Post from "./Post";
 import Avatar from "@mui/material/Avatar";
@@ -15,12 +15,7 @@ function Userprofile() {
   const [image, setImage] = useState({ file: "", type: "" });
   const [url, setUrl] = useState("");
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (stateselector.user == null) {
-  //     navigate("/");
-  //   }
-  // }, []);
-  // const blogs = useSelector(stateselector => stateselector.user.userblogs);
+
   if (stateselector.user != null) {
     const blogs = stateselector.user.userblogs;
     var sortedposts =
@@ -44,27 +39,8 @@ function Userprofile() {
       data.append("upload_preset", "phuthinhnguyen1101");
       data.append("cloud_name", "dhva3lwfk");
       dispatch(uploadavatar(data, stateselector.user.id, image.type));
-      //  setUrl(stateselector.user.avatar)
     }
   }, [image.file]);
-  // if (image != "") {
-  //   const data = new FormData();
-  //   data.append("file", image);
-  //   data.append("upload_preset", "phuthinhnguyen1101");
-  //   data.append("cloud_name", "dhva3lwfk");
-  //   // fetch("https://api.cloudinary.com/v1_1/dhva3lwfk/image/upload", {
-  //   //   method: "post",
-  //   //   body: image
-  //   // })
-  //   //   .then((resp) => resp.json())
-  //   //   .then((data) => {
-  //   //     setUrl(data.url)
-  //   //   })
-  //   // dispatch(uploadavatar(data,stateselector.user.id))
-  //   // setUrl(stateselector.user.avatar)
-  // }
-
-  // console.log(stateselector.user.avatar)
 
   return (
     <div>

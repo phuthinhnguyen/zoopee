@@ -1,6 +1,6 @@
+// preloader when user change path
 function Loadingpath() {
     return (
-        // loading-icon
         <div className="preloader-wrap">
             <div className="header">
                 <h2 className="logotext">zoopee</h2>

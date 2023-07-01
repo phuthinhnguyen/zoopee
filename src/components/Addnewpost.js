@@ -81,7 +81,6 @@ function Addnewpost() {
               <button
                 type="submit"
                 className="button-login"
-                // style={{ backgroundColor: "purple", color: "white" }}
               >
                 Save Post
               </button>
@@ -89,7 +88,6 @@ function Addnewpost() {
             <Link
               className="button-back"
               to="/home"
-              // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>

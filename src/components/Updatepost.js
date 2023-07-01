@@ -93,7 +93,6 @@ function Updatepost() {
             <Link
               className="button-back"
               to="/home"
-              // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>

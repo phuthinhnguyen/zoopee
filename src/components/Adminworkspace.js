@@ -1,19 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  banuser,
-  deletepost,
-  getPost,
-  getallusers,
-  increment,
-  login,
-  searchFilterChange,
-  toadmin
-} from "../redux/action";
+import {banuser, deletepost, getallusers, increment, toadmin} from "../redux/action";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
-// import { Input, Space } from 'antd';
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -32,19 +22,22 @@ function SlideTransition(props) {
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
+
 function Adminworkspace() {
-  // const { Search } = Input;
   const [searchradio, setSearchradio] = useState("title");
   const [searchtext, setSearchtext] = useState("");
   const [tabvalue, setTabvalue] = useState(0);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+
   const handleChangetab = (event, newValue) => {
     setTabvalue(newValue);
   };
+
   const onChangeradio = (e) => {
     setSearchradio(e.target.value);
   };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -67,7 +60,6 @@ function Adminworkspace() {
     if(state.user==null){
       navigate("/")
     }
-    // dispatch(getPost());
     dispatch(getallusers());
   }, []);
 
@@ -95,7 +87,6 @@ function Adminworkspace() {
 
   const handleChangetextsearch = (e) => {
     setSearchtext(e.target.value);
-    // dispatch(searchFilterChange(e.target.value));
   };
 
   const closealert = (event, reason) => {
@@ -104,9 +95,11 @@ function Adminworkspace() {
     }
     setOpen(false);
   };
+
   function gotouserprofile(userId) {
     navigate("/userprofileonline", { state: userId });
   }
+  
   return (
     <div>
       {state.user != null && state.user.role=="admin" ? (

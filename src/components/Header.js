@@ -1,54 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  LOGOUT_SUCCESS,
-  getPost,
-  getUserprofile,
-  logout
-} from "../redux/action";
-import React, { useEffect } from "react";
+import {LOGOUT_SUCCESS, getPost, getUserprofile} from "../redux/action";
+import React from "react";
 import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
-import { Hidden } from "@mui/material";
 
-// const link = {
-//   textDecoration: "none",
-//   color: "var(--colortext)",
-//   fontSize: 25,
-//   marginRight: 20
-// };
-// export const header = {
-//   backgroundColor: "var(--background)",
-//   color: "var(--colortext)",
-//   height: 80,
-//   display: "flex",
-//   justifyContent: "space-between",
-//   alignItems: "center",
-//   padding: 20,
-//   width: "100%"
-// };
 function Header(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const settings = ["Profile", "Account", "Logout"];
+
   function logoutclick() {
     dispatch({
       type: LOGOUT_SUCCESS
     });
-    // window.localStorage.setItem("login", false);
     navigate("/");
   }
-  // useEffect(() => {
-  //     if (user!=null && user.loginning == false) {
-  //       navigate("/");
-  //     }
-  //   }, [user]);
+
   function homeclick() {
     dispatch(getPost());
   }
@@ -63,8 +36,7 @@ function Header(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  // const userrole = props.userrole
-
+ 
   return (
     <div className="header">
       <h2 className="logotext">zoopee</h2>
@@ -72,9 +44,6 @@ function Header(props) {
         <Link to="/home" className="header-link" onClick={() => homeclick()}>
           Home
         </Link>
-        {/* <Link to="/userprofile" className="header-link" onClick={() => userprofileclick()}>
-          My Profile
-        </Link> */}
         <Link to="/addnewpost" className="header-link">
           New Post
         </Link>
@@ -83,10 +52,6 @@ function Header(props) {
             Admin
           </Link>
         )}
-        {/* <Link to="/" className="header-link" onClick={() => logoutclick()}>
-          Logout
-        </Link> */}
-        {/* <Navbar /> */}
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -119,7 +84,6 @@ function Header(props) {
               </Link>
             </MenuItem>
             <MenuItem onClick={handleCloseUserMenu} style={{}}>
-              {/* <Typography textAlign="center">{setting}</Typography> */}
               <Link className="usermenu" onClick={() => settingsclick()}>
                 Settings
               </Link>

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
-import { getUserprofileonline } from "../redux/action";
 import { increment } from "../redux/action";
 import Post from "./Post";
 
@@ -12,29 +11,16 @@ function Userprofileonline() {
   const { state } = useLocation();
 
   const stateselector = useSelector((state) => state);
-  const [sharethinking, setSharethinking] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     if (stateselector.user == null) {
       navigate("/");
     }
-    // dispatch(getUserprofileonline(stateselector.posts, state));
   }, []);
-  // const blogs = useSelector(stateselector => stateselector.user.userblogs);
+
   const useronline = stateselector.allusers.filter(item => item.id == state)
   const userblogs = stateselector.posts.filter(item => item.userId == state)
   var sortedposts =userblogs.sort((a, b) => b.createdAt - a.createdAt);
-  // if (stateselector.useronline != null) {
-  //   const blogs = stateselector.useronline.userblogs;
-  //   var sortedposts =
-  //     blogs != undefined && blogs.sort((a, b) => b.createdAt - a.createdAt);
-  // }
-
-
-
-  //   const sharethinkingonChange = (e) => {
-  //     setSharethinking(e.target.value)
-  //   }
 
   function reactionclick(emojiname, id, currentcount) {
     dispatch(increment(emojiname, id, currentcount));
@@ -66,10 +52,6 @@ function Userprofileonline() {
               <h1 className="home-body-name">
                 {useronline[0].name}
               </h1>
-              {/* <div className="share-thinking" style={{ marginTop: 80 }}>
-           <input type="text" className="form-control input-share" id="inlineFormInputGroup" placeholder="Share something about what are you thinking..." onChange={sharethinkingonChange} value={sharethinking} />
-           <Link to="/addnewpost" state={sharethinking} className="button-login share-button">Share</Link>
-         </div> */}
               {useronline != null &&
                 sortedposts != false &&
                 sortedposts.map((item, index) => (

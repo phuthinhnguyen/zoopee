@@ -8,7 +8,6 @@ export const UPDATE_EMOJI_SUCCESS = "UPDATE_EMOJI_SUCCESS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const GET_USERPROFILE_SUCCESS = "GET_USERPROFILE_SUCCESS";
-// export const GET_USERPROFILEONLINE_SUCCESS = "GET_USERPROFILEONLINE_SUCCESS"
 export const BAN_USER_SUCCESS = "BAN_USER_SUCCESS";
 export const TO_ADMIN_SUCCESS = "TO_ADMIN_SUCCESS";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS"
@@ -80,6 +79,7 @@ export const deletepost = (id) => {
   };
 };
 
+
 // call api when user click to reactions in post
 export const increment = (emojiname, id, currentcount) => {
   return async (dispatch) => {
@@ -93,7 +93,7 @@ export const increment = (emojiname, id, currentcount) => {
   };
 };
 
-
+// call api when user click to login
 export const login = (form) => {
   return async (dispatch) => {
     let checkloginresult = "";
@@ -150,7 +150,7 @@ export const getUserprofile = (posts, user) => {
   };
 };
 
-
+// call api when user click to signup
 export const signup = (form) => {
   return async (dispatch) => {
     let checksignupresult = "";

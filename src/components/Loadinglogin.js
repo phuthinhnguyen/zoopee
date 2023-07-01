@@ -1,6 +1,6 @@
+// preloader when user go to login page
 function Loadinglogin() {
     return (
-        // loading-icon
         <div className="preloader-wrap">
             <div className="header">
                 <h2 className="logotext">zoopee</h2>
@@ -12,12 +12,8 @@ function Loadinglogin() {
                             <label>Username</label>
                             <input
                                 type="text"
-                            // name="username"
-                            // value={formlogin.username}
-                            // onChange={(event) => handleChangelogin(event)}
                             />
                         </div>
-
                     </div>
                     <div>
                         <div
@@ -26,18 +22,12 @@ function Loadinglogin() {
                             <label>Password</label>
                             <input
                                 type="password"
-                            // name="password"
-                            // value={formlogin.password}
-                            // onChange={(event) => handleChangelogin(event)}
                             />
                         </div>
-
                     </div>
-
                     <button className="button-login">
                         Login
                     </button>
-
                     <button className="button-signup-header-form">
                         Sign up
                     </button>
@@ -47,7 +37,6 @@ function Loadinglogin() {
                 <img src="/img/Preloader_7.gif" alt=""></img>
             </div>
         </div>
-
     )
 }
 export default Loadinglogin;

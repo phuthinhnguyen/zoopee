@@ -4,10 +4,10 @@ import { convertTime } from "./convertTime";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { increment } from "../redux/action";
-import { state, useState } from "react";
+import { useState } from "react";
 
 function Viewpost() {
-  // const user = useSelector((state) => state.user);
+
   const stateselector = useSelector(state => state)
   const { state } = useLocation();
   useEffect(() => {
@@ -25,10 +25,6 @@ function Viewpost() {
 
   if (state != null) {
     var useronline = stateselector.allusers.filter(item => item.id == state.userId)
-    // if (useronline.length == 0) {
-    //   return "https://res.cloudinary.com/dhva3lwfk/image/upload/v1688131036/gkwlvz6hllbauf7octgk.png"
-    // }
-    // return useronline[0].avatar
   }
 
   function reactionclick(emojiname, id, currentcount) {
@@ -82,7 +78,6 @@ function Viewpost() {
                       Edit post
                     </p>
                   )}
-                  {/* <Link to="/updatepost" state={iteminfo}>Edit post</Link> */}
                   <a style={{ marginLeft: 10 }}> by </a>
                   <a style={{ fontWeight: 500 }}>{iteminfo.author}</a>
                   <a
@@ -144,7 +139,6 @@ function Viewpost() {
               className="button-back"
               style={{ marginTop: 100 }}
               to="/home"
-            // onClick={() => dispatch(getPost())}
             >
               Back
             </Link>

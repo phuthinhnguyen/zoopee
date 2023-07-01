@@ -1,57 +1,31 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getPost, getallusers, getallusersforposts, increment, login } from "../redux/action";
-import { useEffect } from "react";
+import { getPost, getallusersforposts, increment } from "../redux/action";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import { convertTime } from "./convertTime";
 import Post from "./Post";
-import { useState, Suspense } from "react";
-import Loadingpath from "./Loadingpath";
+
 
 function Home() {
   const navigate = useNavigate();
-  // let x = window.localStorage.getItem("login");
-  // console.log(x);
-
-  // if (x=="false"){
-  //   console.log("ehhe")
-  // }
-  // else if (x=="true"){
-  //   console.log("ehihi")
-  // }
-  // if (x==false){
-  //   navigate("/")
-  // }
-  // else  navigate("/home")
-  // let y = x.split(";");
-  // if (y[1] == " false") {
-  //   navigate("/");
-  // } else console.log("userlogining");
-
   const dispatch = useDispatch();
-
   const state = useSelector((state) => state);
+
   if (state.user == null) {
     navigate("/")
   }
   const [sharethinking, setSharethinking] = useState("");
-  // if (state.user == null) {
-  //   navigate("/")
-  // }
 
   useEffect(() => {
     dispatch(getPost());
     dispatch(getallusersforposts());
   }, []);
-  console.log(state)
+
   const sharethinkingonChange = (e) => {
     setSharethinking(e.target.value);
   };
-  // console.log(state);
-  // useEffect(() => {
-  //   dispatch(getPost());
-  // }, []);
-  // const posts = useSelector((state) => state.posts);
+ 
   const sortedposts = state.posts.sort((a, b) => b.createdAt - a.createdAt);
 
   function reactionclick(emojiname, id, currentcount) {
